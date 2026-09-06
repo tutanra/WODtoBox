@@ -27,6 +27,17 @@ Prepare: cuenta atrás; los últimos 3 s muestran `3 · 2 · 1` y `warning`.
 
 `extra`: `amrapRounds`, `manualFinishMs`, `started`.
 
+## Audio (`src/lib/audio.ts`)
+
+| Cue | Cuándo | Parámetros |
+| --- | --- | --- |
+| `go` | Tras prepare (inicio) y al cambiar de ronda EMOM | 1100 Hz, **2,4 s**, square |
+| `done` | Fin del timer (también al acabar la pausa del plan) | horn **3,2 s**, 220 + 330 Hz |
+| `tick` | Últimos 3 s de prepare (3-2-1) | 800 Hz, 0,15 s |
+| `warn` | 10 s de work restantes | doble 1200 Hz |
+| `rest` | Entra fase rest | 392 Hz, 0,22 s, sine |
+| `shift` | Work ↔ rest en Tabata / intervalos | horn 1 s, 370 + 554 Hz |
+
 ## Persistencia de la carrera
 
 No va a `localStorage`. Va a `sessionStorage`:
