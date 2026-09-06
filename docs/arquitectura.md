@@ -55,10 +55,11 @@ Lectura siempre con try/JSON.parse y normalizers. Escritura = JSON.stringify del
 ## Android
 
 - `capacitor.config.ts`: `appId`, `appName` WOD Planning, `webDir: dist`.
-- Scripts: `dev`, `build`, `android:sync` (build + cap sync), `apk` (**debug**).
+- Scripts: `dev`, `build`, `android:sync` (build + cap sync), `apk` (**debug**, vía `scripts/build-apk.mjs`).
 - Permisos: INTERNET, VIBRATE, WAKE_LOCK.
 - `versionCode` / `versionName` en `android/app/build.gradle` (hoy 1 / 1.0). `package.json` tiene `0.1.0` — no están acoplados.
 - Play Store exigiría AAB firmado, no el APK de debug.
+- Cómo construir (JDK 21, SDK, errores conocidos): [android-build.md](android-build.md).
 
 ## UI
 

@@ -16,11 +16,15 @@ Lee `docs/arquitectura.md` (sección Android). WebView de `dist/` con las mismas
 ## Comandos
 
 ```bash
-npm run android:sync    # build web + cap sync android
-npm run apk             # lo anterior + assembleDebug
+npm run apk             # sync + assembleDebug (elige JDK 21 y el SDK)
+npm run android:sync    # solo build web + cap sync
 ```
 
 APK debug: `android/app/build/outputs/apk/debug/app-debug.apk`.
+
+**JDK:** Capacitor 8 necesita Java **21**. Ni el 17 (`invalid source release: 21`) ni el 26 de Arch (`jlink` / JdkImageTransform). En esta máquina: `~/.local/jdk-21`. Si falta, ver `docs/android-build.md`. No pongas `org.gradle.java.home` absoluto en git.
+
+**SDK:** `android/local.properties` (`sdk.dir`) o `ANDROID_HOME`. Ese archivo no se commitea.
 
 Play Store **no** usa este APK. Haría falta AAB firmado (`bundleRelease`) y keystore (no commitear; ya está en `.gitignore`).
 

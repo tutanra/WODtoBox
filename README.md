@@ -60,12 +60,11 @@ Abre `http://localhost:5173`. La navegación usa hash (`#/timers`) para que el m
 
 ## Generar la APK
 
-Hace falta Android SDK / Android Studio y `ANDROID_HOME`.
-
 ```bash
-npm run android:add   # solo la primera vez
 npm run apk
 ```
+
+El script elige solo el **JDK 21** y el SDK (`local.properties` o `ANDROID_HOME`). Detalle y fallos conocidos: [`docs/android-build.md`](docs/android-build.md).
 
 El APK de debug queda en:
 

@@ -13,6 +13,7 @@
 | [escritorio.md](escritorio.md) | Ideas (no implementadas) para editar en PC y llevarlo al móvil |
 | [para-agentes.md](para-agentes.md) | Instrucciones cortas para continuar el código |
 | [contrato.json](contrato.json) | Contrato machine-readable; `scripts/check-compat.mjs` lo comprueba contra el código |
+| [android-build.md](android-build.md) | JDK 21, SDK y cómo generar la APK sin repetir palos |
 
 Skills de Cursor (el agente las carga según la tarea): `.cursor/skills/wodplanning*` — arranque, compat, timer, WOD, plan, UI, Android.
 

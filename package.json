@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "android:add": "cap add android",
     "android:sync": "npm run build && cap sync android",
-    "apk": "npm run android:sync && cd android && ./gradlew assembleDebug"
+    "apk": "node scripts/build-apk.mjs"
   },
   "dependencies": {
     "@capacitor/app": "^8.1.1",
