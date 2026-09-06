@@ -57,7 +57,7 @@ function doubleTone(freq: number, duration: number, gap: number, gainValue: numb
   playAt(ctx, freq, duration, gainValue, type, start + duration + gap)
 }
 
-function endHorn(duration = 4.2, freqs: [number, number] = [220, 330]) {
+function endHorn(duration = 3.2, freqs: [number, number] = [220, 330]) {
   const ctx = getCtx()
   if (!ctx) return
   const t = ctx.currentTime
@@ -77,7 +77,7 @@ export function beep(kind: BeepKind) {
     return
   }
   if (kind === 'go') {
-    tone(1600, 0.6, 0.16, 'square')
+    tone(1100, 2.4, 0.16, 'square')
     return
   }
   if (kind === 'rest') {
