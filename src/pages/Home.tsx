@@ -6,7 +6,7 @@ export function Home() {
   return (
     <Screen className="justify-between">
       <div className="pt-8">
-        <p className="text-sm font-semibold tracking-[0.42em] text-flame">CROSSFIT TIMER</p>
+        <p className="text-sm font-semibold tracking-[0.42em] text-flame">WOD TIMER</p>
         <h1 className="mt-3 font-display text-7xl leading-[0.85] text-paper">
           WOD
           <br />

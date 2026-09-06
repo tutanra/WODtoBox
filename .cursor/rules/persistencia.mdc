@@ -1,0 +1,22 @@
+---
+description: Persistencia local y formas JSON de WOD / plan / sesión
+globs: src/types/**/*.ts,src/lib/wods.ts,src/lib/programs.ts,src/lib/sessions.ts,src/lib/runSession.ts,src/data/**/*.ts
+alwaysApply: false
+---
+
+# Datos locales
+
+Los JSON en `localStorage` son el backend. Cualquier campo nuevo lleva default en el normalizer para que un JSON viejo siga parseando.
+
+```ts
+// ❌ BAD — el WOD guardado sin `foo` explota
+return { ...raw, foo: raw.foo.toUpperCase() }
+
+// ✅ GOOD
+return { ...raw, foo: typeof raw.foo === 'string' ? raw.foo : '' }
+```
+
+- `rounds` no se anidan (`normalizeItem` filtra `type === 'rounds'` en hijos).
+- Al guardar un WOD, `timer.kind` = `wod.kind`.
+- Plantillas: `seeded: true` y el id fijo del builder. `listPrograms` reinserta si faltan; no pisa ediciones existentes.
+- `sessionStorage` es solo la carrera en curso, no un WOD.

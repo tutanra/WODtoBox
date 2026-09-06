@@ -1,8 +1,10 @@
 # WOD Planning
 
-App de CrossFit para Android: timers de WOD, workouts grabados y planificación de fuerza. El menú principal tiene tres entradas.
+App de entrenamiento funcional para Android: timers de WOD, workouts grabados y planificación de fuerza. El menú principal tiene tres entradas.
 
 Todo se guarda en el dispositivo (sin cuenta ni servidor). En sesión hay pitidos, vibración y la pantalla no se apaga.
+
+Documentación completa (flujos, plantillas, arquitectura y contrato para no romper datos): [`docs/`](docs/README.md).
 
 ## Timers
 
@@ -53,6 +55,8 @@ npm run dev
 ```
 
 Abre `http://localhost:5173`. La navegación usa hash (`#/timers`) para que el mismo build funcione dentro de la APK.
+
+`npm run check:compat` comprueba que las claves de datos, formatos de timer e ids de plantilla no se hayan roto respecto a `docs/contrato.json`.
 
 ## Generar la APK
 

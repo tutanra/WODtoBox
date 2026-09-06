@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "applicationId": "com.wodplanning.app",
+  "appName": "WOD Planning",
+  "viteBase": "./",
+  "router": "HashRouter",
+  "storage": {
+    "localStorage": {
+      "wods": "wodplanning.wods",
+      "programs": "wodplanning.programs",
+      "sessions": "wodplanning.sessions"
+    },
+    "sessionStorage": {
+      "runSession": "wodplanning.runSession",
+      "timerConfigLegacy": "wodplanning.timerConfig"
+    }
+  },
+  "timerKinds": ["amrap", "forTime", "emom", "tabata", "intervals", "stopwatch"],
+  "templateIds": ["power-clean-100", "kipping-muscle-up"],
+  "anchors": [
+    { "id": "appId", "file": "capacitor.config.ts", "contains": "com.wodplanning.app" },
+    { "id": "androidApplicationId", "file": "android/app/build.gradle", "contains": "com.wodplanning.app" },
+    { "id": "hashRouter", "file": "src/App.tsx", "contains": "HashRouter" },
+    { "id": "viteBase", "file": "vite.config.ts", "contains": "base: './'" },
+    { "id": "timerKindsConst", "file": "src/types/timer.ts", "contains": "TIMER_KINDS" },
+    { "id": "normalizeWod", "file": "src/types/wod.ts", "contains": "export function normalizeWod" },
+    { "id": "normalizeItem", "file": "src/types/wod.ts", "contains": "export function normalizeItem" },
+    { "id": "normalizeTimer", "file": "src/types/timer.ts", "contains": "export function normalizeTimerConfig" },
+    { "id": "wodsKey", "file": "src/lib/wods.ts", "contains": "wodplanning.wods" },
+    { "id": "programsKey", "file": "src/lib/programs.ts", "contains": "wodplanning.programs" },
+    { "id": "sessionsKey", "file": "src/lib/sessions.ts", "contains": "wodplanning.sessions" },
+    { "id": "runSessionKey", "file": "src/lib/runSession.ts", "contains": "wodplanning.runSession" },
+    { "id": "legacyConfigKey", "file": "src/lib/runSession.ts", "contains": "wodplanning.timerConfig" },
+    { "id": "reseedTemplates", "file": "src/lib/programs.ts", "contains": "PROGRAM_TEMPLATES" },
+    { "id": "restoreTemplate", "file": "src/lib/programs.ts", "contains": "export function restoreTemplate" },
+    { "id": "powerCleanId", "file": "src/data/powerClean100.ts", "contains": "power-clean-100" },
+    { "id": "kippingId", "file": "src/data/kippingMuscleUp.ts", "contains": "kipping-muscle-up" },
+    { "id": "engineSnapshot", "file": "src/lib/engine.ts", "contains": "export function computeSnapshot" }
+  ]
+}
