@@ -45,6 +45,24 @@ export function formatEstimated1Rm(lift: Pick<RmLift, 'reps' | 'weightKg'>) {
   return `(1@${formatKgValue(rm)}kg est.)`
 }
 
+export interface RmTrendPoint {
+  id: string
+  at: number
+  kg: number
+}
+
+/** 1RM en el tiempo (Epley si reps ≠ 1). Sin kilos no entra. */
+export function rmTrendPoints(lifts: RmLift[]): RmTrendPoint[] {
+  return lifts
+    .map((lift) => {
+      const kg = estimated1RmKg(lift)
+      if (kg == null) return null
+      return { id: lift.id, at: lift.liftedAt, kg }
+    })
+    .filter((point): point is RmTrendPoint => point != null)
+    .sort((a, b) => a.at - b.at || a.id.localeCompare(b.id))
+}
+
 export function formatRmLoad(lift: Pick<RmLift, 'weightText'>) {
   const text = lift.weightText.trim()
   if (!text) return '—'

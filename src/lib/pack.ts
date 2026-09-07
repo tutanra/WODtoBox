@@ -14,8 +14,21 @@ function stampOf(value: unknown): number {
   return Math.max(0, ...keys.map((key) => (typeof record[key] === 'number' ? record[key] : 0)))
 }
 
+/** Plantilla PDF / WOD Hero recién reinsertada: no cuenta como cambio del usuario. */
+function isUntouchedSeed(value: unknown): boolean {
+  if (!value || typeof value !== 'object') return false
+  const record = value as Record<string, unknown>
+  if (record.seeded !== true) return false
+  const created = typeof record.createdAt === 'number' ? record.createdAt : 0
+  const updated = typeof record.updatedAt === 'number' ? record.updatedAt : 0
+  return Math.abs(updated - created) <= 2000
+}
+
 export function maxDataAt(items: unknown[]): number {
-  return items.reduce<number>((max, item) => Math.max(max, stampOf(item)), 0)
+  return items.reduce<number>((max, item) => {
+    if (isUntouchedSeed(item)) return max
+    return Math.max(max, stampOf(item))
+  }, 0)
 }
 
 export function buildPack(): WodPlanningPack {
@@ -52,8 +65,7 @@ export function parsePack(value: unknown): WodPlanningPack | null {
   const history = Array.isArray(raw.history) ? raw.history : []
   const rms = Array.isArray(raw.rms) ? raw.rms : []
   const exportedAt = typeof raw.exportedAt === 'number' ? raw.exportedAt : 0
-  const dataAt =
-    typeof raw.dataAt === 'number' ? raw.dataAt : maxDataAt([...wods, ...programs, ...sessions, ...history, ...rms])
+  const dataAt = maxDataAt([...wods, ...programs, ...sessions, ...history, ...rms])
   return {
     format: PACK_FORMAT,
     schemaVersion: 1,

@@ -34,5 +34,6 @@ Play Store **no** usa este APK. Haría falta AAB firmado (`bundleRelease`) y key
 - Tras cambiar web: siempre `android:sync` antes de reinstalar.
 - `versionCode` / `versionName` viven en `android/app/build.gradle`, no en `package.json`.
 - Botón atrás: `App.tsx` (historial o `exitApp`).
+- Google Drive: `MainActivity` debe implementar `ModifiedMainActivityForSocialLoginPlugin` (scopes). No lo pises al regenerar el proyecto nativo.
 
 No implementes publicación en Play salvo que lo pidan. Guía humana: no está en skills; el consejo ya se dio en chat.

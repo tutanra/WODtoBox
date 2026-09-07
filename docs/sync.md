@@ -19,12 +19,16 @@ La app usa el ámbito `drive.file`: solo ve archivos que ella misma creó. No pu
 
 `SYNC` **sube** (sustituye el archivo de Drive). **Bajar de Drive** sustituye los datos de este dispositivo, con confirmación.
 
+La comparación local/Drive usa `dataAt`: el `updatedAt` más reciente de WODs, planes, sesiones, historial y RM **del usuario**. Las plantillas PDF y WOD Heroes recién reinsertadas (tras un borrado local) no cuentan: si no, el dispositivo parecería más nuevo que Drive solo porque se han vuelto a sembrar.
+
 El icono de papelera en `#/sync` deja elegir qué borrar, con confirmación:
 
 - **Este dispositivo** — WODs, plan, RM, historial y sesiones locales. Las plantillas PDF y WOD Heroes vuelven al original. Drive no se toca.
 - **Copia en Drive** — borra `wodplanning.pack.json` de tu Drive. Este dispositivo no se toca. Hace falta sesión de Google.
 
 El Client ID web va integrado (`VITE_GOOGLE_CLIENT_ID` / `GOOGLE_WEB_CLIENT_ID`). En `#/sync` se pulsa **GOOGLE**; no hay que pegar credenciales. El Client ID de Android (`573815267654-oogn68pklgmoh9fkhpah4psou419r6ah.apps.googleusercontent.com`) no se usa en código: Google lo empareja por paquete `com.wodotobox.app` y SHA-1.
+
+En Android, `MainActivity` implementa el hook de Capgo Social Login; sin eso, pedir `drive.file` falla con *You CANNOT use scopes without modifying the main activity*.
 
 SHA-1 debug: `C3:2E:8C:DF:67:6B:E2:94:09:99:83:6F:F6:66:74:92:4C:7F:F2:25`. Para Play, el cliente Android pide el **SHA-1** del certificado de firma (Play Console → integridad de la app), no el SHA-256.
 

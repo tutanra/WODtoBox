@@ -66,6 +66,7 @@ Lectura siempre con try/JSON.parse y normalizers. Escritura = JSON.stringify del
 - `capacitor.config.ts`: `appId` `com.wodotobox.app`, `appName` WODtoBox, `webDir: dist`.
 - Scripts: `dev`, `build`, `android:sync` (build + cap sync), `apk` (**debug**, vía `scripts/build-apk.mjs`).
 - Permisos: INTERNET, VIBRATE, WAKE_LOCK.
+- Google Drive en el APK pide scopes; `MainActivity` implementa `ModifiedMainActivityForSocialLoginPlugin` (Capgo Social Login). Sin eso, Google falla al entrar.
 - `versionCode` / `versionName` en `android/app/build.gradle` (hoy 1 / 1.0). `package.json` tiene `0.1.0` — no están acoplados.
 - Play Store exigiría AAB firmado, no el APK de debug.
 - Cómo construir (JDK 21, SDK, errores conocidos): [android-build.md](android-build.md).

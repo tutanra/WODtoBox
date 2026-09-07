@@ -37,7 +37,7 @@ export function WodsList() {
       </p>
 
       {empty ? (
-        <div className="flex flex-col items-center rounded-3xl border border-dashed border-line bg-panel/60 px-6 py-12 text-center">
+        <div className="flex min-h-0 flex-1 flex-col items-center justify-center rounded-3xl border border-dashed border-line bg-panel/60 px-6 py-16 text-center">
           <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-panel-2 text-flame">
             <Dumbbell className="h-7 w-7" />
           </span>
@@ -93,10 +93,7 @@ export function WodsList() {
         </div>
       )}
 
-      <Link
-        to="/wods/heroes"
-        className="mt-auto pt-6"
-      >
+      <Link to="/wods/heroes" className={empty ? 'mt-6' : 'mt-auto pt-6'}>
         <div className="rounded-3xl border border-flame/40 bg-panel p-4">
           <p className="text-xs font-semibold tracking-[0.22em] text-flame">MENÚ</p>
           <div className="mt-2 flex items-end justify-between gap-3">

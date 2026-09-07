@@ -47,7 +47,7 @@ Detalle semana a semana: [plan.md](plan.md).
 
 ## 4. RM (`#/rm`)
 
-Pesos máximos: ejercicio, repeticiones (1–50), kilos y el día (con año). Por movimiento se ve el mejor (si no es 1 rep, el 1RM Epley entre paréntesis: `5 @ 90 kg (1@105kg est.)`) y el registro; pulsar el nombre edita esa marca; el + añade otra del mismo movimiento. Al guardar, también entra en el historial. Borrar un RM lo quita de RM y del historial.
+Pesos máximos: ejercicio, repeticiones (1–50), kilos y el día (con año). Por movimiento se ve el mejor (si no es 1 rep, el 1RM Epley entre paréntesis: `5 @ 90 kg (1@105kg est.)`) y el registro; con varias marcas, una gráfica muestra la evolución del 1RM. Pulsar el nombre edita esa marca; el + añade otra del mismo movimiento. Al guardar, también entra en el historial. Borrar un RM lo quita de RM y del historial.
 
 Detalle: [rm.md](rm.md).
 
@@ -59,7 +59,7 @@ Detalle: [historial.md](historial.md).
 
 ## 6. Drive (`#/sync`)
 
-Copia opcional a un archivo en tu Google Drive (`wodplanning.pack.json` en la carpeta WODtoBox): WODs, plan, RM e historial. Muestra la última sync, la carpeta y si este dispositivo o Drive está más nuevo. **GOOGLE** entra con tu cuenta (el Client ID ya va en la app). **SYNC** sube; **Bajar de Drive** sustituye los datos locales (con confirmación). La papelera deja elegir borrar **este dispositivo** o **la copia en Drive** (con confirmación). Sin cuenta la app no cambia. Si mueves el archivo a otra carpeta en Drive, las siguientes syncs lo siguen.
+Copia opcional a un archivo en tu Google Drive (`wodplanning.pack.json` en la carpeta WODtoBox): WODs, plan, RM e historial. Muestra la última sync, la carpeta y si este dispositivo o Drive está más nuevo. Tras borrar este dispositivo, las plantillas vuelven solas; eso no marca lo local como más nuevo que Drive. **GOOGLE** entra con tu cuenta (el Client ID ya va en la app). **SYNC** sube; **Bajar de Drive** sustituye los datos locales (con confirmación). La papelera deja elegir borrar **este dispositivo** o **la copia en Drive** (con confirmación). Sin cuenta la app no cambia. Si mueves el archivo a otra carpeta en Drive, las siguientes syncs lo siguen.
 
 Detalle: [sync.md](sync.md).
 

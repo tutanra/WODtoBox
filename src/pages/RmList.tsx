@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Plus, Trash2, Weight } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { RmTrend } from '../components/RmTrend'
 import { Screen } from '../components/Screen'
 import { TopBar } from '../components/TopBar'
 import { formatHistoryDay } from '../lib/format'
@@ -33,8 +34,9 @@ export function RmList() {
         }
       />
       <p className="mb-5 text-sm text-mute">
-        Pesos máximos: ejercicio, reps, kilos y el día. El mejor se estima con Epley (1RM). Pulsar el
-        nombre abre esa marca para editarla; el + añade otra del mismo movimiento.
+        Pesos máximos: ejercicio, reps, kilos y el día. El mejor se estima con Epley (1RM). Si hay
+        varias marcas, una gráfica muestra la evolución. Pulsar el nombre abre esa marca; el +
+        añade otra del mismo movimiento.
       </p>
 
       {lifts.length === 0 ? (
@@ -71,6 +73,8 @@ export function RmList() {
                   <Plus className="h-5 w-5" />
                 </Link>
               </div>
+
+              <RmTrend lifts={group.lifts} exercise={group.name} />
 
               <div className="mt-4 flex flex-col gap-2">
                 {group.lifts.map((lift) => (

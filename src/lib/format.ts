@@ -70,6 +70,16 @@ export function formatHistoryTime(ts: number) {
   return new Intl.DateTimeFormat('es', { hour: '2-digit', minute: '2-digit' }).format(ts)
 }
 
+export function formatShortDay(ts: number) {
+  const date = new Date(ts)
+  const today = new Date()
+  const yesterday = new Date()
+  yesterday.setDate(today.getDate() - 1)
+  if (sameDay(date, today)) return 'Hoy'
+  if (sameDay(date, yesterday)) return 'Ayer'
+  return new Intl.DateTimeFormat('es', { day: 'numeric', month: 'short' }).format(date)
+}
+
 export function historyDayKey(ts: number) {
   const date = new Date(ts)
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
