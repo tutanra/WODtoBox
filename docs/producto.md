@@ -59,7 +59,7 @@ Detalle: [historial.md](historial.md).
 
 ## 6. Drive (`#/sync`)
 
-Copia opcional a un archivo en tu Google Drive (`wodplanning.pack.json` en la carpeta WODtoBox): WODs, plan, RM e historial. Muestra la última sync, la carpeta y si este dispositivo o Drive está más nuevo. Tras borrar este dispositivo, las plantillas vuelven solas; eso no marca lo local como más nuevo que Drive. **GOOGLE** entra con tu cuenta (el Client ID ya va en la app). **SYNC** sube; **Bajar de Drive** sustituye los datos locales (con confirmación). La papelera deja elegir borrar **este dispositivo** o **la copia en Drive** (con confirmación). Sin cuenta la app no cambia. Si mueves el archivo a otra carpeta en Drive, las siguientes syncs lo siguen.
+Copia opcional a un archivo en tu Google Drive (`wodplanning.pack.json` en la carpeta WODtoBox): WODs, plan, RM e historial. Muestra la última sync, la carpeta y si este dispositivo o Drive está más nuevo. Tras borrar este dispositivo, las plantillas vuelven solas; eso no marca lo local como más nuevo que Drive. **GOOGLE** entra con tu cuenta (el Client ID ya va en la app). **SYNC** sube si este dispositivo está más nuevo y baja si lo está Drive (con confirmación). El otro botón es la dirección contraria: **Bajar de Drive** o **Subir a Drive**. La papelera deja elegir borrar **este dispositivo** o **la copia en Drive** (con confirmación). Sin cuenta la app no cambia. Si mueves el archivo a otra carpeta en Drive, las siguientes syncs lo siguen.
 
 Detalle: [sync.md](sync.md).
 

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Cloud, CloudUpload, LogIn, LogOut, Smartphone, Trash2 } from 'lucide-react'
+import { Cloud, CloudDownload, CloudUpload, LogIn, LogOut, Smartphone, Trash2 } from 'lucide-react'
 import { Screen } from '../components/Screen'
 import { TopBar } from '../components/TopBar'
 import { formatHistoryDay, formatHistoryTime } from '../lib/format'
@@ -34,12 +34,14 @@ export function DriveSync() {
   const [busy, setBusy] = useState<'login' | 'remote' | 'up' | 'down' | 'out' | 'purge' | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [pendingDown, setPendingDown] = useState(false)
+  const [pendingUp, setPendingUp] = useState(false)
   const [pendingPurge, setPendingPurge] = useState<null | 'choose' | 'local' | 'drive'>(null)
   const [localStamp, setLocalStamp] = useState(0)
   const clientId = getGoogleClientId()
   const localAt = useMemo(() => localDataAt(), [meta.lastSyncAt, remote, localStamp])
   const driveAt = remote?.pack.dataAt ?? meta.driveDataAt
   const status = compare(localAt, driveAt)
+  const driveWins = status === 'drive'
 
   const refreshRemote = async (nextSession: GoogleSession) => {
     setBusy('remote')
@@ -111,6 +113,7 @@ export function DriveSync() {
           email: session.email,
         }),
       )
+      setPendingUp(false)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'No se pudo subir a Drive')
     } finally {
@@ -131,6 +134,7 @@ export function DriveSync() {
         driveFolderName: remote.folderName,
       }),
     )
+    setLocalStamp((value) => value + 1)
     setPendingDown(false)
   }
 
@@ -218,14 +222,23 @@ export function DriveSync() {
             <p className="text-center text-sm text-mute">{session.email || session.name}</p>
             <button
               type="button"
-              disabled={busy != null}
-              onClick={() => void upload()}
+              disabled={busy != null || (driveWins && !remote)}
+              onClick={() => (driveWins ? setPendingDown(true) : void upload())}
               className="flex w-full items-center justify-center gap-2 rounded-2xl bg-flame py-4 font-display text-3xl tracking-wide text-ink disabled:opacity-40"
             >
-              <CloudUpload className="h-6 w-6" />
-              {busy === 'up' ? 'SUBIENDO…' : 'SYNC'}
+              {driveWins ? <CloudDownload className="h-6 w-6" /> : <CloudUpload className="h-6 w-6" />}
+              {busy === 'up' ? 'SUBIENDO…' : busy === 'down' ? 'BAJANDO…' : 'SYNC'}
             </button>
-            {remote ? (
+            {driveWins ? (
+              <button
+                type="button"
+                disabled={busy != null}
+                onClick={() => setPendingUp(true)}
+                className="w-full rounded-2xl border border-line bg-panel py-3 font-semibold text-paper disabled:opacity-40"
+              >
+                Subir a Drive
+              </button>
+            ) : remote ? (
               <button
                 type="button"
                 disabled={busy != null}
@@ -276,6 +289,36 @@ export function DriveSync() {
               </button>
               <button type="button" onClick={download} className="rounded-2xl bg-flame py-3 font-semibold text-ink">
                 Bajar
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {pendingUp ? (
+        <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/60 p-5">
+          <div className="w-full max-w-lg rounded-3xl border border-line bg-panel p-5">
+            <p className="font-display text-4xl text-paper">¿Sustituir la copia en Drive?</p>
+            <p className="mt-2 text-sm text-mute">
+              Se reemplaza el archivo de Drive por los datos de este dispositivo. Lo que haya en
+              Drive más nuevo se pierde.
+            </p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                disabled={busy != null}
+                onClick={() => setPendingUp(false)}
+                className="rounded-2xl border border-line py-3 font-semibold text-paper disabled:opacity-40"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                disabled={busy != null}
+                onClick={() => void upload()}
+                className="rounded-2xl bg-flame py-3 font-semibold text-ink disabled:opacity-40"
+              >
+                {busy === 'up' ? 'SUBIENDO…' : 'Subir'}
               </button>
             </div>
           </div>

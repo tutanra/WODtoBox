@@ -17,7 +17,7 @@ No se sube el timer en curso (`wodplanning.runSession`).
 
 La app usa el ámbito `drive.file`: solo ve archivos que ella misma creó. No puede listar el resto de tus carpetas, así que no hay un selector de «cualquier carpeta de Drive». Si mueves `wodplanning.pack.json` a otra carpeta en la web de Drive, las siguientes **SYNC** actualizan ese mismo archivo (sigue donde lo dejaste). Un archivo que ya estaba en Mi unidad no se mueve solo.
 
-`SYNC` **sube** (sustituye el archivo de Drive). **Bajar de Drive** sustituye los datos de este dispositivo, con confirmación.
+`SYNC` hace la dirección que encaja con el estado: si este dispositivo está más nuevo (o no hay copia), **sube**; si Drive está más nuevo, **baja** (con confirmación). El botón secundario es la otra dirección: **Bajar de Drive** o **Subir a Drive**. Subir cuando Drive está más nuevo también pide confirmación, porque machaca la copia remota.
 
 La comparación local/Drive usa `dataAt`: el `updatedAt` más reciente de WODs, planes, sesiones, historial y RM **del usuario**. Las plantillas PDF y WOD Heroes recién reinsertadas (tras un borrado local) no cuentan: si no, el dispositivo parecería más nuevo que Drive solo porque se han vuelto a sembrar.
 
@@ -38,4 +38,4 @@ Prueba el login en Chrome o Firefox en `http://localhost:5173` (no en `127.0.0.1
 
 ## UI
 
-`#/sync` — última sync, carpeta de la copia, si este dispositivo o Drive está más nuevo, Google / SYNC / bajar / papelera (borrar local o Drive) / cerrar sesión.
+`#/sync` — última sync, carpeta de la copia, si este dispositivo o Drive está más nuevo, Google / SYNC (sube o baja según quién esté más nuevo) / el otro sentido / papelera (borrar local o Drive) / cerrar sesión.
