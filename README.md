@@ -1,8 +1,8 @@
 # WOD Planning
 
-App de entrenamiento funcional para Android: timers de WOD, workouts grabados y planificación de fuerza. El menú principal tiene tres entradas.
+App de entrenamiento funcional para Android: timers de WOD, workouts grabados, planificación de fuerza, máximos e historial. El menú principal tiene cinco entradas.
 
-Todo se guarda en el dispositivo (sin cuenta ni servidor). En sesión hay pitidos, vibración y la pantalla no se apaga.
+Todo se guarda en el dispositivo. Puedes copiar WODs, plan, RM e historial a Google Drive (icono de nube junto al título).
 
 Documentación completa (flujos, plantillas, arquitectura y contrato para no romper datos): [`docs/`](docs/README.md).
 
@@ -29,6 +29,8 @@ Lista de workouts propios (Fran, Cindy, el del día…). Cada uno tiene nombre, 
 
 Se guarda, se edita, se borra y se lanza al timer. Durante la cuenta, el overlay enseña los bloques y destaca el movimiento o el descanso activo.
 
+Al final de la lista hay **WOD Heroes**: plantillas clásicas (Fran, Cindy, Murph…) con pesos en kg.
+
 ## Plan
 
 Programas por semanas y días, con ejercicios, series, kilos y cues.
@@ -45,7 +47,16 @@ En un día de entreno:
 - se marca cada serie hecha y se ajustan las reps reales
 - al completar una serie arranca la pausa (2–3 min, o a mano)
 - el progreso del día se ve en el programa
-- se puede guardar a medias y seguir luego
+- se puede guardar a medias y seguir luego; esas series ya entran en Historial (con el peso)
+- **Reiniciar plan** (al final del programa) borra el progreso de las sesiones; el historial se queda
+
+## RM
+
+Pesos máximos: ejercicio, reps y kilos. Los mejores y el registro. Al guardar también van al historial.
+
+## Historial
+
+WODs que acabaron en el timer, días de plan (series y peso de ese día) y RM. Se agrupan por día. Los WODs se pueden borrar de la lista; el plan y el RM, no.
 
 ## Desarrollo
 

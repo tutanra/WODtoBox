@@ -18,7 +18,7 @@ Cambiar kilos/series del PDF: edita `src/data/powerClean100.ts` o `kippingMuscle
 
 ## Sesión
 
-- `startSession` reanuda si hay sesión sin `completedAt` para ese día.
+- `startSession` reanuda si hay sesión para ese día (también si ya se había completado).
 - Pausa default 150 s (presets 120/150/180).
 - Marcar serie hecha arranca pausa si no es la última.
 - No hace falta un normalizer profundo de `SessionLog`; no rompas `{ id, programId, dayId, logs }`.

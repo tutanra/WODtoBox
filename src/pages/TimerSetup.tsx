@@ -4,7 +4,7 @@ import { TimerFields } from '../components/TimerFields'
 import { TopBar } from '../components/TopBar'
 import { metaFor } from '../data/kinds'
 import { unlockAudio } from '../lib/audio'
-import { persistRunSession } from '../lib/runSession'
+import { newRunId, persistRunSession } from '../lib/runSession'
 import { summarizeTimer } from '../lib/summarize'
 import { defaultConfig, isTimerKind, type TimerConfig } from '../types/timer'
 import { useMemo, useState } from 'react'
@@ -23,7 +23,7 @@ export function TimerSetup() {
       kind={kind}
       onStart={(config) => {
         unlockAudio()
-        persistRunSession({ config, wod: null })
+        persistRunSession({ config, wod: null, runId: newRunId() })
         navigate(`/timers/${config.kind}/run`, { state: { config, wod: null } })
       }}
       onBack={() => navigate('/timers')}

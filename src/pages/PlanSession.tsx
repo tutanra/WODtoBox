@@ -5,10 +5,20 @@ import { Screen } from '../components/Screen'
 import { TopBar } from '../components/TopBar'
 import { useRestTimer } from '../hooks/useRestTimer'
 import { formatClock, formatCompact } from '../lib/format'
+import { recordPlanSession } from '../lib/history'
 import { getProgram } from '../lib/programs'
 import { saveSession, startSession } from '../lib/sessions'
 import { bindWakeLockOnVisible, releaseWakeLock, requestWakeLock } from '../lib/wakeLock'
-import { findDay, formatScheme, type ProgramDay, type ProgramSet, type SessionLog, type SetLog } from '../types/program'
+import {
+  findDay,
+  formatScheme,
+  type Program,
+  type ProgramDay,
+  type ProgramSet,
+  type ProgramWeek,
+  type SessionLog,
+  type SetLog,
+} from '../types/program'
 
 const REST_PRESETS = [120, 150, 180]
 
@@ -21,27 +31,27 @@ export function PlanSession() {
   const fromProgram = (location.state as { from?: string } | null)?.from === 'program'
   return (
     <LiveSession
+      program={program}
+      week={found.week}
       day={found.day}
-      programId={program.id}
-      weekId={found.week.id}
       backTo={fromProgram ? `/plan/${program.id}` : `/plan/${program.id}/day/${found.day.id}`}
     />
   )
 }
 
 function LiveSession({
+  program,
+  week,
   day,
-  programId,
-  weekId,
   backTo,
 }: {
+  program: Program
+  week: ProgramWeek
   day: ProgramDay
-  programId: string
-  weekId: string
   backTo: string
 }) {
   const navigate = useNavigate()
-  const [session, setSession] = useState(() => startSession(programId, weekId, day.id))
+  const [session, setSession] = useState(() => startSession(program.id, week.id, day.id))
   const rest = useRestTimer(session.restSeconds)
 
   useEffect(() => {
@@ -72,9 +82,19 @@ function LiveSession({
   const doneSets = session.logs.filter((item) => item.done).length
   const remainingColor = rest.remainingMs <= 3000 && rest.running ? 'text-warn' : 'text-rest'
 
+  const leave = () => {
+    const completed = doneSets >= totalSets && totalSets > 0
+    const saved = persist({
+      ...session,
+      completedAt: completed ? Date.now() : null,
+    })
+    recordPlanSession(saved, program, week, day)
+    navigate(backTo)
+  }
+
   return (
     <Screen>
-      <TopBar title={day.name} backTo={backTo} />
+      <TopBar title={day.name} onBack={leave} />
       <p className="mb-4 text-sm text-mute">{day.focus}</p>
 
       {rest.running ? (
@@ -195,13 +215,7 @@ function LiveSession({
         )}
         <button
           type="button"
-          onClick={() => {
-            persist({
-              ...session,
-              completedAt: doneSets >= totalSets && totalSets > 0 ? Date.now() : session.completedAt,
-            })
-            navigate(backTo)
-          }}
+          onClick={leave}
           className="w-full rounded-2xl border border-line bg-panel py-3 font-semibold text-paper"
         >
           {doneSets >= totalSets && totalSets > 0 ? 'Terminar día' : 'Guardar y salir'}

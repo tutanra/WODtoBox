@@ -3,6 +3,7 @@ import { Dumbbell, Plus, Trash2 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Screen } from '../components/Screen'
 import { TopBar } from '../components/TopBar'
+import { resetPlanProgress } from '../lib/history'
 import { listPrograms, saveProgram, deleteProgram } from '../lib/programs'
 import { emptyProgram } from '../types/program'
 
@@ -90,6 +91,7 @@ export function PlanList() {
               <button
                 type="button"
                 onClick={() => {
+                  resetPlanProgress(pending.id)
                   deleteProgram(pending.id)
                   setPrograms(listPrograms())
                   setPendingId(null)

@@ -59,3 +59,7 @@ export function restoreTemplate(id: string) {
   if (!fresh) return null
   return saveProgram(fresh)
 }
+
+export function replacePrograms(programs: unknown[]) {
+  writeAll(programs.filter(isProgram))
+}

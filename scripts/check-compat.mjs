@@ -53,12 +53,25 @@ for (const id of contract.templateIds) {
   if (!inTemplates) fail(`template id '${id}' not found in data builders`)
 }
 
+const heroSrc = read('src/data/heroWods.ts')
+for (const id of contract.heroWodIds ?? []) {
+  if (!heroSrc.includes(id)) fail(`hero wod id '${id}' not found in src/data/heroWods.ts`)
+}
+
 const storageValues = [
   ...Object.values(contract.storage.localStorage),
   ...Object.values(contract.storage.sessionStorage),
 ]
 for (const key of storageValues) {
-  const libs = ['src/lib/wods.ts', 'src/lib/programs.ts', 'src/lib/sessions.ts', 'src/lib/runSession.ts']
+  const libs = [
+    'src/lib/wods.ts',
+    'src/lib/programs.ts',
+    'src/lib/sessions.ts',
+    'src/lib/runSession.ts',
+    'src/lib/history.ts',
+    'src/lib/rms.ts',
+    'src/lib/sync.ts',
+  ]
     .map(read)
     .join('\n')
   if (!libs.includes(`'${key}'`) && !libs.includes(`"${key}"`)) {

@@ -1,11 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Flag, Pause, Play, RotateCcw, Undo2 } from 'lucide-react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { WodOverlay } from '../components/WodOverlay'
 import { metaFor } from '../data/kinds'
 import { useTimerEngine } from '../hooks/useTimerEngine'
 import { formatClock } from '../lib/format'
-import { parseRunState, persistRunSession, readRunSession } from '../lib/runSession'
+import { recordWodFinish } from '../lib/history'
+import { newRunId, parseRunState, persistRunSession, readRunSession } from '../lib/runSession'
 import { bindWakeLockOnVisible, releaseWakeLock, requestWakeLock } from '../lib/wakeLock'
 import { isTimerKind, type TimerConfig } from '../types/timer'
 import type { Wod } from '../types/wod'
@@ -24,23 +25,33 @@ export function TimerRun() {
 
   const exitTo = wod ? `/wods/${wod.id}` : `/timers/${config.kind}`
 
-  return <LiveTimer config={config} wod={wod} onExit={() => navigate(exitTo)} />
+  return (
+    <LiveTimer
+      config={config}
+      wod={wod}
+      runId={session?.runId ?? newRunId()}
+      onExit={() => navigate(exitTo)}
+    />
+  )
 }
 
 function LiveTimer({
   config,
   wod,
+  runId: initialRunId,
   onExit,
 }: {
   config: TimerConfig
   wod: Wod | null
+  runId: string
   onExit: () => void
 }) {
   const { snapshot, running, paused, start, pause, resume, reset, addRound, markFinish } =
     useTimerEngine(config, true)
+  const runIdRef = useRef(initialRunId)
 
   useEffect(() => {
-    persistRunSession({ config, wod })
+    persistRunSession({ config, wod, runId: runIdRef.current })
     void requestWakeLock()
     const unbind = bindWakeLockOnVisible()
     return () => {
@@ -48,6 +59,18 @@ function LiveTimer({
       void releaseWakeLock()
     }
   }, [config, wod])
+
+  useEffect(() => {
+    if (snapshot.phase !== 'finished' || !wod) return
+    recordWodFinish(runIdRef.current, wod, snapshot)
+  }, [snapshot, wod])
+
+  const restart = () => {
+    runIdRef.current = newRunId()
+    persistRunSession({ config, wod, runId: runIdRef.current })
+    reset()
+    start()
+  }
 
   const lastTen = snapshot.phase === 'work' && snapshot.warning
   const color = phaseColor(snapshot.phase, snapshot.phase === 'prepare' && snapshot.warning)
@@ -87,10 +110,7 @@ function LiveTimer({
         </div>
         <button
           type="button"
-          onClick={() => {
-            reset()
-            start()
-          }}
+          onClick={restart}
           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-panel text-paper"
           aria-label="Reiniciar"
         >
@@ -129,10 +149,7 @@ function LiveTimer({
           <>
             <button
               type="button"
-              onClick={() => {
-                reset()
-                start()
-              }}
+              onClick={restart}
               className="col-span-2 rounded-2xl bg-flame py-4 font-display text-3xl text-ink"
             >
               OTRA VEZ

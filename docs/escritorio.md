@@ -1,12 +1,11 @@
-# Escritorio → app (ideas, no implementado)
+# Escritorio → app (ideas)
 
-Nada de esto existe aún. El código actual ya se puede **abrir en el navegador** (`npm run dev` → `http://localhost:5173`) con la misma UI de columna estrecha. No hay export, ni sync, ni layout de escritorio.
+Copia entre dispositivos vía Google Drive: [sync.md](sync.md) (`#/sync`). Lo de abajo sigue siendo ideas no hechas (layout de escritorio, export de fichero local, QR).
 
 ## Situación actual
 
 - Un solo front: Vite + HashRouter. Capacitor solo envuelve `dist/` en WebView.
-- Datos en `localStorage` del origen. En Chrome desktop eso **no** es el `localStorage` de la APK. Son dos silos.
-- No hay fichero, QR, cuenta ni API.
+- Datos en `localStorage` del origen. En Chrome desktop eso **no** es el `localStorage` de la APK. Son dos silos, salvo que uses Drive.
 
 Cualquier puente escritorio ↔ móvil tiene que copiar **JSON** con las mismas formas que [contrato.json](contrato.json) (`Wod[]`, `Program[]`, `SessionLog[]`), no un formato paralelo.
 

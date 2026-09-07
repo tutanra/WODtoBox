@@ -29,6 +29,8 @@ export interface Wod {
   kind: TimerKind
   blocks: WodItem[]
   timer: TimerConfig
+  seeded: boolean
+  seedRevision: number
   createdAt: number
   updatedAt: number
 }
@@ -143,6 +145,8 @@ export function normalizeWod(value: unknown): Wod | null {
     timer: timer && isTimerKind(timer.kind)
       ? { ...defaultConfig(raw.kind), ...timer, kind: raw.kind }
       : defaultConfig(raw.kind),
+    seeded: raw.seeded === true,
+    seedRevision: typeof raw.seedRevision === 'number' ? raw.seedRevision : 0,
     createdAt: typeof raw.createdAt === 'number' ? raw.createdAt : Date.now(),
     updatedAt: typeof raw.updatedAt === 'number' ? raw.updatedAt : Date.now(),
   }
@@ -160,6 +164,8 @@ export function newWod(kind: TimerKind = 'amrap'): Wod {
     kind,
     blocks: [newExercise()],
     timer: defaultConfig(kind),
+    seeded: false,
+    seedRevision: 0,
     createdAt: now,
     updatedAt: now,
   }

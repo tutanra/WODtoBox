@@ -6,6 +6,7 @@ import { TopBar } from '../components/TopBar'
 import { unlockAudio } from '../lib/audio'
 import { getProgram, restoreTemplate, saveProgram } from '../lib/programs'
 import { getSession, sessionProgress, startSession } from '../lib/sessions'
+import { resetPlanProgress } from '../lib/history'
 import { cloneWeek, emptyWeek, renumberWeeks, type Program, type ProgramWeek } from '../types/program'
 
 export function PlanProgram() {
@@ -19,6 +20,7 @@ function ProgramView({ initial }: { initial: Program }) {
   const navigate = useNavigate()
   const [program, setProgram] = useState(initial)
   const [pendingWeekId, setPendingWeekId] = useState<string | null>(null)
+  const [pendingReset, setPendingReset] = useState(false)
 
   const persist = (next: Program) => {
     const saved = saveProgram(next)
@@ -131,6 +133,7 @@ function ProgramView({ initial }: { initial: Program }) {
                     <button
                       type="button"
                       onClick={() => {
+                        persist(program)
                         unlockAudio()
                         startSession(program.id, week.id, day.id)
                         navigate(`/plan/${program.id}/day/${day.id}/train`, { state: { from: 'program' } })
@@ -182,10 +185,50 @@ function ProgramView({ initial }: { initial: Program }) {
             const restored = restoreTemplate(program.id)
             if (restored) setProgram(restored)
           }}
-          className="w-full rounded-2xl border border-line bg-panel py-3 text-sm font-semibold text-mute"
+          className="mb-3 w-full rounded-2xl border border-line bg-panel py-3 text-sm font-semibold text-mute"
         >
           Restaurar plantilla del PDF
         </button>
+      ) : null}
+
+      <button
+        type="button"
+        onClick={() => setPendingReset(true)}
+        className="mb-3 w-full rounded-2xl border border-line bg-panel py-3 text-sm font-semibold text-mute"
+      >
+        Reiniciar plan
+      </button>
+
+      {pendingReset ? (
+        <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/60 p-5">
+          <div className="w-full max-w-lg rounded-3xl border border-line bg-panel p-5">
+            <p className="font-display text-4xl text-paper">¿Reiniciar este plan?</p>
+            <p className="mt-2 text-sm text-mute">
+              Se borra el progreso de las sesiones para empezar el plan de nuevo. El historial se
+              queda.
+            </p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setPendingReset(false)}
+                className="rounded-2xl border border-line py-3 font-semibold text-paper"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  resetPlanProgress(program.id)
+                  setProgram((current) => ({ ...current }))
+                  setPendingReset(false)
+                }}
+                className="rounded-2xl bg-warn py-3 font-semibold text-paper"
+              >
+                Reiniciar
+              </button>
+            </div>
+          </div>
+        </div>
       ) : null}
 
       {pendingWeek ? (

@@ -6,9 +6,9 @@ El archivo [contrato.json](contrato.json) es la lista corta de invariantes. `npm
 
 ## Nunca, sin migración
 
-1. **Renombrar o borrar claves de storage** (`wodplanning.wods`, `.programs`, `.sessions`, `.runSession`). Si hace falta un nombre nuevo: leer la clave antigua, escribir la nueva, dejar el lector dual un tiempo.
+1. **Renombrar o borrar claves de storage** (`wodplanning.wods`, `.programs`, `.sessions`, `.runSession`, `.history`, `.rms`, `.sync`). Si hace falta un nombre nuevo: leer la clave antigua, escribir la nueva, dejar el lector dual un tiempo.
 2. **Quitar un `TimerKind`**. Puede estar guardado en WODs. Añadir kinds sí; eliminar no, o hay que mapear el kind viejo en `normalizeWod`.
-3. **Cambiar IDs de plantilla** `power-clean-100`, `kipping-muscle-up`. El reseed y `restoreTemplate` dependen de ellos. Usuarios con ediciones las perderían al reinsertar “otro” id.
+3. **Cambiar IDs de plantilla** `power-clean-100`, `kipping-muscle-up`, ni los `hero-*` de WOD Heroes. El reseed y `restoreTemplate` / `restoreHeroWod` dependen de ellos. Usuarios con ediciones las perderían al reinsertar “otro” id.
 4. **Cambiar `applicationId` / `appId`** `com.wodplanning.app` una vez publicada. Play lo trata como otra app.
 5. **Anidar `rounds` dentro de `rounds`**. `normalizeItem` lo prohíbe a propósito.
 6. **Asumir que `timer.kind` y `wod.kind` pueden divergir**. Al guardar, el editor los iguala.
@@ -47,6 +47,6 @@ Hoy `schemaVersion` es `1`. No hay historial de migraciones.
 
 - [ ] ¿Sigue leyéndose un JSON de la versión anterior?
 - [ ] ¿Los 6 kinds siguen en `TIMER_KINDS`?
-- [ ] ¿Las dos plantillas siguen con el mismo id y `seeded: true`?
+- [ ] ¿Las dos plantillas de plan y los WOD Heroes siguen con el mismo id y `seeded: true`?
 - [ ] ¿Hash router y `base: './'` siguen (si no, la APK rompe)?
 - [ ] `npm run check:compat` y `npm run build`

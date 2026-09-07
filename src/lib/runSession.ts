@@ -4,6 +4,11 @@ import { normalizeWod, type Wod } from '../types/wod'
 export interface RunSession {
   config: TimerConfig
   wod: Wod | null
+  runId?: string
+}
+
+export function newRunId() {
+  return crypto.randomUUID()
 }
 
 const SESSION_KEY = 'wodplanning.runSession'
@@ -35,7 +40,11 @@ export function readRunSession(): RunSession | null {
       const parsed = JSON.parse(raw) as unknown
       if (parsed && typeof parsed === 'object' && isTimerConfig((parsed as RunSession).config)) {
         const session = parsed as RunSession
-        return { config: normalizeTimerConfig(session.config), wod: normalizeWod(session.wod) }
+        return {
+          config: normalizeTimerConfig(session.config),
+          wod: normalizeWod(session.wod),
+          runId: typeof session.runId === 'string' ? session.runId : undefined,
+        }
       }
     } catch {
       /* ignore */
@@ -55,13 +64,15 @@ export function readRunSession(): RunSession | null {
 export function parseRunState(state: unknown): RunSession | null {
   if (!state || typeof state !== 'object') return null
   const record = state as Record<string, unknown>
+  const runId = typeof record.runId === 'string' ? record.runId : undefined
   if (isTimerConfig(record.config)) {
-    return { config: normalizeTimerConfig(record.config), wod: normalizeWod(record.wod) }
+    return { config: normalizeTimerConfig(record.config), wod: normalizeWod(record.wod), runId }
   }
   if (isTimerConfig(record)) {
     return {
       config: { ...defaultConfig(record.kind), ...record },
       wod: normalizeWod(record.wod),
+      runId,
     }
   }
   return null

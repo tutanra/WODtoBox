@@ -8,9 +8,11 @@
 | [timers.md](timers.md) | Los 6 formatos y el motor de cuenta |
 | [wods.md](wods.md) | WODs grabados, bloques y overlay |
 | [plan.md](plan.md) | Planificaciones, sesión y las dos plantillas semana a semana |
+| [rm.md](rm.md) | Pesos máximos (ejercicio, reps, kilos) |
+| [historial.md](historial.md) | Entrenos terminados (WODs, días de plan y RM) |
 | [arquitectura.md](arquitectura.md) | Stack, rutas, archivos, persistencia |
 | [compatibilidad.md](compatibilidad.md) | Qué no se puede romper y cómo migrar |
-| [escritorio.md](escritorio.md) | Ideas (no implementadas) para editar en PC y llevarlo al móvil |
+| [sync.md](sync.md) | Copia opcional a Google Drive |
 | [para-agentes.md](para-agentes.md) | Instrucciones cortas para continuar el código |
 | [contrato.json](contrato.json) | Contrato machine-readable; `scripts/check-compat.mjs` lo comprueba contra el código |
 | [android-build.md](android-build.md) | JDK 21, SDK y cómo generar la APK sin repetir palos |

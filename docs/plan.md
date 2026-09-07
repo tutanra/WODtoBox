@@ -24,13 +24,14 @@ Si al leer `localStorage` falta alguna, `listPrograms()` la reinserta.
 
 ## Sesión de un día
 
-`SessionLog` en `wodplanning.sessions`. Una sesión abierta por `(programId, dayId)`: `startSession` reanuda si no tiene `completedAt`.
+`SessionLog` en `wodplanning.sessions`. Una sesión por `(programId, dayId)`: `startSession` reanuda la misma aunque ya tuviera `completedAt`. **Reiniciar plan** las borra todas.
 
 - Pausa por defecto **150 s** (presets 120 / 150 / 180).
 - Al marcar una serie hecha (si no es la última) arranca la pausa.
 - `actualReps` se puede subir/bajar; el objetivo de la plantilla sigue visible (`/set.reps`).
 - `sessionProgress` = series `done` / total de series del día (barra en la vista del programa).
-- `Terminar día` pone `completedAt` solo si todas las series están hechas; si no, `Guardar y salir` deja la sesión abierta.
+- `Terminar día` / `Guardar y salir` (y el atrás) guardan en el historial las series marcadas, aunque no estén todas. Si reentras y quitas o añades series, se actualiza esa entrada. `completedAt` se pone cuando el día está completo y se limpia si dejas series sin hacer.
+- Al final del programa: **Reiniciar plan** borra las sesiones (progreso). El historial de esos días se queda. Semanas y kilos no se tocan.
 
 ## Plantilla: Road to 100 kg (Power Clean)
 

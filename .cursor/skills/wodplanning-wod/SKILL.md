@@ -5,7 +5,7 @@ description: Edita WODs grabados (bloques ejercicio/descanso/rondas, overlay en 
 
 # WODs grabados
 
-Lee `docs/wods.md`. Storage: `wodplanning.wods`. API: `listWods` / `getWod` / `saveWod` / `deleteWod`.
+Lee `docs/wods.md`. Storage: `wodplanning.wods`. API: `listWods` (usuario) / `listHeroWods` / `getWod` / `saveWod` / `deleteWod` / `restoreHeroWod`.
 
 ## Forma
 
@@ -19,6 +19,7 @@ Lee `docs/wods.md`. Storage: `wodplanning.wods`. API: `listWods` / `getWod` / `s
 | --- | --- |
 | Campos del modelo | `src/types/wod.ts` + default en `normalizeWod` |
 | Lista / borrar / lanzar | `WodsList.tsx` |
+| WOD Heroes | `data/heroWods.ts`, `WodHeroes.tsx`, reseed en `wods.ts`. Ids `hero-*` fijos. |
 | Editor | `WodEditor.tsx` + `TimerFields` + `WodBlockList` |
 | Overlay en run | `WodOverlay.tsx` + `activeBlockId` en `wodProgress.ts` |
 | Persistencia | `src/lib/wods.ts` |

@@ -8,12 +8,12 @@ Skills: `wodplanning` (índice), `wodplanning-compat`, `wodplanning-timer`, `wod
 
 1. [docs/README.md](README.md) — índice.
 2. Si tocas timers / WODs / plan: el doc de esa zona.
-3. Si tocas `src/types/*` o `src/lib/{wods,programs,sessions,runSession}.ts`: [compatibilidad.md](compatibilidad.md) y [contrato.json](contrato.json).
+3. Si tocas `src/types/*` o `src/lib/{wods,programs,sessions,history,rms,pack,sync,runSession}.ts`: [compatibilidad.md](compatibilidad.md) y [contrato.json](contrato.json).
 4. Arranque: `npm run check:compat` (también en `npm run build` no está enganchado aún; córrelo a mano o vía el script de package).
 
 ## Invariantes (copia corta)
 
-- Storage keys y `TIMER_KINDS` e IDs de plantilla: no renombrar.
+- Storage keys y `TIMER_KINDS` e IDs de plantilla (`power-clean-100`, `kipping-muscle-up`, `hero-*`): no renombrar.
 - `HashRouter` + `base: './'` en Vite.
 - `appId` `com.wodplanning.app`.
 - Normalizers: extender, no borrar ramas legacy (`isRest`, `timerConfig` en sessionStorage, reseed de plantillas).
@@ -28,7 +28,11 @@ Skills: `wodplanning` (índice), `wodplanning-compat`, `wodplanning-timer`, `wod
 | Campo nuevo en WOD | `types/wod.ts` + default en `normalizeWod` |
 | Campo nuevo en plan | `types/program.ts` + default al leer |
 | Semana de plantilla | `data/powerClean100.ts` o `kippingMuscleUp.ts` (el usuario con datos viejos no se actualiza hasta Restaurar) |
+| WOD Heroes | `data/heroWods.ts` + reseed en `lib/wods.ts`. No renombrar ids `hero-*`. |
 | Nueva ruta | `App.tsx` solamente, hash |
+| Historial de entrenos | `types/history.ts`, `lib/history.ts`, `HistoryList`, `HistoryDetail` |
+| RM / máximos | `types/rm.ts`, `lib/rms.ts`, `RmList`, `RmEditor` |
+| Drive / pack | `types/pack.ts`, `lib/pack.ts`, `lib/sync.ts`, `lib/googleAuth.ts`, `lib/drive.ts`, `DriveSync` |
 
 ## Verificación
 

@@ -6,9 +6,9 @@ import { TopBar } from '../components/TopBar'
 import { WodBlockList } from '../components/WodBlockList'
 import { KIND_META, metaFor } from '../data/kinds'
 import { unlockAudio } from '../lib/audio'
-import { persistRunSession } from '../lib/runSession'
+import { newRunId, persistRunSession } from '../lib/runSession'
 import { summarizeTimer } from '../lib/summarize'
-import { getWod, saveWod } from '../lib/wods'
+import { getWod, restoreHeroWod, saveWod } from '../lib/wods'
 import { newWod, type Wod } from '../types/wod'
 
 export function WodEditor() {
@@ -25,7 +25,7 @@ export function WodEditor() {
     <Editor
       key={existing?.id ?? 'new'}
       initial={existing ?? newWod()}
-      onBack={() => navigate('/wods')}
+      onBack={() => navigate(existing?.seeded ? '/wods/heroes' : '/wods')}
     />
   )
 }
@@ -50,7 +50,7 @@ function Editor({ initial, onBack }: { initial: Wod; onBack: () => void }) {
   const launch = () => {
     const stored = persist()
     unlockAudio()
-    persistRunSession({ config: stored.timer, wod: stored })
+    persistRunSession({ config: stored.timer, wod: stored, runId: newRunId() })
     navigate(`/timers/${stored.kind}/run`, { state: { config: stored.timer, wod: stored } })
   }
 
@@ -140,6 +140,19 @@ function Editor({ initial, onBack }: { initial: Wod; onBack: () => void }) {
         >
           Guardar
         </button>
+        {initial.seeded ? (
+          <button
+            type="button"
+            onClick={() => {
+              const restored = restoreHeroWod(initial.id)
+              if (!restored) return
+              setWod(restored)
+            }}
+            className="w-full rounded-2xl border border-line py-3 text-sm font-semibold text-mute"
+          >
+            Restaurar plantilla
+          </button>
+        ) : null}
       </div>
     </Screen>
   )

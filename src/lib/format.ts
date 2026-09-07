@@ -46,3 +46,39 @@ export function secondsOf(totalSeconds: number) {
 export function toTotalSeconds(minutes: number, seconds: number) {
   return Math.max(0, minutes) * 60 + clamp(seconds, 0, 59)
 }
+
+function sameDay(a: Date, b: Date) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+}
+
+export function formatHistoryDay(ts: number) {
+  const date = new Date(ts)
+  const today = new Date()
+  const yesterday = new Date()
+  yesterday.setDate(today.getDate() - 1)
+  if (sameDay(date, today)) return 'Hoy'
+  if (sameDay(date, yesterday)) return 'Ayer'
+  return new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric', month: 'long' }).format(date)
+}
+
+export function formatHistoryTime(ts: number) {
+  return new Intl.DateTimeFormat('es', { hour: '2-digit', minute: '2-digit' }).format(ts)
+}
+
+export function historyDayKey(ts: number) {
+  const date = new Date(ts)
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+}
+
+export function toDateInputValue(ts: number) {
+  const date = new Date(ts)
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
+}
+
+export function fromDateInputValue(value: string, previousTs = Date.now()) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value)
+  if (!match) return previousTs
+  const next = new Date(previousTs)
+  next.setFullYear(Number(match[1]), Number(match[2]) - 1, Number(match[3]))
+  return next.getTime()
+}

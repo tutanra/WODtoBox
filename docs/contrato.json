@@ -8,15 +8,34 @@
     "localStorage": {
       "wods": "wodplanning.wods",
       "programs": "wodplanning.programs",
-      "sessions": "wodplanning.sessions"
+      "sessions": "wodplanning.sessions",
+      "history": "wodplanning.history",
+      "rms": "wodplanning.rms",
+      "sync": "wodplanning.sync"
     },
     "sessionStorage": {
       "runSession": "wodplanning.runSession",
       "timerConfigLegacy": "wodplanning.timerConfig"
     }
   },
+  "packFormat": "wodplanning.pack",
   "timerKinds": ["amrap", "forTime", "emom", "tabata", "intervals", "stopwatch"],
   "templateIds": ["power-clean-100", "kipping-muscle-up"],
+  "heroWodIds": [
+    "hero-fran",
+    "hero-cindy",
+    "hero-grace",
+    "hero-helen",
+    "hero-annie",
+    "hero-diane",
+    "hero-karen",
+    "hero-isabel",
+    "hero-jackie",
+    "hero-murph",
+    "hero-dt",
+    "hero-chad",
+    "hero-kalsu"
+  ],
   "anchors": [
     { "id": "appId", "file": "capacitor.config.ts", "contains": "com.wodplanning.app" },
     { "id": "androidApplicationId", "file": "android/app/build.gradle", "contains": "com.wodplanning.app" },
@@ -29,12 +48,19 @@
     { "id": "wodsKey", "file": "src/lib/wods.ts", "contains": "wodplanning.wods" },
     { "id": "programsKey", "file": "src/lib/programs.ts", "contains": "wodplanning.programs" },
     { "id": "sessionsKey", "file": "src/lib/sessions.ts", "contains": "wodplanning.sessions" },
+    { "id": "historyKey", "file": "src/lib/history.ts", "contains": "wodplanning.history" },
+    { "id": "rmsKey", "file": "src/lib/rms.ts", "contains": "wodplanning.rms" },
     { "id": "runSessionKey", "file": "src/lib/runSession.ts", "contains": "wodplanning.runSession" },
     { "id": "legacyConfigKey", "file": "src/lib/runSession.ts", "contains": "wodplanning.timerConfig" },
     { "id": "reseedTemplates", "file": "src/lib/programs.ts", "contains": "PROGRAM_TEMPLATES" },
     { "id": "restoreTemplate", "file": "src/lib/programs.ts", "contains": "export function restoreTemplate" },
     { "id": "powerCleanId", "file": "src/data/powerClean100.ts", "contains": "power-clean-100" },
     { "id": "kippingId", "file": "src/data/kippingMuscleUp.ts", "contains": "kipping-muscle-up" },
+    { "id": "heroWods", "file": "src/data/heroWods.ts", "contains": "hero-fran" },
+    { "id": "reseedHeroWods", "file": "src/lib/wods.ts", "contains": "HERO_WODS" },
+    { "id": "restoreHeroWod", "file": "src/lib/wods.ts", "contains": "export function restoreHeroWod" },
+    { "id": "packFormat", "file": "src/types/pack.ts", "contains": "wodplanning.pack" },
+    { "id": "syncKey", "file": "src/lib/sync.ts", "contains": "wodplanning.sync" },
     { "id": "engineSnapshot", "file": "src/lib/engine.ts", "contains": "export function computeSnapshot" }
   ]
 }

@@ -19,6 +19,10 @@ function writeAll(sessions: SessionLog[]) {
   localStorage.setItem(KEY, JSON.stringify(sessions))
 }
 
+export function listSessions() {
+  return readAll()
+}
+
 export function getSession(programId: string, dayId: string) {
   return (
     readAll()
@@ -35,7 +39,7 @@ export function saveSession(session: SessionLog) {
 
 export function startSession(programId: string, weekId: string, dayId: string, restSeconds = 150) {
   const existing = getSession(programId, dayId)
-  if (existing && !existing.completedAt) return existing
+  if (existing) return existing
   const now = Date.now()
   const session: SessionLog = {
     id: newId(),
@@ -45,10 +49,18 @@ export function startSession(programId: string, weekId: string, dayId: string, r
     startedAt: now,
     updatedAt: now,
     completedAt: null,
-    restSeconds: existing?.restSeconds ?? restSeconds,
+    restSeconds: restSeconds,
     logs: [],
   }
   return saveSession(session)
+}
+
+export function deleteSessionsForProgram(programId: string) {
+  writeAll(readAll().filter((session) => session.programId !== programId))
+}
+
+export function replaceSessions(sessions: unknown[]) {
+  writeAll(sessions.filter((item) => item && typeof (item as SessionLog).id === 'string') as SessionLog[])
 }
 
 export function sessionProgress(session: SessionLog | null, totalSets: number) {
