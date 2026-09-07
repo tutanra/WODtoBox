@@ -10,7 +10,7 @@ Fuente: `docs/compatibilidad.md` y `docs/contrato.json`. Corre `npm run check:co
 - No renombrar claves `wodplanning.wods` / `.programs` / `.sessions` / `.runSession` sin lector dual + migrador.
 - No quitar valores de `TIMER_KINDS`. Añadir al final sí.
 - No cambiar ids `power-clean-100` ni `kipping-muscle-up`.
-- No cambiar `com.wodplanning.app`.
+- No cambiar `com.wodotobox.app`.
 - Seguir con `HashRouter` y Vite `base: './'`.
 - Extender `normalizeWod` / `normalizeTimerConfig` / reseed de plantillas; no borrar ramas legacy.
 - Un cambio de comportamiento de usuario actualiza el doc en `docs/` en el mismo PR.

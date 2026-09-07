@@ -1,9 +1,9 @@
 ---
 name: wodplanning
-description: Orienta el trabajo en la app WOD Planning (timers de WOD, workouts grabados, plan de fuerza, Capacitor Android). Use when starting a change in this repo, when the user mentions WOD Planning, timers, WODs, plan, Power Clean, Muscle-Up, or when unsure which project skill to follow.
+description: Orienta el trabajo en la app WODtoBox (timers de WOD, workouts grabados, plan de fuerza, Capacitor Android). Use when starting a change in this repo, when the user mentions WODtoBox, WOD Planning, timers, WODs, plan, Power Clean, Muscle-Up, or when unsure which project skill to follow.
 ---
 
-# WOD Planning
+# WODtoBox
 
 ## Arranque
 
@@ -20,7 +20,7 @@ description: Orienta el trabajo en la app WOD Planning (timers de WOD, workouts 
 
 - Claves `wodplanning.wods` / `.programs` / `.sessions` / `.runSession`
 - `TIMER_KINDS` existentes; ids `power-clean-100`, `kipping-muscle-up`
-- `appId` `com.wodplanning.app`
+- `appId` `com.wodotobox.app`
 - `HashRouter` y Vite `base: './'`
 - Tras tocar tipos o `src/lib`: `npm run check:compat`
 

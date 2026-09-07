@@ -1,4 +1,4 @@
-# Documentación de WOD Planning
+# Documentación de WODtoBox
 
 Índice para humanos y para el agente. Si vas a cambiar datos, tipos o Android, lee primero [compatibilidad](compatibilidad.md) y ejecuta `npm run check:compat`.
 

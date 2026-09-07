@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
+import { ChevronLeft } from 'lucide-react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { Pause } from 'lucide-react'
 import { Screen } from '../components/Screen'
 import { TopBar } from '../components/TopBar'
 import { useRestTimer } from '../hooks/useRestTimer'
@@ -72,69 +72,90 @@ function LiveSession({
   const logFor = (set: ProgramSet): SetLog =>
     session.logs.find((item) => item.setId === set.id) ?? { setId: set.id, actualReps: set.reps, done: false }
 
+  const totalSets = day.exercises.reduce((sum, exercise) => sum + exercise.sets.length, 0)
+
+  const persistLogs = (nextLogs: SetLog[]) => {
+    const done = nextLogs.filter((item) => item.done).length
+    const saved = persist({
+      ...session,
+      logs: nextLogs,
+      completedAt: done >= totalSets && totalSets > 0 ? Date.now() : null,
+    })
+    recordPlanSession(saved, program, week, day)
+    return saved
+  }
+
   const patchLog = (set: ProgramSet, patch: Partial<SetLog>) => {
     const current = logFor(set)
     const nextLog = { ...current, ...patch }
-    persist({ ...session, logs: [...session.logs.filter((item) => item.setId !== set.id), nextLog] })
+    persistLogs([...session.logs.filter((item) => item.setId !== set.id), nextLog])
   }
 
-  const totalSets = day.exercises.reduce((sum, exercise) => sum + exercise.sets.length, 0)
   const doneSets = session.logs.filter((item) => item.done).length
-  const remainingColor = rest.remainingMs <= 3000 && rest.running ? 'text-warn' : 'text-rest'
+  const lastTen = rest.running && rest.remainingMs > 0 && rest.remainingMs <= 10000
 
   const leave = () => {
-    const completed = doneSets >= totalSets && totalSets > 0
-    const saved = persist({
-      ...session,
-      completedAt: completed ? Date.now() : null,
-    })
-    recordPlanSession(saved, program, week, day)
     navigate(backTo)
   }
 
   return (
     <Screen>
-      <TopBar title={day.name} onBack={leave} />
-      <p className="mb-4 text-sm text-mute">{day.focus}</p>
-
       {rest.running ? (
-        <div className="mb-4 rounded-3xl border border-rest/40 bg-panel p-4 text-center">
-          <p className="text-xs font-semibold tracking-[0.3em] text-rest">PAUSA</p>
-          <p className={`font-timer text-6xl font-bold leading-none ${remainingColor}`}>
-            {formatClock(rest.remainingMs, true)}
-          </p>
-          <button type="button" onClick={rest.stop} className="mt-3 text-sm font-semibold text-mute">
-            Saltar pausa
-          </button>
-        </div>
-      ) : (
-        <div className="mb-4 rounded-3xl border border-line bg-panel p-4">
-          <p className="mb-2 text-xs font-semibold tracking-[0.22em] text-mute">TIEMPO DE PAUSA</p>
-          <div className="flex flex-wrap gap-2">
-            {REST_PRESETS.map((seconds) => (
+        <div className="pointer-events-none fixed inset-x-0 top-0 z-20">
+          <div className="pointer-events-auto mx-auto w-full max-w-lg px-5 pt-[max(1rem,env(safe-area-inset-top))]">
+            <div className="flex items-center gap-3 rounded-3xl border border-rest/50 bg-panel p-3 shadow-lg shadow-black/40">
               <button
-                key={seconds}
                 type="button"
-                onClick={() => {
-                  rest.setDuration(seconds)
-                  persist({ ...session, restSeconds: seconds })
-                }}
-                className={`rounded-full px-3 py-1.5 text-sm font-semibold ${
-                  rest.duration === seconds ? 'bg-rest text-ink' : 'bg-panel-2 text-paper'
-                }`}
+                onClick={leave}
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-panel-2 text-paper"
+                aria-label="Volver"
               >
-                {formatCompact(seconds)}
+                <ChevronLeft className="h-6 w-6" />
               </button>
-            ))}
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-semibold tracking-[0.3em] text-rest">PAUSA</p>
+                <p
+                  className={`w-fit font-timer text-5xl font-bold leading-none text-rest ${lastTen ? 'last-ten' : ''}`}
+                >
+                  {formatClock(rest.remainingMs, true)}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={rest.stop}
+                className="shrink-0 rounded-2xl bg-rest px-4 py-3 text-sm font-semibold text-ink"
+              >
+                Saltar
+              </button>
+            </div>
           </div>
         </div>
-      )}
-
+      ) : null}
+      <TopBar title={day.name} onBack={leave} className={rest.running ? 'invisible' : ''} />
+      {day.focus ? <p className="mb-3 text-sm text-mute">{day.focus}</p> : null}
       <p className="mb-3 text-sm text-mute">
         {doneSets}/{totalSets} series · ajusta reps y marca la serie
       </p>
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <p className="text-xs font-semibold tracking-[0.22em] text-mute">PAUSA</p>
+        {REST_PRESETS.map((seconds) => (
+          <button
+            key={seconds}
+            type="button"
+            onClick={() => {
+              rest.setDuration(seconds)
+              persist({ ...session, restSeconds: seconds })
+            }}
+            className={`rounded-full px-3 py-1.5 text-sm font-semibold ${
+              rest.duration === seconds ? 'bg-rest text-ink' : 'bg-panel-2 text-paper'
+            }`}
+          >
+            {formatCompact(seconds)}
+          </button>
+        ))}
+      </div>
 
-      <div className="flex flex-col gap-4 pb-52">
+      <div className="flex flex-col gap-4">
         {day.exercises.map((exercise) => (
           <article key={exercise.id} className="rounded-3xl border border-line bg-panel p-4">
             <h2 className="font-display text-3xl leading-none text-paper">{exercise.name || 'Ejercicio'}</h2>
@@ -191,35 +212,6 @@ function LiveSession({
             </div>
           </article>
         ))}
-      </div>
-
-      <div className="fixed inset-x-0 bottom-0 mx-auto w-full max-w-lg bg-gradient-to-t from-ink via-ink to-transparent px-5 pt-6 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-        {rest.running ? (
-          <button
-            type="button"
-            onClick={rest.stop}
-            className="mb-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-rest py-4 font-display text-3xl text-ink"
-          >
-            {formatClock(rest.remainingMs, true)}
-            <span className="font-sans text-sm font-semibold tracking-normal">Saltar</span>
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={rest.start}
-            className="mb-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-rest py-4 font-display text-3xl text-ink"
-          >
-            <Pause className="h-5 w-5" />
-            PAUSA
-          </button>
-        )}
-        <button
-          type="button"
-          onClick={leave}
-          className="w-full rounded-2xl border border-line bg-panel py-3 font-semibold text-paper"
-        >
-          {doneSets >= totalSets && totalSets > 0 ? 'Terminar día' : 'Guardar y salir'}
-        </button>
       </div>
     </Screen>
   )

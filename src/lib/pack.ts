@@ -1,6 +1,7 @@
-import { listHistory, replaceHistory } from './history'
+import { clearHistory, listHistory, replaceHistory } from './history'
 import { listPrograms, replacePrograms } from './programs'
 import { listRms, replaceRms } from './rms'
+import { clearRunSession } from './runSession'
 import { listSessions, replaceSessions } from './sessions'
 import { dumpWods, replaceWods } from './wods'
 import { normalizeWod } from '../types/wod'
@@ -72,4 +73,15 @@ export function applyPack(pack: WodPlanningPack) {
   replaceSessions(pack.sessions)
   replaceHistory(pack.history)
   replaceRms(pack.rms)
+}
+
+export function purgeLocalData() {
+  replaceWods([])
+  replacePrograms([])
+  replaceSessions([])
+  clearHistory()
+  replaceRms([])
+  clearRunSession()
+  listPrograms()
+  dumpWods()
 }

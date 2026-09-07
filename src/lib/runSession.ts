@@ -29,6 +29,11 @@ export function persistConfig(config: TimerConfig) {
   persistRunSession({ config, wod: null })
 }
 
+export function clearRunSession() {
+  sessionStorage.removeItem(SESSION_KEY)
+  sessionStorage.removeItem(CONFIG_KEY)
+}
+
 export function readPersistedConfig(): TimerConfig | null {
   return readRunSession()?.config ?? null
 }

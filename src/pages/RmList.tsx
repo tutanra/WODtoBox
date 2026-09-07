@@ -33,8 +33,8 @@ export function RmList() {
         }
       />
       <p className="mb-5 text-sm text-mute">
-        Pesos máximos: ejercicio, reps, kilos y el día. Pulsar un ejercicio añade otra marca de ese
-        movimiento.
+        Pesos máximos: ejercicio, reps, kilos y el día. El mejor se estima con Epley (1RM). Pulsar el
+        nombre abre esa marca para editarla; el + añade otra del mismo movimiento.
       </p>
 
       {lifts.length === 0 ? (
@@ -55,7 +55,7 @@ export function RmList() {
           {groups.map((group) => (
             <section key={group.best.id} className="rounded-3xl border border-line bg-panel p-4">
               <div className="flex items-start gap-3">
-                <Link to={newRmPath(group.name)} className="min-w-0 flex-1">
+                <Link to={`/rm/${group.best.id}`} className="min-w-0 flex-1">
                   <p className="text-xs font-semibold tracking-[0.22em] text-flame">EJERCICIO</p>
                   <h3 className="mt-1 font-display text-4xl leading-none text-paper">{group.name}</h3>
                   <p className="mt-2 text-sm font-semibold text-gold">{formatRmLine(group.best)}</p>

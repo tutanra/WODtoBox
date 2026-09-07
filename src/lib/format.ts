@@ -58,7 +58,12 @@ export function formatHistoryDay(ts: number) {
   yesterday.setDate(today.getDate() - 1)
   if (sameDay(date, today)) return 'Hoy'
   if (sameDay(date, yesterday)) return 'Ayer'
-  return new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric', month: 'long' }).format(date)
+  return new Intl.DateTimeFormat('es', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date)
 }
 
 export function formatHistoryTime(ts: number) {

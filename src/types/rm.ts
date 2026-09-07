@@ -18,11 +18,31 @@ export function newRmLift(): RmLift {
   }
 }
 
+export const RM_MAX_REPS = 50
+
 export function parseWeightKg(text: string): number | null {
   const match = text.replace(',', '.').match(/-?\d+(\.\d+)?/)
   if (!match) return null
   const value = Number(match[0])
   return Number.isFinite(value) ? value : null
+}
+
+/** 1RM Epley. Con 1 rep el peso ya es el máximo. */
+export function estimated1RmKg(lift: Pick<RmLift, 'reps' | 'weightKg'>): number | null {
+  if (lift.weightKg == null || !Number.isFinite(lift.weightKg) || lift.weightKg <= 0) return null
+  if (lift.reps <= 1) return lift.weightKg
+  return lift.weightKg * (1 + lift.reps / 30)
+}
+
+export function formatKgValue(kg: number) {
+  const rounded = Math.round(kg * 10) / 10
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1)
+}
+
+export function formatEstimated1Rm(lift: Pick<RmLift, 'reps' | 'weightKg'>) {
+  const rm = estimated1RmKg(lift)
+  if (rm == null || lift.reps <= 1) return null
+  return `(1@${formatKgValue(rm)}kg est.)`
 }
 
 export function formatRmLoad(lift: Pick<RmLift, 'weightText'>) {
@@ -32,7 +52,9 @@ export function formatRmLoad(lift: Pick<RmLift, 'weightText'>) {
 }
 
 export function formatRmLine(lift: RmLift) {
-  return `${lift.reps} @ ${formatRmLoad(lift)}`
+  const load = `${lift.reps} @ ${formatRmLoad(lift)}`
+  const epley = formatEstimated1Rm(lift)
+  return epley ? `${load} ${epley}` : load
 }
 
 export function normalizeRmLift(value: unknown): RmLift | null {
@@ -46,7 +68,7 @@ export function normalizeRmLift(value: unknown): RmLift | null {
   return {
     id: raw.id,
     exercise: typeof raw.exercise === 'string' ? raw.exercise : '',
-    reps: Math.max(1, reps),
+    reps: Math.min(RM_MAX_REPS, Math.max(1, reps)),
     weightKg,
     weightText,
     liftedAt: typeof raw.liftedAt === 'number' ? raw.liftedAt : Date.now(),
@@ -54,6 +76,9 @@ export function normalizeRmLift(value: unknown): RmLift | null {
 }
 
 export function compareRm(a: RmLift, b: RmLift) {
+  const ea = estimated1RmKg(a) ?? a.weightKg ?? 0
+  const eb = estimated1RmKg(b) ?? b.weightKg ?? 0
+  if (ea !== eb) return ea - eb
   const wa = a.weightKg ?? 0
   const wb = b.weightKg ?? 0
   if (wa !== wb) return wa - wb

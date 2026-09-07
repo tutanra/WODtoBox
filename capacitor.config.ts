@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli'
 
 const config: CapacitorConfig = {
-  appId: 'com.wodplanning.app',
-  appName: 'WOD Planning',
+  appId: 'com.wodotobox.app',
+  appName: 'WODtoBox',
   webDir: 'dist',
   android: {
     backgroundColor: '#070708',

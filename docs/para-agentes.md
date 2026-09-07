@@ -15,7 +15,7 @@ Skills: `wodplanning` (índice), `wodplanning-compat`, `wodplanning-timer`, `wod
 
 - Storage keys y `TIMER_KINDS` e IDs de plantilla (`power-clean-100`, `kipping-muscle-up`, `hero-*`): no renombrar.
 - `HashRouter` + `base: './'` en Vite.
-- `appId` `com.wodplanning.app`.
+- `appId` `com.wodotobox.app`.
 - Normalizers: extender, no borrar ramas legacy (`isRest`, `timerConfig` en sessionStorage, reseed de plantillas).
 - `rounds` no anidados.
 - No introducir backend ni cambiar a BrowserRouter “porque es más limpio”.

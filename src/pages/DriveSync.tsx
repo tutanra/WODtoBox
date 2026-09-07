@@ -1,17 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
-import { CloudUpload, LogIn, LogOut } from 'lucide-react'
+import { Cloud, CloudUpload, LogIn, LogOut, Smartphone, Trash2 } from 'lucide-react'
 import { Screen } from '../components/Screen'
 import { TopBar } from '../components/TopBar'
 import { formatHistoryDay, formatHistoryTime } from '../lib/format'
-import { applyPack, localDataAt } from '../lib/pack'
+import { applyPack, localDataAt, purgeLocalData } from '../lib/pack'
 import {
   googleSignIn,
   googleSignOut,
   currentGoogleSession,
   type GoogleSession,
 } from '../lib/googleAuth'
-import { loadDriveCopy, uploadDrivePack, type DriveCopy } from '../lib/drive'
-import { getGoogleClientId, readSyncMeta, saveGoogleClientId, writeSyncMeta } from '../lib/sync'
+import { deleteDrivePack, loadDriveCopy, uploadDrivePack, type DriveCopy } from '../lib/drive'
+import { getGoogleClientId, readSyncMeta, writeSyncMeta } from '../lib/sync'
 
 type Compare = 'none' | 'local' | 'drive' | 'same'
 
@@ -31,12 +31,13 @@ export function DriveSync() {
   const [session, setSession] = useState<GoogleSession | null>(() => currentGoogleSession())
   const [meta, setMeta] = useState(() => readSyncMeta())
   const [remote, setRemote] = useState<DriveCopy | null>(null)
-  const [busy, setBusy] = useState<'login' | 'remote' | 'up' | 'down' | 'out' | null>(null)
+  const [busy, setBusy] = useState<'login' | 'remote' | 'up' | 'down' | 'out' | 'purge' | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [clientDraft, setClientDraft] = useState(() => getGoogleClientId())
   const [pendingDown, setPendingDown] = useState(false)
-  const [clientId, setClientId] = useState(() => getGoogleClientId())
-  const localAt = useMemo(() => localDataAt(), [meta.lastSyncAt, remote])
+  const [pendingPurge, setPendingPurge] = useState<null | 'choose' | 'local' | 'drive'>(null)
+  const [localStamp, setLocalStamp] = useState(0)
+  const clientId = getGoogleClientId()
+  const localAt = useMemo(() => localDataAt(), [meta.lastSyncAt, remote, localStamp])
   const driveAt = remote?.pack.dataAt ?? meta.driveDataAt
   const status = compare(localAt, driveAt)
 
@@ -46,7 +47,14 @@ export function DriveSync() {
       const copy = await loadDriveCopy(nextSession)
       setRemote(copy)
       if (copy) {
-        setMeta(writeSyncMeta({ driveFileId: copy.id, driveDataAt: copy.pack.dataAt }))
+        setMeta(
+          writeSyncMeta({
+            driveFileId: copy.id,
+            driveDataAt: copy.pack.dataAt,
+            driveFolderId: copy.folderId,
+            driveFolderName: copy.folderName,
+          }),
+        )
       }
       setError(null)
     } catch (err) {
@@ -98,6 +106,8 @@ export function DriveSync() {
           lastDirection: 'up',
           driveFileId: saved.id,
           driveDataAt: saved.pack.dataAt,
+          driveFolderId: saved.folderId,
+          driveFolderName: saved.folderName,
           email: session.email,
         }),
       )
@@ -117,9 +127,34 @@ export function DriveSync() {
         lastDirection: 'down',
         driveFileId: remote.id,
         driveDataAt: remote.pack.dataAt,
+        driveFolderId: remote.folderId,
+        driveFolderName: remote.folderName,
       }),
     )
     setPendingDown(false)
+  }
+
+  const purgeLocal = () => {
+    purgeLocalData()
+    setLocalStamp((value) => value + 1)
+    setPendingPurge(null)
+  }
+
+  const purgeDrive = async () => {
+    if (!session) return
+    setBusy('purge')
+    setError(null)
+    try {
+      await deleteDrivePack(session, remote?.id ?? meta.driveFileId)
+      setRemote(null)
+      setMeta(writeSyncMeta({ driveFileId: null, driveDataAt: null, lastDirection: null }))
+      setPendingPurge(null)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo borrar el archivo de Drive.')
+      setPendingPurge(null)
+    } finally {
+      setBusy(null)
+    }
   }
 
   const statusCopy =
@@ -133,10 +168,25 @@ export function DriveSync() {
 
   return (
     <Screen>
-      <TopBar title="DRIVE" />
+      <TopBar
+        title="DRIVE"
+        action={
+          <button
+            type="button"
+            disabled={busy != null}
+            onClick={() => setPendingPurge('choose')}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-warn/50 bg-panel text-warn disabled:opacity-40"
+            aria-label="Purgar datos"
+          >
+            <Trash2 className="h-5 w-5" />
+          </button>
+        }
+      />
       <p className="mb-5 text-sm text-mute">
-        Copia WODs, plan, RM e historial a un archivo en tu Google Drive. El timer en curso no se
-        sube. La cuenta es opcional: sin ella la app sigue igual.
+      Copia WODs, plan, RM e historial a un archivo en tu Google Drive. La primera subida crea la
+      carpeta WODtoBox. Si luego mueves el archivo a otra carpeta en Drive, las siguientes syncs
+      siguen ahí. El timer en curso no se sube. La cuenta es opcional. La papelera deja elegir:
+      borrar este dispositivo o la copia en Drive.
       </p>
 
       <article className="rounded-3xl border border-line bg-panel p-4">
@@ -151,30 +201,14 @@ export function DriveSync() {
         <p className="text-xs font-semibold tracking-[0.22em] text-flame">ESTADO</p>
         <p className="mt-2 text-sm font-semibold text-gold">{statusCopy}</p>
         <p className="mt-2 text-xs text-mute">Local: {stamp(localAt || null)}</p>
-        <p className="text-xs text-mute">Drive: {stamp(driveAt)}</p>
+        <p className="mt-2 text-xs text-mute">Drive: {stamp(driveAt)}</p>
+        <p className="text-xs text-mute">
+          Carpeta:{' '}
+          {remote?.folderName ||
+            meta.driveFolderName ||
+            (session ? 'WODtoBox (al subir)' : 'WODtoBox')}
+        </p>
       </article>
-
-      {!session ? (
-        <article className="mt-3 rounded-3xl border border-line bg-panel p-4">
-          <p className="text-xs font-semibold tracking-[0.22em] text-flame">CLIENT ID</p>
-          <p className="mt-2 text-sm text-mute">
-            Client ID de tipo «Aplicación web» (Google Cloud, API de Drive). En el móvil hace falta también un cliente Android del mismo proyecto, paquete com.wodplanning.app.
-          </p>
-          <input
-            value={clientDraft}
-            onChange={(event) => setClientDraft(event.target.value)}
-            placeholder="….apps.googleusercontent.com"
-            className="mt-3 w-full rounded-2xl border border-line bg-ink px-4 py-3 text-sm text-paper outline-none placeholder:text-mute focus:border-flame"
-          />
-          <button
-            type="button"
-            onClick={() => setClientId(saveGoogleClientId(clientDraft))}
-            className="mt-3 w-full rounded-2xl border border-line py-3 font-semibold text-paper"
-          >
-            Guardar Client ID
-          </button>
-        </article>
-      ) : null}
 
       {error ? <p className="mt-3 text-sm text-warn">{error}</p> : null}
 
@@ -242,6 +276,78 @@ export function DriveSync() {
               </button>
               <button type="button" onClick={download} className="rounded-2xl bg-flame py-3 font-semibold text-ink">
                 Bajar
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {pendingPurge === 'choose' ? (
+        <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/60 p-5">
+          <div className="w-full max-w-lg rounded-3xl border border-line bg-panel p-5">
+            <p className="font-display text-4xl text-paper">¿Qué quieres borrar?</p>
+            <p className="mt-2 text-sm text-mute">
+              Solo se borra lo que elijas. Puedes vaciar este dispositivo y dejar Drive, o al revés.
+            </p>
+            <div className="mt-5 flex flex-col gap-3">
+              <button
+                type="button"
+                disabled={busy != null}
+                onClick={() => setPendingPurge('local')}
+                className="flex w-full items-center justify-center gap-2 rounded-2xl border border-line bg-panel py-3 font-semibold text-paper disabled:opacity-40"
+              >
+                <Smartphone className="h-4 w-4" />
+                Este dispositivo
+              </button>
+              <button
+                type="button"
+                disabled={busy != null || !session}
+                onClick={() => setPendingPurge('drive')}
+                className="flex w-full items-center justify-center gap-2 rounded-2xl border border-line bg-panel py-3 font-semibold text-paper disabled:opacity-40"
+              >
+                <Cloud className="h-4 w-4" />
+                {session ? 'Copia en Drive' : 'Copia en Drive (entra con Google)'}
+              </button>
+              <button
+                type="button"
+                disabled={busy != null}
+                onClick={() => setPendingPurge(null)}
+                className="rounded-2xl border border-line py-3 font-semibold text-mute disabled:opacity-40"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {pendingPurge === 'local' || pendingPurge === 'drive' ? (
+        <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/60 p-5">
+          <div className="w-full max-w-lg rounded-3xl border border-line bg-panel p-5">
+            <p className="font-display text-4xl text-paper">
+              {pendingPurge === 'local' ? '¿Borrar este dispositivo?' : '¿Borrar la copia en Drive?'}
+            </p>
+            <p className="mt-2 text-sm text-mute">
+              {pendingPurge === 'local'
+                ? 'Se borran WODs, plan, RM e historial de este dispositivo. Las plantillas PDF y WOD Heroes vuelven al original. Drive no se toca.'
+                : 'Se borra wodplanning.pack.json de tu Drive. Este dispositivo no se toca.'}
+            </p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                disabled={busy != null}
+                onClick={() => setPendingPurge('choose')}
+                className="rounded-2xl border border-line py-3 font-semibold text-paper disabled:opacity-40"
+              >
+                Atrás
+              </button>
+              <button
+                type="button"
+                disabled={busy != null}
+                onClick={() => (pendingPurge === 'local' ? purgeLocal() : void purgeDrive())}
+                className="rounded-2xl bg-warn py-3 font-semibold text-paper disabled:opacity-40"
+              >
+                {busy === 'purge' ? 'BORRANDO…' : 'Borrar'}
               </button>
             </div>
           </div>

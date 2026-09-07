@@ -4,9 +4,16 @@ import { Screen } from '../components/Screen'
 import { Stepper } from '../components/Stepper'
 import { TopBar } from '../components/TopBar'
 import { fromDateInputValue, toDateInputValue } from '../lib/format'
-import { recordRmLift } from '../lib/history'
-import { getRm, saveRm } from '../lib/rms'
-import { formatRmLine, newRmLift, parseWeightKg, type RmLift } from '../types/rm'
+import { recordRmLift, renameRmHistory } from '../lib/history'
+import { getRm, renameExercise, saveRm } from '../lib/rms'
+import {
+  RM_MAX_REPS,
+  formatEstimated1Rm,
+  formatRmLine,
+  newRmLift,
+  parseWeightKg,
+  type RmLift,
+} from '../types/rm'
 
 export function RmEditor() {
   const { id } = useParams()
@@ -26,12 +33,11 @@ function Editor({ initial, isNew }: { initial: RmLift; isNew: boolean }) {
   const navigate = useNavigate()
   const [lift, setLift] = useState(initial)
   const canSave = lift.exercise.trim().length > 0 && lift.weightText.trim().length > 0
-  const preview = useMemo(() => formatRmLine(lift), [lift])
-  const title = isNew
-    ? initial.exercise.trim()
-      ? initial.exercise
-      : 'NUEVO RM'
-    : initial.exercise.trim() || 'RM'
+  const preview = useMemo(() => formatRmLine({ ...lift, weightKg: parseWeightKg(lift.weightText) }), [lift])
+  const epley = useMemo(
+    () => formatEstimated1Rm({ ...lift, weightKg: parseWeightKg(lift.weightText) }),
+    [lift],
+  )
 
   const persist = () => {
     const next: RmLift = {
@@ -41,6 +47,10 @@ function Editor({ initial, isNew }: { initial: RmLift; isNew: boolean }) {
       weightKg: parseWeightKg(lift.weightText),
       liftedAt: lift.liftedAt || Date.now(),
     }
+    if (!isNew) {
+      renameExercise(initial.exercise, next.exercise)
+      renameRmHistory(initial.exercise, next.exercise)
+    }
     const saved = saveRm(next)
     recordRmLift(saved)
     return saved
@@ -48,7 +58,7 @@ function Editor({ initial, isNew }: { initial: RmLift; isNew: boolean }) {
 
   return (
     <Screen>
-      <TopBar title={title} onBack={() => navigate('/rm')} />
+      <TopBar title={isNew ? 'NUEVO RM' : 'RM'} onBack={() => navigate('/rm')} />
 
       <div className="flex flex-col gap-5 pb-6">
         <label className="block">
@@ -84,7 +94,7 @@ function Editor({ initial, isNew }: { initial: RmLift; isNew: boolean }) {
           label="Reps"
           value={lift.reps}
           min={1}
-          max={30}
+          max={RM_MAX_REPS}
           onChange={(reps) => setLift((current) => ({ ...current, reps }))}
         />
 
@@ -101,7 +111,9 @@ function Editor({ initial, isNew }: { initial: RmLift; isNew: boolean }) {
           />
         </label>
 
-        <p className="text-center text-sm text-mute">{preview}</p>
+        <p className={`text-center text-sm font-semibold ${lift.reps > 1 && epley ? 'text-gold' : 'text-mute'}`}>
+          {preview}
+        </p>
 
         <button
           type="button"

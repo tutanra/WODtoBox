@@ -1,4 +1,4 @@
-package com.wodplanning.app;
+package com.wodotobox.app;
 
 import com.getcapacitor.BridgeActivity;
 

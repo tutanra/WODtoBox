@@ -1,6 +1,6 @@
 ---
 name: wodplanning-ui
-description: Cambia UI, rutas o comportamiento visible de WOD Planning y verifica en el navegador. Use when editing pages, layout, styling, routing, Home/Timers/WODs/Plan screens, or copy the user will see.
+description: Cambia UI, rutas o comportamiento visible de WODtoBox y verifica en el navegador. Use when editing pages, layout, styling, routing, Home/Timers/WODs/Plan screens, or copy the user will see.
 ---
 
 # UI y verificación

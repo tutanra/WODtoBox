@@ -8,11 +8,12 @@ interface TopBarProps {
   onBack?: () => void
   right?: string
   action?: ReactNode
+  className?: string
 }
 
-export function TopBar({ title, backTo = '/', onBack, right, action }: TopBarProps) {
+export function TopBar({ title, backTo = '/', onBack, right, action, className = '' }: TopBarProps) {
   return (
-    <header className="mb-6 flex items-center gap-3">
+    <header className={`mb-6 flex items-center gap-3 ${className}`}>
       {onBack ? (
         <button
           type="button"
@@ -31,7 +32,7 @@ export function TopBar({ title, backTo = '/', onBack, right, action }: TopBarPro
           <ChevronLeft className="h-6 w-6" />
         </Link>
       )}
-      <h1 className="flex-1 font-display text-4xl tracking-wide text-paper">{title}</h1>
+      <h1 className="flex-1 font-display text-4xl leading-none tracking-wide text-paper">{title}</h1>
       {action ? action : right ? <span className="text-xs font-semibold tracking-[0.2em] text-mute">{right}</span> : null}
     </header>
   )

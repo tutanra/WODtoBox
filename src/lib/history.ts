@@ -112,8 +112,26 @@ function migrateCompletedSessions() {
   return next
 }
 
+function planEntryHasWork(entry: HistoryPlanEntry) {
+  return entry.exercises.some((exercise) => exercise.sets.some((set) => set.done))
+}
+
+function deletePlanHistory(sessionId: string) {
+  writeAll(
+    readStored().filter(
+      (entry) => !(entry.kind === 'plan' && (entry.sessionId === sessionId || entry.id === sessionId)),
+    ),
+  )
+}
+
+function pruneEmptyPlanEntries(entries: HistoryEntry[]) {
+  const next = entries.filter((entry) => entry.kind !== 'plan' || planEntryHasWork(entry))
+  if (next.length !== entries.length) writeAll(next)
+  return next
+}
+
 export function listHistory() {
-  return sortEntries(migrateCompletedSessions())
+  return sortEntries(pruneEmptyPlanEntries(migrateCompletedSessions()))
 }
 
 export function getHistoryEntry(id: string) {
@@ -134,6 +152,24 @@ export function replaceHistory(entries: unknown[]) {
   writeAll(
     sortEntries(
       entries.map(normalizeHistoryEntry).filter((entry): entry is HistoryEntry => entry != null),
+    ),
+  )
+}
+
+export function clearHistory() {
+  writeAll([])
+  localStorage.removeItem(MIGRATED_KEY)
+}
+
+export function renameRmHistory(from: string, to: string) {
+  const previous = from.trim().toLowerCase()
+  const next = to.trim()
+  if (!previous || !next || previous === next.toLowerCase()) return
+  writeAll(
+    readStored().map((entry) =>
+      entry.kind === 'rm' && entry.exercise.trim().toLowerCase() === previous
+        ? { ...entry, exercise: next }
+        : entry,
     ),
   )
 }
@@ -190,7 +226,10 @@ export function recordPlanSession(
   const existing = readStored().find(
     (entry) => entry.kind === 'plan' && entry.sessionId === session.id,
   )
-  if (done === 0 && !existing) return null
+  if (done === 0) {
+    if (existing) deletePlanHistory(session.id)
+    return null
+  }
   return saveHistoryEntry({ ...next, finishedAt: Date.now() })
 }
 

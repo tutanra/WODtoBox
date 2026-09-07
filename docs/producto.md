@@ -2,7 +2,7 @@
 
 App de entrenamiento funcional para Android (Capacitor) y también usable en el navegador. Todo vive en el dispositivo. Google Drive es opcional (`#/sync`).
 
-El menú de inicio (`#/`) deja el título arriba y cinco entradas apiladas abajo. Junto a **WOD PLANNING** hay un icono de nube: `#/sync` (Google Drive, opcional).
+El menú de inicio (`#/`) deja el título **WODtoBox** arriba y cinco entradas apiladas abajo. Junto al título hay un icono de nube: `#/sync` (Google Drive, opcional).
 
 ## 1. Timers (`#/timers`)
 
@@ -36,7 +36,7 @@ Programas de fuerza por semanas y días.
 1. Lista: plantillas PDF (no se borran) + planes `CUSTOM`.
 2. `#/plan/:programId` — nombre, notas, objetivos, semanas. Copiar semana, añadir, borrar. En plantillas: restaurar PDF.
 3. `#/plan/:id/day/:dayId` — editar ejercicios, series, kilos, reps. `ENTRENAR`.
-4. `#/plan/.../train` — sesión: marcar series, ajustar reps hechas, pausa 2–3 min. **Guardar y salir** (o **Terminar día** si están todas) guarda esas series y el peso en el historial; si vuelves, se actualizan. En el programa: **Reiniciar plan** borra el progreso de las sesiones; el historial se queda.
+4. `#/plan/.../train` — sesión: marcar series, ajustar reps hechas. Misma columna y padding que el resto de pantallas. La pausa arranca al marcar una serie (si no es la última); el reloj se superpone arriba sin mover el listado. En los últimos 10 s pulsa como el timer. Si no está activa, no ocupa sitio. Cada serie marcada o desmarcada actualiza el historial; si no queda ninguna, el día desaparece de ahí. Atrás sale de la sesión. En el programa: **Reiniciar plan** borra el progreso de las sesiones; el historial de días con series hechas se queda.
 
 Las plantillas:
 
@@ -47,7 +47,7 @@ Detalle semana a semana: [plan.md](plan.md).
 
 ## 4. RM (`#/rm`)
 
-Pesos máximos: ejercicio, repeticiones, kilos y el día (sin hora). Por movimiento se ve el mejor y el registro; pulsar el ejercicio añade otra marca de ese mismo movimiento. Al guardar, también entra en el historial. Borrar un RM lo quita de RM y del historial.
+Pesos máximos: ejercicio, repeticiones (1–50), kilos y el día (con año). Por movimiento se ve el mejor (si no es 1 rep, el 1RM Epley entre paréntesis: `5 @ 90 kg (1@105kg est.)`) y el registro; pulsar el nombre edita esa marca; el + añade otra del mismo movimiento. Al guardar, también entra en el historial. Borrar un RM lo quita de RM y del historial.
 
 Detalle: [rm.md](rm.md).
 
@@ -59,7 +59,7 @@ Detalle: [historial.md](historial.md).
 
 ## 6. Drive (`#/sync`)
 
-Copia opcional a un archivo en tu Google Drive (`wodplanning.pack.json`): WODs, plan, RM e historial. Muestra la última sync y si este dispositivo o Drive está más nuevo. **SYNC** sube; **Bajar de Drive** sustituye los datos locales (con confirmación). Sin cuenta la app no cambia.
+Copia opcional a un archivo en tu Google Drive (`wodplanning.pack.json` en la carpeta WODtoBox): WODs, plan, RM e historial. Muestra la última sync, la carpeta y si este dispositivo o Drive está más nuevo. **GOOGLE** entra con tu cuenta (el Client ID ya va en la app). **SYNC** sube; **Bajar de Drive** sustituye los datos locales (con confirmación). La papelera deja elegir borrar **este dispositivo** o **la copia en Drive** (con confirmación). Sin cuenta la app no cambia. Si mueves el archivo a otra carpeta en Drive, las siguientes syncs lo siguen.
 
 Detalle: [sync.md](sync.md).
 

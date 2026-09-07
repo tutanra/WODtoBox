@@ -20,13 +20,9 @@ export function Home() {
   return (
     <Screen className="justify-between">
       <div className="pt-8">
-        <p className="text-sm font-semibold tracking-[0.42em] text-flame">WOD TIMER</p>
+        <p className="text-sm font-semibold tracking-[0.42em] text-flame">WOD TIMER & PLANS</p>
         <div className="mt-3 flex items-start justify-between gap-3">
-          <h1 className="font-display text-7xl leading-[0.85] text-paper">
-            WOD
-            <br />
-            PLANNING
-          </h1>
+          <h1 className="font-display text-6xl leading-[0.85] text-paper">WODtoBox</h1>
           <Link
             to="/sync"
             className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-panel text-flame"

@@ -9,8 +9,8 @@ Lee `docs/arquitectura.md` (sección Android). WebView de `dist/` con las mismas
 
 ## Identidad
 
-- `appId` / `applicationId`: `com.wodplanning.app` — no cambiar si ya hay instalaciones.
-- Nombre: `WOD Planning`.
+- `appId` / `applicationId`: `com.wodotobox.app` — no cambiar si ya hay instalaciones.
+- Nombre: `WODtoBox`.
 - `minSdk` 24, `targetSdk` 36.
 
 ## Comandos

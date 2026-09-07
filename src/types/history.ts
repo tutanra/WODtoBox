@@ -1,5 +1,6 @@
 import { formatClock } from '../lib/format'
 import { summarizeTimer } from '../lib/summarize'
+import { formatRmLine, parseWeightKg } from './rm'
 import { type FinishedReason, type TimerConfig, type TimerKind } from './timer'
 import { normalizeWod, type WodItem } from './wod'
 
@@ -230,8 +231,14 @@ export function historyResultLabel(entry: HistoryEntry) {
   }
 
   if (entry.kind === 'rm') {
-    const load = formatSetLoad(entry.weightText)
-    return load ? `${entry.reps} @ ${load}` : `${entry.reps} reps`
+    return formatRmLine({
+      id: entry.id,
+      exercise: entry.exercise,
+      reps: entry.reps,
+      weightText: entry.weightText,
+      weightKg: parseWeightKg(entry.weightText),
+      liftedAt: entry.finishedAt,
+    })
   }
 
   if (entry.timerKind === 'amrap') {

@@ -36,6 +36,17 @@ export function saveRm(lift: RmLift) {
   return next
 }
 
+export function renameExercise(from: string, to: string) {
+  const previous = from.trim().toLowerCase()
+  const next = to.trim()
+  if (!previous || !next || previous === next.toLowerCase()) return
+  writeAll(
+    readAll().map((lift) =>
+      lift.exercise.trim().toLowerCase() === previous ? { ...lift, exercise: next } : lift,
+    ),
+  )
+}
+
 export function deleteRm(id: string) {
   writeAll(readAll().filter((lift) => lift.id !== id))
   deleteRmHistory(id)

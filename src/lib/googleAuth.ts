@@ -29,6 +29,7 @@ declare global {
           initTokenClient: (config: {
             client_id: string
             scope: string
+            prompt?: string
             callback: (response: { access_token?: string; expires_in?: number; error?: string }) => void
             error_callback?: (error: { type?: string; message?: string }) => void
           }) => TokenClient
@@ -95,14 +96,19 @@ async function signInWeb(clientId: string): Promise<GoogleSession> {
 
   const token = await new Promise<{ access_token: string; expires_in: number }>((resolve, reject) => {
     let settled = false
+    let closedTimer = 0
+    let timeoutId = 0
     const finish = (fn: () => void) => {
       if (settled) return
       settled = true
+      window.clearTimeout(closedTimer)
+      window.clearTimeout(timeoutId)
       fn()
     }
     const client = oauth.initTokenClient({
       client_id: clientId,
       scope: EXTRA_SCOPES.join(' '),
+      prompt: 'consent',
       callback: (response) => {
         if (response.error || !response.access_token) {
           finish(() => reject(new Error('No se concedió acceso a Drive')))
@@ -116,14 +122,26 @@ async function signInWeb(clientId: string): Promise<GoogleSession> {
         )
       },
       error_callback: (error) => {
-        const closed = error.type === 'popup_closed' || error.type === 'popup_failed_to_open'
-        finish(() =>
-          reject(new Error(closed ? 'Se canceló el inicio de sesión' : error.message || 'No se pudo entrar con Google')),
-        )
+        const type = error.type ?? ''
+        if (type === 'popup_closed') {
+          // GIS dispara esto al cerrar el popup también cuando el usuario ya ha aprobado;
+          // el token suele llegar al callback un instante después.
+          closedTimer = window.setTimeout(() => {
+            finish(() => reject(new Error('Se canceló el inicio de sesión')))
+          }, 2000)
+          return
+        }
+        if (type === 'popup_failed_to_open') {
+          finish(() =>
+            reject(new Error('El navegador bloqueó la ventana de Google. Permite las ventanas emergentes.')),
+          )
+          return
+        }
+        finish(() => reject(new Error(error.message || 'No se pudo entrar con Google')))
       },
     })
     client.requestAccessToken({ prompt: 'consent' })
-    window.setTimeout(() => {
+    timeoutId = window.setTimeout(() => {
       finish(() => reject(new Error('Google no respondió. Revisa el Client ID y vuelve a intentar.')))
     }, 90_000)
   })
