@@ -10,6 +10,7 @@ import {
   historyResultLabel,
   historySubtitle,
   historyTitle,
+  planLiftLines,
   type HistoryEntry,
   type HistoryKind,
 } from '../types/history'
@@ -20,6 +21,22 @@ const FILTERS: { id: 'all' | HistoryKind; label: string }[] = [
   { id: 'plan', label: 'Plan' },
   { id: 'rm', label: 'RM' },
 ]
+
+function HistoryResult({ entry }: { entry: HistoryEntry }) {
+  if (entry.kind === 'plan') {
+    const lines = planLiftLines(entry)
+    if (lines.length > 0) {
+      return (
+        <ul className="mt-1 flex flex-col gap-0.5 text-sm font-semibold text-gold">
+          {lines.map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+      )
+    }
+  }
+  return <p className="mt-1 text-sm font-semibold text-gold">{historyResultLabel(entry)}</p>
+}
 
 export function HistoryList() {
   const [entries, setEntries] = useState(() => listHistory())
@@ -88,9 +105,7 @@ export function HistoryList() {
                         {historyTitle(entry)}
                       </h3>
                       <p className="mt-2 text-sm text-mute">{historySubtitle(entry)}</p>
-                      <p className="mt-1 whitespace-pre-line text-sm font-semibold text-gold">
-                        {historyResultLabel(entry)}
-                      </p>
+                      <HistoryResult entry={entry} />
                     </Link>
                     {entry.kind === 'wod' ? (
                       <button
