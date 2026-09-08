@@ -87,6 +87,38 @@ export function applyPack(pack: WodPlanningPack) {
   replaceRms(pack.rms)
 }
 
+export const PACK_FILE_NAME = 'wodplanning.pack.json'
+
+/** Descarga el pack local como `.json` (mismo formato que Drive). */
+export function downloadPackFile() {
+  const pack = buildPack()
+  const blob = new Blob([`${JSON.stringify(pack, null, 2)}\n`], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = PACK_FILE_NAME
+  link.rel = 'noopener'
+  document.body.appendChild(link)
+  link.click()
+  link.remove()
+  URL.revokeObjectURL(url)
+}
+
+/** Lee un fichero elegido por el usuario y valida `format: wodplanning.pack`. */
+export async function readPackFromFile(file: File): Promise<WodPlanningPack | null> {
+  let text: string
+  try {
+    text = await file.text()
+  } catch {
+    return null
+  }
+  try {
+    return parsePack(JSON.parse(text) as unknown)
+  } catch {
+    return null
+  }
+}
+
 export function purgeLocalData() {
   replaceWods([])
   replacePrograms([])

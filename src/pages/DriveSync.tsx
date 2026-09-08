@@ -1,9 +1,26 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Cloud, CloudDownload, CloudUpload, LogIn, LogOut, Smartphone, Trash2 } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
+import {
+  Cloud,
+  CloudDownload,
+  CloudUpload,
+  FileDown,
+  FileUp,
+  LogIn,
+  LogOut,
+  Smartphone,
+  Trash2,
+} from 'lucide-react'
 import { Screen } from '../components/Screen'
 import { TopBar } from '../components/TopBar'
 import { formatHistoryDay, formatHistoryTime } from '../lib/format'
-import { applyPack, localDataAt, purgeLocalData } from '../lib/pack'
+import {
+  applyPack,
+  downloadPackFile,
+  localDataAt,
+  purgeLocalData,
+  readPackFromFile,
+} from '../lib/pack'
+import type { WodPlanningPack } from '../types/pack'
 import {
   googleSignIn,
   googleSignOut,
@@ -31,12 +48,16 @@ export function DriveSync() {
   const [session, setSession] = useState<GoogleSession | null>(() => currentGoogleSession())
   const [meta, setMeta] = useState(() => readSyncMeta())
   const [remote, setRemote] = useState<DriveCopy | null>(null)
-  const [busy, setBusy] = useState<'login' | 'remote' | 'up' | 'down' | 'out' | 'purge' | null>(null)
+  const [busy, setBusy] = useState<'login' | 'remote' | 'up' | 'down' | 'out' | 'purge' | 'import' | null>(
+    null,
+  )
   const [error, setError] = useState<string | null>(null)
   const [pendingDown, setPendingDown] = useState(false)
   const [pendingUp, setPendingUp] = useState(false)
+  const [pendingImport, setPendingImport] = useState<WodPlanningPack | null>(null)
   const [pendingPurge, setPendingPurge] = useState<null | 'choose' | 'local' | 'drive'>(null)
   const [localStamp, setLocalStamp] = useState(0)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const clientId = getGoogleClientId()
   const localAt = useMemo(() => localDataAt(), [meta.lastSyncAt, remote, localStamp])
   const driveAt = remote?.pack.dataAt ?? meta.driveDataAt
@@ -138,6 +159,42 @@ export function DriveSync() {
     setPendingDown(false)
   }
 
+  const exportFile = () => {
+    setError(null)
+    try {
+      downloadPackFile()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo exportar el fichero')
+    }
+  }
+
+  const onPickFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (!file) return
+    setBusy('import')
+    setError(null)
+    try {
+      const pack = await readPackFromFile(file)
+      if (!pack) {
+        setError('El fichero no es un pack válido de WODtoBox (wodplanning.pack.json).')
+        return
+      }
+      setPendingImport(pack)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo leer el fichero')
+    } finally {
+      setBusy(null)
+    }
+  }
+
+  const confirmImport = () => {
+    if (!pendingImport) return
+    applyPack(pendingImport)
+    setLocalStamp((value) => value + 1)
+    setPendingImport(null)
+  }
+
   const purgeLocal = () => {
     purgeLocalData()
     setLocalStamp((value) => value + 1)
@@ -187,17 +244,21 @@ export function DriveSync() {
         }
       />
       <p className="mb-5 text-sm text-mute">
-      Copia WODs, plan, RM e historial a un archivo en tu Google Drive. La primera subida crea la
-      carpeta WODtoBox. Si luego mueves el archivo a otra carpeta en Drive, las siguientes syncs
-      siguen ahí. El timer en curso no se sube. La cuenta es opcional. La papelera deja elegir:
-      borrar este dispositivo o la copia en Drive.
+        Copia WODs, plan, RM e historial a Google Drive o a un fichero JSON. La primera subida a Drive
+        crea la carpeta WODtoBox. Si luego mueves el archivo a otra carpeta en Drive, las siguientes
+        syncs siguen ahí. El timer en curso no se copia. La cuenta de Google es opcional. La papelera
+        deja elegir: borrar este dispositivo o la copia en Drive.
       </p>
 
       <article className="rounded-3xl border border-line bg-panel p-4">
         <p className="text-xs font-semibold tracking-[0.22em] text-flame">ÚLTIMA SYNC</p>
         <p className="mt-2 font-display text-4xl leading-none text-paper">{stamp(meta.lastSyncAt)}</p>
         <p className="mt-2 text-sm text-mute">
-          {meta.lastDirection === 'up' ? 'Subida a Drive' : meta.lastDirection === 'down' ? 'Bajada de Drive' : 'Aún no has sincronizado.'}
+          {meta.lastDirection === 'up'
+            ? 'Subida a Drive'
+            : meta.lastDirection === 'down'
+              ? 'Bajada de Drive'
+              : 'Aún no has sincronizado.'}
         </p>
       </article>
 
@@ -212,6 +273,41 @@ export function DriveSync() {
             meta.driveFolderName ||
             (session ? 'WODtoBox (al subir)' : 'WODtoBox')}
         </p>
+      </article>
+
+      <article className="mt-3 rounded-3xl border border-line bg-panel p-4">
+        <p className="text-xs font-semibold tracking-[0.22em] text-flame">FICHERO</p>
+        <p className="mt-2 text-sm text-mute">
+          Exporta o importa <span className="text-paper">wodplanning.pack.json</span> sin cuenta.
+          Importar sustituye los datos de este dispositivo (con confirmación).
+        </p>
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            disabled={busy != null}
+            onClick={exportFile}
+            className="flex items-center justify-center gap-2 rounded-2xl border border-line bg-ink py-3 font-semibold text-paper disabled:opacity-40"
+          >
+            <FileDown className="h-4 w-4" />
+            Exportar
+          </button>
+          <button
+            type="button"
+            disabled={busy != null}
+            onClick={() => fileInputRef.current?.click()}
+            className="flex items-center justify-center gap-2 rounded-2xl border border-line bg-ink py-3 font-semibold text-paper disabled:opacity-40"
+          >
+            <FileUp className="h-4 w-4" />
+            {busy === 'import' ? 'LEYENDO…' : 'Importar'}
+          </button>
+        </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="application/json,.json"
+          className="hidden"
+          onChange={(event) => void onPickFile(event)}
+        />
       </article>
 
       {error ? <p className="mt-3 text-sm text-warn">{error}</p> : null}
@@ -289,6 +385,35 @@ export function DriveSync() {
               </button>
               <button type="button" onClick={download} className="rounded-2xl bg-flame py-3 font-semibold text-ink">
                 Bajar
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {pendingImport ? (
+        <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/60 p-5">
+          <div className="w-full max-w-lg rounded-3xl border border-line bg-panel p-5">
+            <p className="font-display text-4xl text-paper">¿Importar este fichero?</p>
+            <p className="mt-2 text-sm text-mute">
+              Se reemplazan WODs, plan, sesiones, RM e historial por el contenido del fichero. El
+              timer en curso no se toca. Drive no se modifica.
+            </p>
+            <p className="mt-2 text-xs text-mute">Datos del fichero: {stamp(pendingImport.dataAt || null)}</p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setPendingImport(null)}
+                className="rounded-2xl border border-line py-3 font-semibold text-paper"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={confirmImport}
+                className="rounded-2xl bg-flame py-3 font-semibold text-ink"
+              >
+                Importar
               </button>
             </div>
           </div>

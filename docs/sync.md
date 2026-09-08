@@ -1,19 +1,28 @@
-# Sync con Google Drive
+# Sync (Drive y fichero)
 
 Código: `src/lib/pack.ts`, `src/lib/sync.ts`, `src/lib/googleAuth.ts`, `src/lib/drive.ts`, página `DriveSync`.
 
-La cuenta es **opcional**. Sin Google la app sigue igual (todo en `localStorage`).
+La cuenta de Google es **opcional**. Sin Google la app sigue igual (todo en `localStorage`). En `#/sync` también puedes **exportar** e **importar** un fichero JSON sin cuenta.
 
 ## Qué se copia
 
-Un archivo en tu Drive llamado `wodplanning.pack.json` (`format: wodplanning.pack`), dentro de una carpeta **WODtoBox** que crea la app si no existe:
+Mismo pack (`format: wodplanning.pack`, fichero `wodplanning.pack.json`):
 
 - WODs (incluidos Heroes editados)
 - programas y sesiones de plan
 - RM
 - historial
 
-No se sube el timer en curso (`wodplanning.runSession`).
+No se copia el timer en curso (`wodplanning.runSession`).
+
+### Fichero local
+
+- **Exportar** descarga `wodplanning.pack.json` con los datos de este dispositivo (`downloadPackFile`).
+- **Importar** pide un `.json`, lo valida con `parsePack` y, tras confirmación, sustituye WODs, plan, sesiones, RM e historial (`applyPack`). Drive no se toca. Un fichero inválido muestra error y no cambia nada.
+
+### Google Drive
+
+Un archivo en tu Drive llamado `wodplanning.pack.json`, dentro de una carpeta **WODtoBox** que crea la app si no existe.
 
 La app usa el ámbito `drive.file`: solo ve archivos que ella misma creó. No puede listar el resto de tus carpetas, así que no hay un selector de «cualquier carpeta de Drive». Si mueves `wodplanning.pack.json` a otra carpeta en la web de Drive, las siguientes **SYNC** actualizan ese mismo archivo (sigue donde lo dejaste). Un archivo que ya estaba en Mi unidad no se mueve solo.
 
@@ -38,4 +47,4 @@ Prueba el login en Chrome o Firefox en `http://localhost:5173` (no en `127.0.0.1
 
 ## UI
 
-`#/sync` — última sync, carpeta de la copia, si este dispositivo o Drive está más nuevo, Google / SYNC (sube o baja según quién esté más nuevo) / el otro sentido / papelera (borrar local o Drive) / cerrar sesión.
+`#/sync` — última sync, carpeta de la copia, si este dispositivo o Drive está más nuevo, bloque **Fichero** (Exportar / Importar), Google / SYNC (sube o baja según quién esté más nuevo) / el otro sentido / papelera (borrar local o Drive) / cerrar sesión.

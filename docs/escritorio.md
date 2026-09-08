@@ -1,11 +1,12 @@
 # Escritorio → app (ideas)
 
-Copia entre dispositivos vía Google Drive: [sync.md](sync.md) (`#/sync`). Lo de abajo sigue siendo ideas no hechas (layout de escritorio, export de fichero local, QR).
+Copia entre dispositivos: [sync.md](sync.md) (`#/sync`) — Google Drive y **export/import de fichero** (`wodplanning.pack.json`). Lo de abajo sigue siendo ideas no hechas (layout de escritorio, merge por id, QR, Share nativo).
 
 ## Situación actual
 
 - Un solo front: Vite + HashRouter. Capacitor solo envuelve `dist/` en WebView.
-- Datos en `localStorage` del origen. En Chrome desktop eso **no** es el `localStorage` de la APK. Son dos silos, salvo que uses Drive.
+- Datos en `localStorage` del origen. En Chrome desktop eso **no** es el `localStorage` de la APK. Son dos silos, salvo que uses Drive o un fichero pack.
+- En `#/sync` ya hay **Exportar** / **Importar** del mismo pack que Drive. Importar sustituye todo el pack local con confirmación (no merge silencioso).
 
 Cualquier puente escritorio ↔ móvil tiene que copiar **JSON** con las mismas formas que [contrato.json](contrato.json) (`Wod[]`, `Program[]`, `SessionLog[]`), no un formato paralelo.
 
@@ -13,23 +14,7 @@ Cualquier puente escritorio ↔ móvil tiene que copiar **JSON** con las mismas 
 
 Usar el navegador en el PC (layout más ancho, teclado, PDF al lado) para montar WODs y semanas. En el móvil, timers y sesión.
 
-Puente mínimo: un botón **Exportar pack** / **Importar pack** que descarga o lee un `.json`:
-
-```json
-{
-  "format": "wodplanning.pack",
-  "schemaVersion": 1,
-  "exportedAt": 0,
-  "wods": [],
-  "programs": [],
-  "sessions": []
-}
-```
-
-En el teléfono: compartir el archivo (Drive, WhatsApp, USB, correo) → Importar. Un merge explícito: “añadir / sustituir por id”, nunca un sync silencioso que pise series hechas.
-
-Encaja con Capacitor (`Filesystem` + `Share`) más adelante; no hace falta backend.
-
+El puente mínimo de fichero **ya está** en `#/sync` (mismo `wodplanning.pack`). Pendiente: merge explícito “añadir / sustituir por id” en lugar de sustituir el pack entero, y Share nativo en Android (`Filesystem` + `Share`).
 ## Idea B — Mismo pack, arrastre o código
 
 - Arrastrar el JSON a la ventana web.
@@ -57,12 +42,9 @@ Un directorio (Syncthing, Nextcloud, carpeta Android) con `wods.json` y `program
 - Overwrite de `wodplanning.sessions` sin preguntar (se pierde el día a medias).
 - Cambiar las claves de `localStorage` para “preparar el sync”. El pack debe **mapear** a esas claves, no sustituirlas.
 
-## Orden de implementación sugerido (cuando se haga)
+## Orden de implementación sugerido (resto)
 
-1. Definir `wodplanning.pack` en el contrato (`schemaVersion` compartido) y validarlo con el mismo `check:compat`.
-2. Export/import en la web (ya sirve en el móvil dentro de Capacitor).
-3. Layout desktop opcional (`min-width`) sin romper `max-w-lg` del timer a pantalla completa.
-4. Share nativo Android.
-5. Recién entonces, si hace falta, nube.
-
-Hasta que exista el pack, el workaround es: crear el WOD/plan en el navegador del PC solo como referencia visual, y volver a teclearlo en el teléfono — o usar Chrome remote debugging; no copia datos.
+1. ~~Definir `wodplanning.pack` + export/import en la web~~ (hecho: Drive + fichero en `#/sync`).
+2. Layout desktop opcional (`min-width`) sin romper `max-w-lg` del timer a pantalla completa.
+3. Share nativo Android / merge por id al importar.
+4. Ideas B–E solo si hace falta.

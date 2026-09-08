@@ -32,7 +32,7 @@ Skills: `wodplanning` (índice), `wodplanning-compat`, `wodplanning-timer`, `wod
 | Nueva ruta | `App.tsx` solamente, hash |
 | Historial de entrenos | `types/history.ts`, `lib/history.ts`, `HistoryList`, `HistoryDetail` |
 | RM / máximos | `types/rm.ts`, `lib/rms.ts`, `RmList`, `RmEditor` |
-| Drive / pack | `types/pack.ts`, `lib/pack.ts`, `lib/sync.ts`, `lib/googleAuth.ts`, `lib/drive.ts`, `DriveSync` |
+| Drive / pack / fichero | `types/pack.ts`, `lib/pack.ts` (`downloadPackFile`, `readPackFromFile`), `lib/sync.ts`, `lib/googleAuth.ts`, `lib/drive.ts`, `DriveSync` |
 
 ## Verificación
 
