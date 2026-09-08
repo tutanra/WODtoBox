@@ -3,7 +3,7 @@ import { beep, unlockAudio } from '../lib/audio'
 import { pulse } from '../lib/haptics'
 
 export function useRestTimer(initialSeconds = 150) {
-  const [duration, setDuration] = useState(initialSeconds)
+  const [duration, setDurationState] = useState(initialSeconds)
   const [running, setRunning] = useState(false)
   const [endsAt, setEndsAt] = useState<number | null>(null)
   const [now, setNow] = useState(() => Date.now())
@@ -36,6 +36,15 @@ export function useRestTimer(initialSeconds = 150) {
     beep('rest')
     void pulse('medium')
   }, [duration])
+
+  const setDuration = useCallback((seconds: number) => {
+    setDurationState(seconds)
+    if (running) {
+      finished.current = false
+      setEndsAt(Date.now() + seconds * 1000)
+      setNow(Date.now())
+    }
+  }, [running])
 
   const stop = useCallback(() => {
     setRunning(false)

@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { ChevronLeft } from 'lucide-react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Screen } from '../components/Screen'
+import { Stepper } from '../components/Stepper'
 import { TopBar } from '../components/TopBar'
 import { useRestTimer } from '../hooks/useRestTimer'
-import { formatClock, formatCompact } from '../lib/format'
+import { clamp, formatClock, formatCompact, minutesOf, secondsOf, toTotalSeconds } from '../lib/format'
 import { recordPlanSession } from '../lib/history'
 import { getProgram } from '../lib/programs'
 import { saveSession, startSession } from '../lib/sessions'
@@ -21,6 +22,46 @@ import {
 } from '../types/program'
 
 const REST_PRESETS = [120, 150, 180]
+const REST_MIN = 5
+const REST_MAX = 600
+
+function RestChipRow({
+  duration,
+  onPreset,
+  onCustom,
+}: {
+  duration: number
+  onPreset: (seconds: number) => void
+  onCustom: () => void
+}) {
+  const isCustom = !REST_PRESETS.includes(duration)
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      {REST_PRESETS.map((seconds) => (
+        <button
+          key={seconds}
+          type="button"
+          onClick={() => onPreset(seconds)}
+          className={`rounded-full px-3 py-1.5 text-sm font-semibold ${
+            duration === seconds ? 'bg-rest text-ink' : 'bg-panel-2 text-paper'
+          }`}
+        >
+          {formatCompact(seconds)}
+        </button>
+      ))}
+      <button
+        type="button"
+        onClick={onCustom}
+        className={`rounded-full px-3 py-1.5 text-sm font-semibold ${
+          isCustom ? 'bg-rest text-ink' : 'border border-dashed border-rest/70 bg-transparent text-rest'
+        }`}
+        aria-label="Pausa personalizada"
+      >
+        {isCustom ? formatCompact(duration) : 'otro'}
+      </button>
+    </div>
+  )
+}
 
 export function PlanSession() {
   const { programId, dayId } = useParams()
@@ -59,6 +100,9 @@ function LiveSession({
   const navigate = useNavigate()
   const [session, setSession] = useState(() => startSession(program.id, week.id, day.id))
   const rest = useRestTimer(session.restSeconds)
+  const [customOpen, setCustomOpen] = useState(false)
+  const [customMin, setCustomMin] = useState(() => minutesOf(session.restSeconds))
+  const [customSec, setCustomSec] = useState(() => secondsOf(session.restSeconds))
 
   useEffect(() => {
     void requestWakeLock()
@@ -73,6 +117,18 @@ function LiveSession({
     const saved = saveSession(next)
     setSession(saved)
     return saved
+  }
+
+  const applyRest = (seconds: number) => {
+    const next = clamp(seconds, REST_MIN, REST_MAX)
+    rest.setDuration(next)
+    persist({ ...session, restSeconds: next })
+  }
+
+  const openCustomRest = () => {
+    setCustomMin(minutesOf(rest.duration))
+    setCustomSec(secondsOf(rest.duration))
+    setCustomOpen(true)
   }
 
   const logFor = (set: ProgramSet): SetLog =>
@@ -109,30 +165,35 @@ function LiveSession({
       {rest.running ? (
         <div className="pointer-events-none fixed inset-x-0 top-0 z-20">
           <div className="pointer-events-auto mx-auto w-full max-w-lg px-5 pt-[max(1rem,env(safe-area-inset-top))]">
-            <div className="flex items-center gap-3 rounded-3xl border border-rest/50 bg-panel p-3 shadow-lg shadow-black/40">
-              <button
-                type="button"
-                onClick={leave}
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-panel-2 text-paper"
-                aria-label="Volver"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </button>
-              <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold tracking-[0.3em] text-rest">PAUSA</p>
-                <p
-                  className={`w-fit font-timer text-5xl font-bold leading-none text-rest ${lastTen ? 'last-ten' : ''}`}
+            <div className="rounded-3xl border border-rest/50 bg-panel p-3 shadow-lg shadow-black/40">
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={leave}
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-panel-2 text-paper"
+                  aria-label="Volver"
                 >
-                  {formatClock(rest.remainingMs, true)}
-                </p>
+                  <ChevronLeft className="h-6 w-6" />
+                </button>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-semibold tracking-[0.3em] text-rest">PAUSA</p>
+                  <p
+                    className={`w-fit font-timer text-5xl font-bold leading-none text-rest ${lastTen ? 'last-ten' : ''}`}
+                  >
+                    {formatClock(rest.remainingMs, true)}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={rest.stop}
+                  className="shrink-0 rounded-2xl bg-rest px-4 py-3 text-sm font-semibold text-ink"
+                >
+                  Saltar
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={rest.stop}
-                className="shrink-0 rounded-2xl bg-rest px-4 py-3 text-sm font-semibold text-ink"
-              >
-                Saltar
-              </button>
+              <div className="mt-3">
+                <RestChipRow duration={rest.duration} onPreset={applyRest} onCustom={openCustomRest} />
+              </div>
             </div>
           </div>
         </div>
@@ -144,21 +205,7 @@ function LiveSession({
       </p>
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <p className="text-xs font-semibold tracking-[0.22em] text-mute">PAUSA</p>
-        {REST_PRESETS.map((seconds) => (
-          <button
-            key={seconds}
-            type="button"
-            onClick={() => {
-              rest.setDuration(seconds)
-              persist({ ...session, restSeconds: seconds })
-            }}
-            className={`rounded-full px-3 py-1.5 text-sm font-semibold ${
-              rest.duration === seconds ? 'bg-rest text-ink' : 'bg-panel-2 text-paper'
-            }`}
-          >
-            {formatCompact(seconds)}
-          </button>
-        ))}
+        <RestChipRow duration={rest.duration} onPreset={applyRest} onCustom={openCustomRest} />
       </div>
 
       <div className="flex flex-col gap-4">
@@ -219,6 +266,52 @@ function LiveSession({
           </article>
         ))}
       </div>
+
+      {customOpen ? (
+        <div className="fixed inset-0 z-30 flex items-end justify-center bg-black/60 p-5">
+          <div className="w-full max-w-lg rounded-3xl border border-line bg-panel p-5">
+            <p className="font-display text-4xl text-paper">Pausa</p>
+            <p className="mt-2 text-sm text-mute">Minutos y segundos para esta pausa.</p>
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <Stepper
+                label="Min"
+                value={customMin}
+                min={0}
+                max={10}
+                onChange={setCustomMin}
+              />
+              <Stepper
+                label="Seg"
+                value={customSec}
+                min={0}
+                max={59}
+                step={5}
+                format={(value) => String(value).padStart(2, '0')}
+                onChange={setCustomSec}
+              />
+            </div>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setCustomOpen(false)}
+                className="rounded-2xl border border-line py-3 font-semibold text-paper"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  applyRest(toTotalSeconds(customMin, customSec))
+                  setCustomOpen(false)
+                }}
+                className="rounded-2xl bg-rest py-3 font-semibold text-ink"
+              >
+                Poner
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </Screen>
   )
 }

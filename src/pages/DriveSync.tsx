@@ -152,6 +152,7 @@ export function DriveSync() {
 
   const purgeLocal = () => {
     purgeLocalData()
+    setMeta(readSyncMeta())
     setLocalStamp((value) => value + 1)
     setPendingPurge(null)
   }
@@ -511,7 +512,7 @@ export function DriveSync() {
             </p>
             <p className="mt-2 text-sm text-mute">
               {pendingPurge === 'local'
-                ? 'Se borran WODs, plan, RM e historial de este dispositivo. WOD Heroes vuelven al original. Drive no se toca.'
+                ? 'Se borran WODs, plan, RM e historial de este dispositivo. WOD Heroes vuelven al original. Drive no se toca. La última sync de este dispositivo se olvida.'
                 : 'Se borra wodtobox.pack.json de tu Drive. Este dispositivo no se toca.'}
             </p>
             <div className="mt-5 grid grid-cols-2 gap-3">

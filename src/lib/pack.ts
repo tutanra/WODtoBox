@@ -3,6 +3,7 @@ import { listPrograms, replacePrograms } from './programs'
 import { listRms, replaceRms } from './rms'
 import { clearRunSession } from './runSession'
 import { listSessions, replaceSessions } from './sessions'
+import { writeSyncMeta } from './sync'
 import { dumpWods, replaceWods } from './wods'
 import { normalizeWod } from '../types/wod'
 import { shareOrDownloadFile } from './shareFile'
@@ -113,4 +114,5 @@ export function purgeLocalData() {
   replaceRms([])
   clearRunSession()
   dumpWods()
+  writeSyncMeta({ lastSyncAt: null, lastDirection: null })
 }

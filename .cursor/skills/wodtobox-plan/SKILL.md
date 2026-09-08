@@ -14,7 +14,7 @@ Si el historial de un día apunta a esos ids, `relinkOrphanPlanHistory` lo engan
 ## Sesión
 
 - `startSession` reanuda si hay sesión para ese día (también si ya se había completado).
-- Pausa default 150 s (presets 120/150/180).
+- Pausa default 150 s (presets 120/150/180). Chip **otro** abre min/seg (5–600 s). Si la pausa corre, cambiar duración reinicia el reloj.
 - Marcar serie hecha arranca pausa si no es la última.
 - No hace falta un normalizer profundo de `SessionLog`; no rompas `{ id, programId, dayId, logs }`.
 

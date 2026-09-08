@@ -18,13 +18,13 @@ Lee `docs/wods.md`. Storage: `wodtobox.wods`. API: `listWods` (usuario) / `listH
 | Qué | Dónde |
 | --- | --- |
 | Campos del modelo | `src/types/wod.ts` + default en `normalizeWod` |
-| Lista / borrar / lanzar | `WodsList.tsx` |
+| Lista / lanzar | `WodsList.tsx` |
 | WOD Heroes | `data/heroWods.ts`, `WodHeroes.tsx`, reseed en `wods.ts`. Ids `hero-*` fijos. |
-| Editor | `WodEditor.tsx` + `TimerFields` + `WodBlockList` |
+| Editor | `WodEditor.tsx` + `TimerFields` + `WodBlockList` (guarda al cambiar; Compartir en la barra; Borrar WOD al final si ya está en la lista, no en `#/wods/new` vacío ni en Heroes) |
 | Overlay en run | `WodOverlay.tsx` + `activeBlockId` en `wodProgress.ts` |
 | Persistencia | `src/lib/wods.ts` |
 
-Lanzar al timer: `persistRunSession({ config, wod })` y navegar a `#/timers/:kind/run`.
+Lanzar al timer: desde `WodsList` / `WodHeroes` (`persistRunSession({ config, wod })` y navegar a `#/timers/:kind/run`). El editor no lanza.
 
 ## No hacer
 

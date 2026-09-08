@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
-import { Dumbbell, FileUp, Medal, Play, Plus, Trash2 } from 'lucide-react'
+import { useEffect, useRef, useState, type ChangeEvent } from 'react'
+import { Dumbbell, FileUp, Medal, Play, Plus } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Screen } from '../components/Screen'
 import { TopBar } from '../components/TopBar'
@@ -9,20 +9,18 @@ import { onIncomingWodShare, takeIncomingWodShare } from '../lib/incomingWod'
 import { copyImportedWod, parseWodShareText } from '../lib/shareWod'
 import { summarizeTimer } from '../lib/summarize'
 import { unlockAudio } from '../lib/audio'
-import { deleteWod, listWods, saveWod } from '../lib/wods'
+import { listWods, saveWod } from '../lib/wods'
 import { wodPreview, type Wod } from '../types/wod'
 
 export function WodsList() {
   const navigate = useNavigate()
   const fileRef = useRef<HTMLInputElement>(null)
   const [wods, setWods] = useState(() => listWods())
-  const [pendingId, setPendingId] = useState<string | null>(null)
   const [pendingImport, setPendingImport] = useState<Wod | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const empty = wods.length === 0
-  const pending = useMemo(() => wods.find((wod) => wod.id === pendingId) ?? null, [pendingId, wods])
 
   useEffect(() => {
     const applyIncoming = () => {
@@ -147,7 +145,7 @@ export function WodsList() {
                 <p className="mt-2 text-sm text-mute">{wodPreview(wod)}</p>
                 <p className="mt-1 text-xs text-mute">{summarizeTimer(wod.timer)}</p>
               </Link>
-              <div className="mt-3 flex gap-2">
+              <div className="mt-3">
                 <button
                   type="button"
                   onClick={() => {
@@ -155,18 +153,10 @@ export function WodsList() {
                     persistRunSession({ config: wod.timer, wod, runId: newRunId() })
                     navigate(`/timers/${wod.kind}/run`, { state: { config: wod.timer, wod } })
                   }}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-flame py-2.5 text-sm font-semibold text-ink"
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-flame py-2.5 text-sm font-semibold text-ink"
                 >
                   <Play className="h-4 w-4" />
                   Al timer
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPendingId(wod.id)}
-                  className="flex h-11 w-11 items-center justify-center rounded-2xl bg-panel-2 text-mute"
-                  aria-label="Borrar"
-                >
-                  <Trash2 className="h-4 w-4" />
                 </button>
               </div>
             </div>
@@ -209,35 +199,6 @@ export function WodsList() {
               </button>
               <button type="button" onClick={applyImport} className="rounded-2xl bg-flame py-3 font-semibold text-ink">
                 Añadir
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
-
-      {pending ? (
-        <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/60 p-5">
-          <div className="w-full max-w-lg rounded-3xl border border-line bg-panel p-5">
-            <p className="font-display text-4xl text-paper">¿Borrar {pending.name.trim() || 'este WOD'}?</p>
-            <p className="mt-2 text-sm text-mute">Se elimina de la lista. No afecta a WOD Heroes ni a los timers sueltos.</p>
-            <div className="mt-5 grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setPendingId(null)}
-                className="rounded-2xl border border-line py-3 font-semibold text-paper"
-              >
-                Cancelar
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  deleteWod(pending.id)
-                  setWods(listWods())
-                  setPendingId(null)
-                }}
-                className="rounded-2xl bg-warn py-3 font-semibold text-paper"
-              >
-                Borrar
               </button>
             </div>
           </div>
