@@ -215,7 +215,7 @@ export function planLiftSummary(entry: HistoryPlanEntry) {
     }))]
     parts.push(`${name} ${lines.join(', ')}`)
   }
-  return parts.join(' · ')
+  return parts.join('\n')
 }
 
 export function historyResultLabel(entry: HistoryEntry) {

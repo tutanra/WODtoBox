@@ -34,7 +34,7 @@ Los WODs se guardan en `localStorage`. Detalle: [wods.md](wods.md).
 Programas de fuerza por semanas y días.
 
 1. Lista: plantillas PDF (no se borran) + planes `CUSTOM`.
-2. `#/plan/:programId` — nombre, notas, objetivos, semanas. Copiar semana, añadir, borrar. En plantillas: restaurar PDF.
+2. `#/plan/:programId` — nombre, notas, objetivos, semanas. Copiar semana, añadir, borrar. En plantillas: restaurar PDF. Cada día muestra el foco y los ejercicios **uno por línea**.
 3. `#/plan/:id/day/:dayId` — editar ejercicios, series, kilos, reps. `ENTRENAR`.
 4. `#/plan/.../train` — sesión: marcar series, ajustar reps hechas. Misma columna y padding que el resto de pantallas. La pausa arranca al marcar una serie (si no es la última); el reloj se superpone arriba sin mover el listado. En los últimos 10 s pulsa como el timer. Si no está activa, no ocupa sitio. Cada serie marcada o desmarcada actualiza el historial; si no queda ninguna, el día desaparece de ahí. Atrás sale de la sesión. En el programa: **Reiniciar plan** borra el progreso de las sesiones; el historial de días con series hechas se queda.
 

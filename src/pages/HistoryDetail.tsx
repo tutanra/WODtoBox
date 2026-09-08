@@ -30,7 +30,7 @@ export function HistoryDetail() {
           : `${formatHistoryDay(entry.finishedAt).toUpperCase()} · ${formatHistoryTime(entry.finishedAt)}`}
       </p>
       <h2 className="mt-2 font-display text-5xl leading-none text-paper">{historyTitle(entry)}</h2>
-      <p className="mt-3 rounded-2xl bg-panel px-4 py-3 text-sm font-semibold text-gold">
+      <p className="mt-3 whitespace-pre-line rounded-2xl bg-panel px-4 py-3 text-sm font-semibold text-gold">
         {historyResultLabel(entry)}
       </p>
 
