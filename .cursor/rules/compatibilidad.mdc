@@ -9,10 +9,9 @@ Fuente: `docs/compatibilidad.md` y `docs/contrato.json`. Corre `npm run check:co
 
 - No renombrar claves `wodtobox.wods` / `.programs` / `.sessions` / `.runSession` sin lector dual + migrador.
 - No quitar valores de `TIMER_KINDS`. Añadir al final sí.
-- No cambiar ids `power-clean-100` ni `kipping-muscle-up`.
-- No cambiar `com.wodotobox.app`.
+- No cambiar ids `hero-*` ni `com.wodotobox.app`.
 - Seguir con `HashRouter` y Vite `base: './'`.
-- Extender `normalizeWod` / `normalizeTimerConfig` / reseed de plantillas; no borrar ramas legacy.
+- Extender `normalizeWod` / `normalizeTimerConfig` / `normalizeProgram`; no borrar ramas legacy.
 - Un cambio de comportamiento de usuario actualiza el doc en `docs/` en el mismo PR.
 - Escritorio/export: solo ideas en `docs/escritorio.md` hasta que el humano lo pida.
 - No uses la marca «CrossFit» en UI, README ni ficha de tienda.

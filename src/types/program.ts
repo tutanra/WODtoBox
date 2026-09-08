@@ -91,6 +91,17 @@ export function emptyDay(name = 'Día 1'): ProgramDay {
   }
 }
 
+export const MAX_DAYS_PER_WEEK = 7
+
+export function nextDayName(days: ProgramDay[]) {
+  const used = new Set(days.map((day) => day.name.trim().toLowerCase()))
+  for (let index = 1; index <= MAX_DAYS_PER_WEEK; index += 1) {
+    const name = `Día ${index}`
+    if (!used.has(name.toLowerCase())) return name
+  }
+  return `Día ${days.length + 1}`
+}
+
 export function emptyWeek(number: number): ProgramWeek {
   return {
     id: newId(),
@@ -98,7 +109,7 @@ export function emptyWeek(number: number): ProgramWeek {
     title: `Semana ${number}`,
     phase: '',
     goal: '',
-    days: [emptyDay('Día 1'), emptyDay('Día 2')],
+    days: [emptyDay('Día 1')],
   }
 }
 
@@ -126,6 +137,10 @@ export function renumberWeeks(weeks: ProgramWeek[]) {
     const autoTitle = week.title.trim() === `Semana ${week.number}` || week.title.trim() === ''
     return { ...week, number, title: autoTitle ? `Semana ${number}` : week.title }
   })
+}
+
+export function emptyTarget(): ProgramTarget {
+  return { movement: '', start: '', goal: '', ratio: '' }
 }
 
 export function emptyProgram(): Program {
@@ -175,4 +190,106 @@ export function findDay(program: Program, dayId: string) {
     if (day) return { week, day }
   }
   return null
+}
+
+function asString(value: unknown, fallback = '') {
+  return typeof value === 'string' ? value : fallback
+}
+
+function asFiniteNumber(value: unknown, fallback: number) {
+  return typeof value === 'number' && Number.isFinite(value) ? value : fallback
+}
+
+function normalizeSet(value: unknown): ProgramSet | null {
+  if (!value || typeof value !== 'object') return null
+  const raw = value as Record<string, unknown>
+  const reps = asFiniteNumber(raw.reps, 0)
+  if (reps < 1) return null
+  const weightKg =
+    typeof raw.weightKg === 'number' && Number.isFinite(raw.weightKg) ? raw.weightKg : null
+  return {
+    id: typeof raw.id === 'string' && raw.id ? raw.id : newId(),
+    reps,
+    weightKg,
+    weightText: asString(raw.weightText, weightKg != null ? String(weightKg) : ''),
+  }
+}
+
+function normalizeExercise(value: unknown): ProgramExercise | null {
+  if (!value || typeof value !== 'object') return null
+  const raw = value as Record<string, unknown>
+  if (!Array.isArray(raw.sets)) return null
+  const sets = raw.sets.map(normalizeSet).filter((set): set is ProgramSet => set != null)
+  if (sets.length === 0) return null
+  return {
+    id: typeof raw.id === 'string' && raw.id ? raw.id : newId(),
+    name: asString(raw.name),
+    cue: asString(raw.cue),
+    sets,
+  }
+}
+
+function normalizeDay(value: unknown): ProgramDay | null {
+  if (!value || typeof value !== 'object') return null
+  const raw = value as Record<string, unknown>
+  if (!Array.isArray(raw.exercises)) return null
+  const exercises = raw.exercises
+    .map(normalizeExercise)
+    .filter((exercise): exercise is ProgramExercise => exercise != null)
+  if (exercises.length === 0) return null
+  return {
+    id: typeof raw.id === 'string' && raw.id ? raw.id : newId(),
+    name: asString(raw.name, 'Día'),
+    focus: asString(raw.focus),
+    exercises,
+  }
+}
+
+function normalizeWeek(value: unknown): ProgramWeek | null {
+  if (!value || typeof value !== 'object') return null
+  const raw = value as Record<string, unknown>
+  if (!Array.isArray(raw.days)) return null
+  const days = raw.days.map(normalizeDay).filter((day): day is ProgramDay => day != null)
+  if (days.length === 0) return null
+  return {
+    id: typeof raw.id === 'string' && raw.id ? raw.id : newId(),
+    number: asFiniteNumber(raw.number, 1),
+    title: asString(raw.title),
+    phase: asString(raw.phase),
+    goal: asString(raw.goal),
+    days,
+  }
+}
+
+function normalizeTarget(value: unknown): ProgramTarget | null {
+  if (!value || typeof value !== 'object') return null
+  const raw = value as Record<string, unknown>
+  const movement = asString(raw.movement)
+  const start = asString(raw.start)
+  const goal = asString(raw.goal)
+  const ratio = asString(raw.ratio)
+  if (!movement && !start && !goal && !ratio) return null
+  return { movement, start, goal, ratio }
+}
+
+export function normalizeProgram(value: unknown): Program | null {
+  if (!value || typeof value !== 'object') return null
+  const raw = value as Record<string, unknown>
+  if (typeof raw.id !== 'string' || raw.id === '') return null
+  if (!Array.isArray(raw.weeks)) return null
+  const weeks = raw.weeks.map(normalizeWeek).filter((week): week is ProgramWeek => week != null)
+  if (weeks.length === 0) return null
+  return {
+    id: raw.id,
+    name: asString(raw.name),
+    subtitle: asString(raw.subtitle),
+    notes: asString(raw.notes),
+    seeded: raw.seeded === true,
+    targets: Array.isArray(raw.targets)
+      ? raw.targets.map(normalizeTarget).filter((target): target is ProgramTarget => target != null)
+      : [],
+    weeks,
+    createdAt: asFiniteNumber(raw.createdAt, Date.now()),
+    updatedAt: asFiniteNumber(raw.updatedAt, Date.now()),
+  }
 }

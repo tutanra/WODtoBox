@@ -1,0 +1,2167 @@
+{
+  "format": "wodtobox.plan",
+  "schemaVersion": 1,
+  "exportedAt": 1788897518836,
+  "program": {
+    "id": "power-clean-100",
+    "name": "Road to 100 kg",
+    "subtitle": "Power Clean · 12 semanas",
+    "notes": "PDF orientativo: edita kilos, series y reps en la app. Descansos 2–3 min entre series principales. Si la barra desacelera o la recepción es fea, no subas de peso ese día.\n\nClaves: paciencia en el 1er tirón, contacto en muslo alto, latigazo de codos, pies de salto a sentadilla (sin starfish).",
+    "seeded": false,
+    "targets": [
+      {
+        "movement": "Power Clean",
+        "start": "80 kg",
+        "goal": "100 kg",
+        "ratio": "Meta"
+      },
+      {
+        "movement": "Front Squat",
+        "start": "100 kg",
+        "goal": "115-120 kg",
+        "ratio": "~83% PC"
+      },
+      {
+        "movement": "Back Squat",
+        "start": "120-130 kg",
+        "goal": "135-145 kg",
+        "ratio": "~70% PC"
+      },
+      {
+        "movement": "Clean Pulls",
+        "start": "80 kg",
+        "goal": "115-120 kg",
+        "ratio": "Sobrecarga"
+      }
+    ],
+    "weeks": [
+      {
+        "id": "power-clean-100-w01",
+        "number": 1,
+        "title": "Aceleración",
+        "phase": "Fase 1 · Re-aceleración",
+        "goal": "88-90 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w01-d1",
+            "name": "Día 1",
+            "focus": "Velocidad de tirón & Front Squat",
+            "exercises": [
+              {
+                "id": "power-clean-100-w01-d1-e0",
+                "name": "Hang Power Clean",
+                "cue": "70%",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w01-d1-e0-s0",
+                    "reps": 3,
+                    "weightKg": 55,
+                    "weightText": "55"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d1-e0-s1",
+                    "reps": 3,
+                    "weightKg": 55,
+                    "weightText": "55"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d1-e0-s2",
+                    "reps": 3,
+                    "weightKg": 55,
+                    "weightText": "55"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d1-e0-s3",
+                    "reps": 3,
+                    "weightKg": 55,
+                    "weightText": "55"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d1-e0-s4",
+                    "reps": 3,
+                    "weightKg": 55,
+                    "weightText": "55"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w01-d1-e1",
+                "name": "Front Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w01-d1-e1-s0",
+                    "reps": 4,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d1-e1-s1",
+                    "reps": 4,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d1-e1-s2",
+                    "reps": 4,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d1-e1-s3",
+                    "reps": 4,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w01-d1-e2",
+                "name": "Clean Pulls",
+                "cue": "Énfasis en la extensión",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w01-d1-e2-s0",
+                    "reps": 3,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d1-e2-s1",
+                    "reps": 3,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d1-e2-s2",
+                    "reps": 3,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d1-e2-s3",
+                    "reps": 3,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w01-d2",
+            "name": "Día 2",
+            "focus": "Potencia desde suelo & Back Squat",
+            "exercises": [
+              {
+                "id": "power-clean-100-w01-d2-e0",
+                "name": "Power Clean",
+                "cue": "Pausa 1s en rodilla",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w01-d2-e0-s0",
+                    "reps": 2,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d2-e0-s1",
+                    "reps": 2,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d2-e0-s2",
+                    "reps": 2,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d2-e0-s3",
+                    "reps": 2,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d2-e0-s4",
+                    "reps": 2,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w01-d2-e1",
+                "name": "Back Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w01-d2-e1-s0",
+                    "reps": 5,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d2-e1-s1",
+                    "reps": 5,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d2-e1-s2",
+                    "reps": 5,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d2-e1-s3",
+                    "reps": 5,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w01-d2-e2",
+                "name": "Push Press",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w01-d2-e2-s0",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": "60-65"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d2-e2-s1",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": "60-65"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d2-e2-s2",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": "60-65"
+                  },
+                  {
+                    "id": "power-clean-100-w01-d2-e2-s3",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": "60-65"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power-clean-100-w02",
+        "number": 2,
+        "title": "Contacto",
+        "phase": "Fase 1 · Re-aceleración",
+        "goal": "88-90 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w02-d1",
+            "name": "Día 1",
+            "focus": "Velocidad de tirón & Front Squat",
+            "exercises": [
+              {
+                "id": "power-clean-100-w02-d1-e0",
+                "name": "High Hang Power Clean",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w02-d1-e0-s0",
+                    "reps": 2,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d1-e0-s1",
+                    "reps": 2,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d1-e0-s2",
+                    "reps": 2,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d1-e0-s3",
+                    "reps": 2,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w02-d1-e1",
+                "name": "Front Squat",
+                "cue": "Pausa 2s abajo",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w02-d1-e1-s0",
+                    "reps": 3,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d1-e1-s1",
+                    "reps": 3,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d1-e1-s2",
+                    "reps": 3,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d1-e1-s3",
+                    "reps": 3,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w02-d1-e2",
+                "name": "Clean High Pulls",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w02-d1-e2-s0",
+                    "reps": 3,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d1-e2-s1",
+                    "reps": 3,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d1-e2-s2",
+                    "reps": 3,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d1-e2-s3",
+                    "reps": 3,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w02-d2",
+            "name": "Día 2",
+            "focus": "Potencia desde suelo & Back Squat",
+            "exercises": [
+              {
+                "id": "power-clean-100-w02-d2-e0",
+                "name": "Power Clean",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w02-d2-e0-s0",
+                    "reps": 2,
+                    "weightKg": 64,
+                    "weightText": "64"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d2-e0-s1",
+                    "reps": 2,
+                    "weightKg": 64,
+                    "weightText": "64"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d2-e0-s2",
+                    "reps": 2,
+                    "weightKg": 64,
+                    "weightText": "64"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d2-e0-s3",
+                    "reps": 2,
+                    "weightKg": 64,
+                    "weightText": "64"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d2-e0-s4",
+                    "reps": 1,
+                    "weightKg": 68,
+                    "weightText": "68"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d2-e0-s5",
+                    "reps": 1,
+                    "weightKg": 68,
+                    "weightText": "68"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w02-d2-e1",
+                "name": "Back Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w02-d2-e1-s0",
+                    "reps": 4,
+                    "weightKg": 105,
+                    "weightText": "105"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d2-e1-s1",
+                    "reps": 4,
+                    "weightKg": 105,
+                    "weightText": "105"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d2-e1-s2",
+                    "reps": 4,
+                    "weightKg": 105,
+                    "weightText": "105"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d2-e1-s3",
+                    "reps": 4,
+                    "weightKg": 105,
+                    "weightText": "105"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w02-d2-e2",
+                "name": "Push Press",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w02-d2-e2-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "65-70"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d2-e2-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "65-70"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d2-e2-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "65-70"
+                  },
+                  {
+                    "id": "power-clean-100-w02-d2-e2-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "65-70"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power-clean-100-w03",
+        "number": 3,
+        "title": "Confianza",
+        "phase": "Fase 1 · Re-aceleración",
+        "goal": "88-90 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w03-d1",
+            "name": "Día 1",
+            "focus": "Velocidad de tirón & Front Squat",
+            "exercises": [
+              {
+                "id": "power-clean-100-w03-d1-e0",
+                "name": "Hang Power Clean",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w03-d1-e0-s0",
+                    "reps": 2,
+                    "weightKg": 64,
+                    "weightText": "64"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d1-e0-s1",
+                    "reps": 2,
+                    "weightKg": 64,
+                    "weightText": "64"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d1-e0-s2",
+                    "reps": 2,
+                    "weightKg": 64,
+                    "weightText": "64"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d1-e0-s3",
+                    "reps": 1,
+                    "weightKg": 68,
+                    "weightText": "68"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d1-e0-s4",
+                    "reps": 1,
+                    "weightKg": 68,
+                    "weightText": "68"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w03-d1-e1",
+                "name": "Front Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w03-d1-e1-s0",
+                    "reps": 2,
+                    "weightKg": 90,
+                    "weightText": "90"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d1-e1-s1",
+                    "reps": 2,
+                    "weightKg": 90,
+                    "weightText": "90"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d1-e1-s2",
+                    "reps": 2,
+                    "weightKg": 90,
+                    "weightText": "90"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d1-e1-s3",
+                    "reps": 2,
+                    "weightKg": 90,
+                    "weightText": "90"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w03-d1-e2",
+                "name": "Clean Pulls",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w03-d1-e2-s0",
+                    "reps": 2,
+                    "weightKg": 88,
+                    "weightText": "88"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d1-e2-s1",
+                    "reps": 2,
+                    "weightKg": 88,
+                    "weightText": "88"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d1-e2-s2",
+                    "reps": 2,
+                    "weightKg": 88,
+                    "weightText": "88"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w03-d2",
+            "name": "Día 2",
+            "focus": "Potencia desde suelo & Back Squat",
+            "exercises": [
+              {
+                "id": "power-clean-100-w03-d2-e0",
+                "name": "Power Clean (Onda 1)",
+                "cue": "1@64 · 1@68 · 1@72",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w03-d2-e0-s0",
+                    "reps": 1,
+                    "weightKg": 64,
+                    "weightText": "64"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d2-e0-s1",
+                    "reps": 1,
+                    "weightKg": 68,
+                    "weightText": "68"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d2-e0-s2",
+                    "reps": 1,
+                    "weightKg": 72,
+                    "weightText": "72"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w03-d2-e1",
+                "name": "Power Clean (Onda 2)",
+                "cue": "1@68 · 1@72 · 1@74",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w03-d2-e1-s0",
+                    "reps": 1,
+                    "weightKg": 68,
+                    "weightText": "68"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d2-e1-s1",
+                    "reps": 1,
+                    "weightKg": 72,
+                    "weightText": "72"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d2-e1-s2",
+                    "reps": 1,
+                    "weightKg": 74,
+                    "weightText": "74"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w03-d2-e2",
+                "name": "Back Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w03-d2-e2-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "110-112"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d2-e2-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "110-112"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d2-e2-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "110-112"
+                  },
+                  {
+                    "id": "power-clean-100-w03-d2-e2-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "110-112"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power-clean-100-w04",
+        "number": 4,
+        "title": "Test Fase 1",
+        "phase": "Fase 1 · Re-aceleración",
+        "goal": "88-90 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w04-d1",
+            "name": "Día 1",
+            "focus": "Descarga activa + test Power Clean",
+            "exercises": [
+              {
+                "id": "power-clean-100-w04-d1-e0",
+                "name": "Hang Power Clean",
+                "cue": "Descarga activa",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w04-d1-e0-s0",
+                    "reps": 2,
+                    "weightKg": 52,
+                    "weightText": "52"
+                  },
+                  {
+                    "id": "power-clean-100-w04-d1-e0-s1",
+                    "reps": 2,
+                    "weightKg": 52,
+                    "weightText": "52"
+                  },
+                  {
+                    "id": "power-clean-100-w04-d1-e0-s2",
+                    "reps": 2,
+                    "weightKg": 52,
+                    "weightText": "52"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w04-d1-e1",
+                "name": "Front Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w04-d1-e1-s0",
+                    "reps": 2,
+                    "weightKg": 70,
+                    "weightText": "70"
+                  },
+                  {
+                    "id": "power-clean-100-w04-d1-e1-s1",
+                    "reps": 2,
+                    "weightKg": 70,
+                    "weightText": "70"
+                  },
+                  {
+                    "id": "power-clean-100-w04-d1-e1-s2",
+                    "reps": 2,
+                    "weightKg": 70,
+                    "weightText": "70"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w04-d1-e2",
+                "name": "Test Power Clean · aproximaciones",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w04-d1-e2-s0",
+                    "reps": 3,
+                    "weightKg": 40,
+                    "weightText": "40"
+                  },
+                  {
+                    "id": "power-clean-100-w04-d1-e2-s1",
+                    "reps": 2,
+                    "weightKg": 50,
+                    "weightText": "50"
+                  },
+                  {
+                    "id": "power-clean-100-w04-d1-e2-s2",
+                    "reps": 2,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  },
+                  {
+                    "id": "power-clean-100-w04-d1-e2-s3",
+                    "reps": 1,
+                    "weightKg": 70,
+                    "weightText": "70"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w04-d1-e3",
+                "name": "Test Power Clean · intentos",
+                "cue": "90 kg opcional",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w04-d1-e3-s0",
+                    "reps": 1,
+                    "weightKg": 76,
+                    "weightText": "76"
+                  },
+                  {
+                    "id": "power-clean-100-w04-d1-e3-s1",
+                    "reps": 1,
+                    "weightKg": 82,
+                    "weightText": "82"
+                  },
+                  {
+                    "id": "power-clean-100-w04-d1-e3-s2",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": "86-88"
+                  },
+                  {
+                    "id": "power-clean-100-w04-d1-e3-s3",
+                    "reps": 1,
+                    "weightKg": 90,
+                    "weightText": "90"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w04-d2",
+            "name": "Día 2",
+            "focus": "Front Squat single",
+            "exercises": [
+              {
+                "id": "power-clean-100-w04-d2-e0",
+                "name": "Front Squat",
+                "cue": "Buscar single sólida",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w04-d2-e0-s0",
+                    "reps": 1,
+                    "weightKg": 105,
+                    "weightText": "105"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power-clean-100-w05",
+        "number": 5,
+        "title": "Sobrecarga",
+        "phase": "Fase 2 · Sobrecarga estructural",
+        "goal": "92-95 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w05-d1",
+            "name": "Día 1",
+            "focus": "Tirón pesado & Front Squat",
+            "exercises": [
+              {
+                "id": "power-clean-100-w05-d1-e0",
+                "name": "Hang Power Clean",
+                "cue": "Desde rodilla",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w05-d1-e0-s0",
+                    "reps": 2,
+                    "weightKg": 72,
+                    "weightText": "72"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d1-e0-s1",
+                    "reps": 2,
+                    "weightKg": 72,
+                    "weightText": "72"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d1-e0-s2",
+                    "reps": 2,
+                    "weightKg": 72,
+                    "weightText": "72"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d1-e0-s3",
+                    "reps": 2,
+                    "weightKg": 72,
+                    "weightText": "72"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w05-d1-e1",
+                "name": "Front Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w05-d1-e1-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "88-90"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d1-e1-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "88-90"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d1-e1-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "88-90"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d1-e1-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "88-90"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w05-d1-e2",
+                "name": "Clean Pulls",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w05-d1-e2-s0",
+                    "reps": 3,
+                    "weightKg": 95,
+                    "weightText": "95"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d1-e2-s1",
+                    "reps": 3,
+                    "weightKg": 95,
+                    "weightText": "95"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d1-e2-s2",
+                    "reps": 3,
+                    "weightKg": 95,
+                    "weightText": "95"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d1-e2-s3",
+                    "reps": 3,
+                    "weightKg": 95,
+                    "weightText": "95"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w05-d2",
+            "name": "Día 2",
+            "focus": "Potencia & Back Squat pesada",
+            "exercises": [
+              {
+                "id": "power-clean-100-w05-d2-e0",
+                "name": "Power Clean",
+                "cue": "Desde suelo",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w05-d2-e0-s0",
+                    "reps": 2,
+                    "weightKg": 75,
+                    "weightText": "75"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d2-e0-s1",
+                    "reps": 2,
+                    "weightKg": 75,
+                    "weightText": "75"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d2-e0-s2",
+                    "reps": 2,
+                    "weightKg": 75,
+                    "weightText": "75"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d2-e0-s3",
+                    "reps": 2,
+                    "weightKg": 75,
+                    "weightText": "75"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d2-e0-s4",
+                    "reps": 2,
+                    "weightKg": 75,
+                    "weightText": "75"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w05-d2-e1",
+                "name": "Back Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w05-d2-e1-s0",
+                    "reps": 4,
+                    "weightKg": 112,
+                    "weightText": "112"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d2-e1-s1",
+                    "reps": 4,
+                    "weightKg": 112,
+                    "weightText": "112"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d2-e1-s2",
+                    "reps": 4,
+                    "weightKg": 112,
+                    "weightText": "112"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d2-e1-s3",
+                    "reps": 4,
+                    "weightKg": 112,
+                    "weightText": "112"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w05-d2-e2",
+                "name": "Push Press",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w05-d2-e2-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "70-75"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d2-e2-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "70-75"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d2-e2-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "70-75"
+                  },
+                  {
+                    "id": "power-clean-100-w05-d2-e2-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "70-75"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power-clean-100-w06",
+        "number": 6,
+        "title": "Intensidad",
+        "phase": "Fase 2 · Sobrecarga estructural",
+        "goal": "92-95 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w06-d1",
+            "name": "Día 1",
+            "focus": "Tirón pesado & Front Squat",
+            "exercises": [
+              {
+                "id": "power-clean-100-w06-d1-e0",
+                "name": "High Hang Power Clean",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w06-d1-e0-s0",
+                    "reps": 2,
+                    "weightKg": 75,
+                    "weightText": "75"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d1-e0-s1",
+                    "reps": 2,
+                    "weightKg": 75,
+                    "weightText": "75"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d1-e0-s2",
+                    "reps": 2,
+                    "weightKg": 75,
+                    "weightText": "75"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d1-e0-s3",
+                    "reps": 2,
+                    "weightKg": 75,
+                    "weightText": "75"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w06-d1-e1",
+                "name": "Front Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w06-d1-e1-s0",
+                    "reps": 3,
+                    "weightKg": 92,
+                    "weightText": "92"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d1-e1-s1",
+                    "reps": 3,
+                    "weightKg": 92,
+                    "weightText": "92"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d1-e1-s2",
+                    "reps": 3,
+                    "weightKg": 92,
+                    "weightText": "92"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d1-e1-s3",
+                    "reps": 2,
+                    "weightKg": 96,
+                    "weightText": "96"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w06-d1-e2",
+                "name": "Clean High Pulls",
+                "cue": "Sobre ombligo",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w06-d1-e2-s0",
+                    "reps": 2,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d1-e2-s1",
+                    "reps": 2,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d1-e2-s2",
+                    "reps": 2,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d1-e2-s3",
+                    "reps": 2,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w06-d2",
+            "name": "Día 2",
+            "focus": "Potencia & Back Squat pesada",
+            "exercises": [
+              {
+                "id": "power-clean-100-w06-d2-e0",
+                "name": "Power Clean",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w06-d2-e0-s0",
+                    "reps": 2,
+                    "weightKg": 78,
+                    "weightText": "78"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d2-e0-s1",
+                    "reps": 2,
+                    "weightKg": 78,
+                    "weightText": "78"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d2-e0-s2",
+                    "reps": 2,
+                    "weightKg": 78,
+                    "weightText": "78"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d2-e0-s3",
+                    "reps": 1,
+                    "weightKg": 82,
+                    "weightText": "82"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d2-e0-s4",
+                    "reps": 1,
+                    "weightKg": 82,
+                    "weightText": "82"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w06-d2-e1",
+                "name": "Back Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w06-d2-e1-s0",
+                    "reps": 3,
+                    "weightKg": 118,
+                    "weightText": "118"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d2-e1-s1",
+                    "reps": 3,
+                    "weightKg": 118,
+                    "weightText": "118"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d2-e1-s2",
+                    "reps": 3,
+                    "weightKg": 118,
+                    "weightText": "118"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d2-e1-s3",
+                    "reps": 3,
+                    "weightKg": 118,
+                    "weightText": "118"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w06-d2-e2",
+                "name": "Push Jerk / Power Jerk",
+                "cue": "Series pesadas",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w06-d2-e2-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "pesadas"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d2-e2-s1",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "pesadas"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d2-e2-s2",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "pesadas"
+                  },
+                  {
+                    "id": "power-clean-100-w06-d2-e2-s3",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "pesadas"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power-clean-100-w07",
+        "number": 7,
+        "title": "Pico de carga",
+        "phase": "Fase 2 · Sobrecarga estructural",
+        "goal": "92-95 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w07-d1",
+            "name": "Día 1",
+            "focus": "Tirón pesado & Front Squat",
+            "exercises": [
+              {
+                "id": "power-clean-100-w07-d1-e0",
+                "name": "Hang Power Clean",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w07-d1-e0-s0",
+                    "reps": 1,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d1-e0-s1",
+                    "reps": 1,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d1-e0-s2",
+                    "reps": 1,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d1-e0-s3",
+                    "reps": 1,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d1-e0-s4",
+                    "reps": 1,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w07-d1-e1",
+                "name": "Front Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w07-d1-e1-s0",
+                    "reps": 1,
+                    "weightKg": 95,
+                    "weightText": "95"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d1-e1-s1",
+                    "reps": 1,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d1-e1-s2",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": "105-108"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w07-d1-e2",
+                "name": "Clean Pulls",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w07-d1-e2-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "105-110"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d1-e2-s1",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "105-110"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d1-e2-s2",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "105-110"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w07-d2",
+            "name": "Día 2",
+            "focus": "Potencia & Back Squat pesada",
+            "exercises": [
+              {
+                "id": "power-clean-100-w07-d2-e0",
+                "name": "Power Clean (Onda 1)",
+                "cue": "1@80 · 1@85 · 1@88",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w07-d2-e0-s0",
+                    "reps": 1,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d2-e0-s1",
+                    "reps": 1,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d2-e0-s2",
+                    "reps": 1,
+                    "weightKg": 88,
+                    "weightText": "88"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w07-d2-e1",
+                "name": "Power Clean (Onda 2)",
+                "cue": "1@84 · 1@88 · 1@92",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w07-d2-e1-s0",
+                    "reps": 1,
+                    "weightKg": 84,
+                    "weightText": "84"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d2-e1-s1",
+                    "reps": 1,
+                    "weightKg": 88,
+                    "weightText": "88"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d2-e1-s2",
+                    "reps": 1,
+                    "weightKg": 92,
+                    "weightText": "92"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w07-d2-e2",
+                "name": "Back Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w07-d2-e2-s0",
+                    "reps": 2,
+                    "weightKg": 125,
+                    "weightText": "125"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d2-e2-s1",
+                    "reps": 2,
+                    "weightKg": 125,
+                    "weightText": "125"
+                  },
+                  {
+                    "id": "power-clean-100-w07-d2-e2-s2",
+                    "reps": 2,
+                    "weightKg": 125,
+                    "weightText": "125"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power-clean-100-w08",
+        "number": 8,
+        "title": "Test Fase 2",
+        "phase": "Fase 2 · Sobrecarga estructural",
+        "goal": "92-95 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w08-d1",
+            "name": "Día 1",
+            "focus": "Test Front Squat",
+            "exercises": [
+              {
+                "id": "power-clean-100-w08-d1-e0",
+                "name": "Power Clean",
+                "cue": "Pura velocidad",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w08-d1-e0-s0",
+                    "reps": 2,
+                    "weightKg": 65,
+                    "weightText": "65"
+                  },
+                  {
+                    "id": "power-clean-100-w08-d1-e0-s1",
+                    "reps": 2,
+                    "weightKg": 65,
+                    "weightText": "65"
+                  },
+                  {
+                    "id": "power-clean-100-w08-d1-e0-s2",
+                    "reps": 2,
+                    "weightKg": 65,
+                    "weightText": "65"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w08-d1-e1",
+                "name": "Front Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w08-d1-e1-s0",
+                    "reps": 2,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w08-d1-e1-s1",
+                    "reps": 2,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w08-d1-e2",
+                "name": "Test Front Squat 1RM",
+                "cue": "Objetivo 112-115 kg",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w08-d1-e2-s0",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": "112-115"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w08-d2",
+            "name": "Día 2",
+            "focus": "Test Power Clean",
+            "exercises": [
+              {
+                "id": "power-clean-100-w08-d2-e0",
+                "name": "Test Power Clean · intentos",
+                "cue": "94-95 kg",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w08-d2-e0-s0",
+                    "reps": 1,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w08-d2-e0-s1",
+                    "reps": 1,
+                    "weightKg": 90,
+                    "weightText": "90"
+                  },
+                  {
+                    "id": "power-clean-100-w08-d2-e0-s2",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": "94-95"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power-clean-100-w09",
+        "number": 9,
+        "title": "Consolidar",
+        "phase": "Fase 3 · Pico de potencia",
+        "goal": "100 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w09-d1",
+            "name": "Día 1",
+            "focus": "Aceleración máxima & soporte",
+            "exercises": [
+              {
+                "id": "power-clean-100-w09-d1-e0",
+                "name": "Hang Power Clean",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w09-d1-e0-s0",
+                    "reps": 2,
+                    "weightKg": 78,
+                    "weightText": "78"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d1-e0-s1",
+                    "reps": 2,
+                    "weightKg": 78,
+                    "weightText": "78"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d1-e0-s2",
+                    "reps": 2,
+                    "weightKg": 78,
+                    "weightText": "78"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d1-e0-s3",
+                    "reps": 2,
+                    "weightKg": 78,
+                    "weightText": "78"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w09-d1-e1",
+                "name": "Front Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w09-d1-e1-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "98-100"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d1-e1-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "98-100"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d1-e1-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "98-100"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w09-d1-e2",
+                "name": "Clean High Pulls",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w09-d1-e2-s0",
+                    "reps": 2,
+                    "weightKg": 105,
+                    "weightText": "105"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d1-e2-s1",
+                    "reps": 2,
+                    "weightKg": 105,
+                    "weightText": "105"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d1-e2-s2",
+                    "reps": 2,
+                    "weightKg": 105,
+                    "weightText": "105"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d1-e2-s3",
+                    "reps": 2,
+                    "weightKg": 105,
+                    "weightText": "105"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w09-d2",
+            "name": "Día 2",
+            "focus": "Aproximación al récord & fuerza",
+            "exercises": [
+              {
+                "id": "power-clean-100-w09-d2-e0",
+                "name": "Power Clean",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w09-d2-e0-s0",
+                    "reps": 1,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d2-e0-s1",
+                    "reps": 1,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d2-e0-s2",
+                    "reps": 1,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d2-e0-s3",
+                    "reps": 1,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d2-e0-s4",
+                    "reps": 1,
+                    "weightKg": 88,
+                    "weightText": "88"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d2-e0-s5",
+                    "reps": 1,
+                    "weightKg": 88,
+                    "weightText": "88"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w09-d2-e1",
+                "name": "Back Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w09-d2-e1-s0",
+                    "reps": 3,
+                    "weightKg": 125,
+                    "weightText": "125"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d2-e1-s1",
+                    "reps": 3,
+                    "weightKg": 125,
+                    "weightText": "125"
+                  },
+                  {
+                    "id": "power-clean-100-w09-d2-e1-s2",
+                    "reps": 3,
+                    "weightKg": 125,
+                    "weightText": "125"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power-clean-100-w10",
+        "number": 10,
+        "title": "Sobrecarga 100+",
+        "phase": "Fase 3 · Pico de potencia",
+        "goal": "100 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w10-d1",
+            "name": "Día 1",
+            "focus": "Aceleración máxima & soporte",
+            "exercises": [
+              {
+                "id": "power-clean-100-w10-d1-e0",
+                "name": "High Hang Power Clean",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w10-d1-e0-s0",
+                    "reps": 1,
+                    "weightKg": 82,
+                    "weightText": "82"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d1-e0-s1",
+                    "reps": 1,
+                    "weightKg": 82,
+                    "weightText": "82"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d1-e0-s2",
+                    "reps": 1,
+                    "weightKg": 82,
+                    "weightText": "82"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d1-e0-s3",
+                    "reps": 1,
+                    "weightKg": 86,
+                    "weightText": "86"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d1-e0-s4",
+                    "reps": 1,
+                    "weightKg": 86,
+                    "weightText": "86"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w10-d1-e1",
+                "name": "Front Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w10-d1-e1-s0",
+                    "reps": 1,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d1-e1-s1",
+                    "reps": 1,
+                    "weightKg": 108,
+                    "weightText": "108"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d1-e1-s2",
+                    "reps": 1,
+                    "weightKg": 114,
+                    "weightText": "114"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w10-d1-e2",
+                "name": "Clean Pulls",
+                "cue": "Pesados",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w10-d1-e2-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "115-120"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d1-e2-s1",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "115-120"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d1-e2-s2",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "115-120"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w10-d2",
+            "name": "Día 2",
+            "focus": "Aproximación al récord & fuerza",
+            "exercises": [
+              {
+                "id": "power-clean-100-w10-d2-e0",
+                "name": "Power Clean",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w10-d2-e0-s0",
+                    "reps": 1,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d2-e0-s1",
+                    "reps": 1,
+                    "weightKg": 90,
+                    "weightText": "90"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d2-e0-s2",
+                    "reps": 1,
+                    "weightKg": 94,
+                    "weightText": "94"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d2-e0-s3",
+                    "reps": 1,
+                    "weightKg": 96,
+                    "weightText": "96"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w10-d2-e1",
+                "name": "Back Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w10-d2-e1-s0",
+                    "reps": 2,
+                    "weightKg": 132,
+                    "weightText": "132"
+                  },
+                  {
+                    "id": "power-clean-100-w10-d2-e1-s1",
+                    "reps": 2,
+                    "weightKg": 132,
+                    "weightText": "132"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power-clean-100-w11",
+        "number": 11,
+        "title": "Afinamiento",
+        "phase": "Fase 3 · Pico de potencia",
+        "goal": "100 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w11-d1",
+            "name": "Día 1",
+            "focus": "Aceleración máxima & soporte",
+            "exercises": [
+              {
+                "id": "power-clean-100-w11-d1-e0",
+                "name": "Hang Power Clean",
+                "cue": "Máxima aceleración",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w11-d1-e0-s0",
+                    "reps": 1,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w11-d1-e0-s1",
+                    "reps": 1,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w11-d1-e0-s2",
+                    "reps": 1,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w11-d1-e1",
+                "name": "Front Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w11-d1-e1-s0",
+                    "reps": 2,
+                    "weightKg": 95,
+                    "weightText": "95"
+                  },
+                  {
+                    "id": "power-clean-100-w11-d1-e1-s1",
+                    "reps": 2,
+                    "weightKg": 95,
+                    "weightText": "95"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w11-d1-e2",
+                "name": "Clean Pulls",
+                "cue": "Velocidad de codos",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w11-d1-e2-s0",
+                    "reps": 2,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  },
+                  {
+                    "id": "power-clean-100-w11-d1-e2-s1",
+                    "reps": 2,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w11-d2",
+            "name": "Día 2",
+            "focus": "Aproximación al récord & fuerza",
+            "exercises": [
+              {
+                "id": "power-clean-100-w11-d2-e0",
+                "name": "Power Clean",
+                "cue": "Singles técnicamente perfectas",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w11-d2-e0-s0",
+                    "reps": 1,
+                    "weightKg": 88,
+                    "weightText": "88"
+                  },
+                  {
+                    "id": "power-clean-100-w11-d2-e0-s1",
+                    "reps": 1,
+                    "weightKg": 88,
+                    "weightText": "88"
+                  },
+                  {
+                    "id": "power-clean-100-w11-d2-e0-s2",
+                    "reps": 1,
+                    "weightKg": 88,
+                    "weightText": "88"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w11-d2-e1",
+                "name": "Back Squat",
+                "cue": "Movilidad activa",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w11-d2-e1-s0",
+                    "reps": 2,
+                    "weightKg": 115,
+                    "weightText": "115"
+                  },
+                  {
+                    "id": "power-clean-100-w11-d2-e1-s1",
+                    "reps": 2,
+                    "weightKg": 115,
+                    "weightText": "115"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power-clean-100-w12",
+        "number": 12,
+        "title": "Día 100 kg",
+        "phase": "Fase 3 · Pico de potencia",
+        "goal": "100 kg",
+        "days": [
+          {
+            "id": "power-clean-100-w12-d1",
+            "name": "Día A · Tapering",
+            "focus": "Miércoles · descarga",
+            "exercises": [
+              {
+                "id": "power-clean-100-w12-d1-e0",
+                "name": "Power Clean",
+                "cue": "Codos rápidos",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w12-d1-e0-s0",
+                    "reps": 1,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  },
+                  {
+                    "id": "power-clean-100-w12-d1-e0-s1",
+                    "reps": 1,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  },
+                  {
+                    "id": "power-clean-100-w12-d1-e0-s2",
+                    "reps": 1,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w12-d1-e1",
+                "name": "Front Squat",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w12-d1-e1-s0",
+                    "reps": 1,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  },
+                  {
+                    "id": "power-clean-100-w12-d1-e1-s1",
+                    "reps": 1,
+                    "weightKg": 80,
+                    "weightText": "80"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w12-d1-e2",
+                "name": "Movilidad",
+                "cue": "Muñecas y tobillos",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w12-d1-e2-s0",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": "libre"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "power-clean-100-w12-d2",
+            "name": "Día de test oficial",
+            "focus": "Sábado · 100 kg",
+            "exercises": [
+              {
+                "id": "power-clean-100-w12-d2-e0",
+                "name": "Aproximaciones",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w12-d2-e0-s0",
+                    "reps": 3,
+                    "weightKg": 40,
+                    "weightText": "40"
+                  },
+                  {
+                    "id": "power-clean-100-w12-d2-e0-s1",
+                    "reps": 2,
+                    "weightKg": 60,
+                    "weightText": "60"
+                  },
+                  {
+                    "id": "power-clean-100-w12-d2-e0-s2",
+                    "reps": 1,
+                    "weightKg": 75,
+                    "weightText": "75"
+                  },
+                  {
+                    "id": "power-clean-100-w12-d2-e0-s3",
+                    "reps": 1,
+                    "weightKg": 85,
+                    "weightText": "85"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w12-d2-e1",
+                "name": "Intento 1",
+                "cue": "Seguro",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w12-d2-e1-s0",
+                    "reps": 1,
+                    "weightKg": 92,
+                    "weightText": "92"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w12-d2-e2",
+                "name": "Intento 2",
+                "cue": "Confianza",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w12-d2-e2-s0",
+                    "reps": 1,
+                    "weightKg": 96,
+                    "weightText": "96"
+                  }
+                ]
+              },
+              {
+                "id": "power-clean-100-w12-d2-e3",
+                "name": "Intento 3",
+                "cue": "100 kg",
+                "sets": [
+                  {
+                    "id": "power-clean-100-w12-d2-e3-s0",
+                    "reps": 1,
+                    "weightKg": 100,
+                    "weightText": "100"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "createdAt": 1788897518836,
+    "updatedAt": 1788897518836
+  }
+}

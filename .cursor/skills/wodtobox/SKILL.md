@@ -12,14 +12,14 @@ description: Orienta el trabajo en la app WODtoBox (timers de WOD, workouts grab
    - Datos, tipos, storage, ids → `wodtobox-compat`
    - Formatos de timer / motor / reloj → `wodtobox-timer`
    - WODs grabados / bloques / overlay → `wodtobox-wod`
-   - Programas, plantillas PDF, sesión de series → `wodtobox-plan`
+   - Programas y sesión de series → `wodtobox-plan`
    - APK, Capacitor, Play → `wodtobox-android`
 3. No implementes export escritorio↔móvil ni un segundo schema. Ideas: `docs/escritorio.md`.
 
 ## Invariantes (no negociar)
 
 - Claves `wodtobox.wods` / `.programs` / `.sessions` / `.runSession`
-- `TIMER_KINDS` existentes; ids `power-clean-100`, `kipping-muscle-up`
+- `TIMER_KINDS` existentes; ids `hero-*` de WOD Heroes
 - `appId` `com.wodotobox.app`
 - `HashRouter` y Vite `base: './'`
 - Tras tocar tipos o `src/lib`: `npm run check:compat`

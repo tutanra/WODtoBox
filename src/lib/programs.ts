@@ -1,13 +1,7 @@
-import { PROGRAM_TEMPLATES, buildTemplate } from '../data/templates'
-import type { Program } from '../types/program'
+import { isRetiredPlanTemplateId } from './retiredPlanIds'
+import { normalizeProgram, type Program } from '../types/program'
 
 const KEY = 'wodtobox.programs'
-
-function isProgram(value: unknown): value is Program {
-  if (!value || typeof value !== 'object') return false
-  const program = value as Program
-  return typeof program.id === 'string' && Array.isArray(program.weeks)
-}
 
 function readAll(): Program[] {
   const raw = localStorage.getItem(KEY)
@@ -15,21 +9,20 @@ function readAll(): Program[] {
   if (raw) {
     try {
       const parsed = JSON.parse(raw) as unknown
-      if (Array.isArray(parsed)) programs = parsed.filter(isProgram)
+      if (Array.isArray(parsed)) {
+        programs = parsed.map(normalizeProgram).filter((program): program is Program => program != null)
+      }
     } catch {
       programs = []
     }
   }
 
-  let changed = false
-  for (const template of PROGRAM_TEMPLATES) {
-    if (!programs.some((program) => program.id === template.id)) {
-      programs = [template.build(), ...programs]
-      changed = true
-    }
+  const kept = programs.filter((program) => !isRetiredPlanTemplateId(program.id))
+  if (kept.length !== programs.length) {
+    writeAll(kept)
+    programs = kept
   }
-  if (changed) writeAll(programs)
-  return programs.sort((a, b) => Number(b.seeded) - Number(a.seeded) || b.updatedAt - a.updatedAt)
+  return programs.sort((a, b) => b.updatedAt - a.updatedAt)
 }
 
 function writeAll(programs: Program[]) {
@@ -45,6 +38,7 @@ export function getProgram(id: string) {
 }
 
 export function saveProgram(program: Program) {
+  if (isRetiredPlanTemplateId(program.id)) return program
   const next: Program = { ...program, updatedAt: Date.now() }
   writeAll([next, ...readAll().filter((item) => item.id !== program.id)])
   return next
@@ -54,12 +48,11 @@ export function deleteProgram(id: string) {
   writeAll(readAll().filter((program) => program.id !== id))
 }
 
-export function restoreTemplate(id: string) {
-  const fresh = buildTemplate(id)
-  if (!fresh) return null
-  return saveProgram(fresh)
-}
-
 export function replacePrograms(programs: unknown[]) {
-  writeAll(programs.filter(isProgram))
+  writeAll(
+    programs
+      .map(normalizeProgram)
+      .filter((program): program is Program => program != null)
+      .filter((program) => !isRetiredPlanTemplateId(program.id)),
+  )
 }

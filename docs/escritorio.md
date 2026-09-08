@@ -7,7 +7,7 @@ Copia entre dispositivos vía Google Drive o fichero: [sync.md](sync.md) (`#/syn
 - Un solo front: Vite + HashRouter. Capacitor solo envuelve `dist/` en WebView.
 - Datos en `localStorage` del origen. En Chrome desktop eso **no** es el `localStorage` de la APK. Son dos silos, salvo que uses Drive o un pack JSON.
 
-En `#/sync` ya hay **Exportar** / **Importar** del pack `wodtobox.pack` (el mismo JSON que Drive). Importar sustituye, con confirmación.
+En `#/sync` ya hay **Exportar** / **Importar** del pack `wodtobox.pack`. En el editor de un WOD o en un programa de plan, **Compartir** envía un fichero `.wodtobox` (`format: wodtobox.wod` o `wodtobox.plan`): en el PC descarga; en la APK abre la hoja de Android. En `#/wods` o `#/plan` se **importa** el tipo que toca (añade una copia, no sustituye). En Android, **Abrir con** / **Compartir** el fichero abre la app y pide la misma confirmación.
 
 Cualquier puente escritorio ↔ móvil tiene que copiar **JSON** con las mismas formas que [contrato.json](contrato.json) (`Wod[]`, `Program[]`, `SessionLog[]`), no un formato paralelo.
 
@@ -35,14 +35,14 @@ Encaja con Capacitor (`Filesystem` + `Share`) más adelante; no hace falta backe
 ## Idea B — Mismo pack, arrastre o código
 
 - Arrastrar el JSON a la ventana web.
-- QR con el pack **pequeño** (un WOD, no 12 semanas de Power Clean).
+- QR con el pack **pequeño** (un WOD, no un programa largo).
 - URL `https://…/#/import?…` frágil (tamaño, privacidad). Mejor fichero.
 
 ## Idea C — Escritorio como “mesa de programación”
 
 Pantalla split: izquierda el PDF / notas, derecha el día del plan. Atajos de teclado para series. Exporta solo el `Program` tocado, no toda la app. El móvil importa y el atleta solo pulsa Entrenar.
 
-Útil para las plantillas: editar kilos del Power Clean en el PC una vez y mandar el programa al móvil.
+Útil para montar un programa en el PC una vez y mandarlo al móvil.
 
 ## Idea D — Carpeta compartida
 
@@ -63,5 +63,5 @@ Un directorio (Syncthing, Nextcloud, carpeta Android) con `wods.json` y `program
 
 1. ~~Definir `wodtobox.pack`~~ y ~~export/import en `#/sync`~~ — hecho.
 2. Layout desktop opcional (`min-width`) sin romper `max-w-lg` del timer a pantalla completa.
-3. Share nativo Android (Filesystem + Share) si el `<a download>` / Web Share no basta.
+3. ~~Share nativo Android (Filesystem + Share)~~ — hecho: Compartir WOD o plan / exportar pack usa la hoja del sistema.
 4. QR o carpeta compartida, si hace falta.

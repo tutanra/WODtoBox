@@ -8,6 +8,6 @@ Antes de cambiar tipos, persistencia o Android:
 2. Ejecuta `npm run check:compat`.
 3. Si un invariante cambia, sube `schemaVersion` en `docs/contrato.json` y escribe la migración.
 
-No renombres claves `wodtobox.*`, `TIMER_KINDS` existentes, IDs `power-clean-100` / `kipping-muscle-up`, ni `com.wodotobox.app`. Mantén `HashRouter` y `base: './'`.
+No renombres claves `wodtobox.*`, `TIMER_KINDS` existentes, IDs `hero-*`, ni `com.wodotobox.app`. Mantén `HashRouter` y `base: './'`.
 
 Ideas de escritorio/export: `docs/escritorio.md` — no implementarlas salvo petición explícita.

@@ -1,5 +1,7 @@
 export const PACK_FORMAT = 'wodtobox.pack' as const
 export const LEGACY_PACK_FORMAT = 'wodplanning.pack' as const
+export const WOD_SHARE_FORMAT = 'wodtobox.wod' as const
+export const PLAN_SHARE_FORMAT = 'wodtobox.plan' as const
 
 export interface WodtoboxPack {
   format: typeof PACK_FORMAT

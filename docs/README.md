@@ -7,7 +7,7 @@
 | [producto.md](producto.md) | Qué es la app y flujos de uso, pantalla a pantalla |
 | [timers.md](timers.md) | Los 6 formatos y el motor de cuenta |
 | [wods.md](wods.md) | WODs grabados, bloques y overlay |
-| [plan.md](plan.md) | Planificaciones, sesión y las dos plantillas semana a semana |
+| [plan.md](plan.md) | Planificaciones y sesión de series |
 | [rm.md](rm.md) | Pesos máximos (ejercicio, reps, kilos) |
 | [historial.md](historial.md) | Entrenos terminados (WODs, días de plan y RM) |
 | [arquitectura.md](arquitectura.md) | Stack, rutas, archivos, persistencia |

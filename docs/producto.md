@@ -21,29 +21,24 @@ Detalle: [timers.md](timers.md).
 
 Workouts grabados (Fran, Cindy, el del día…).
 
-1. Lista vacía → `NUEVO WOD`. Con ítems: abrir, `Al timer`, borrar. Al final: menú **WOD Heroes**.
+1. Lista vacía → `NUEVO WOD` o `Importar`. Con ítems: importar (icono en la barra), abrir, `Al timer`, borrar. Al final: menú **WOD Heroes**. Importar pide confirmación y **añade una copia**; no pisa lo que ya hay ni las plantillas. En Android, **Abrir con** un `.wodtobox` (p. ej. WhatsApp) llega a esta misma confirmación.
 2. `#/wods/heroes` — plantillas clásicas en kg (Fran, Cindy, Murph…). Abrir, al timer o restaurar. No se borran.
 3. `#/wods/new` o `#/wods/:id` — nombre, tipo, timer, bloques (ejercicio / descanso / rondas).
-4. `Guardar` o `ADAPTAR AL TIMER` (guarda y lanza).
+4. `Guardar`, `Compartir` (fichero `.wodtobox`) o `ADAPTAR AL TIMER` (guarda y lanza).
 5. En el timer, un overlay muestra el contenido y destaca el bloque activo. Al terminar, el WOD entra en el historial.
 
 Los WODs se guardan en `localStorage`. Detalle: [wods.md](wods.md).
 
 ## 3. Plan (`#/plan`)
 
-Programas de fuerza por semanas y días.
+Programas de fuerza por semanas y días. La lista arranca vacía.
 
-1. Lista: plantillas PDF (no se borran) + planes `CUSTOM`.
-2. `#/plan/:programId` — nombre, notas, objetivos, semanas. Copiar semana, añadir, borrar. En plantillas: restaurar PDF.
-3. `#/plan/:id/day/:dayId` — editar ejercicios, series, kilos, reps. `ENTRENAR`.
-4. `#/plan/.../train` — sesión: marcar series, ajustar reps hechas. Misma columna y padding que el resto de pantallas. La pausa arranca al marcar una serie (si no es la última); el reloj se superpone arriba sin mover el listado. En los últimos 10 s pulsa como el timer. Si no está activa, no ocupa sitio. Cada serie marcada o desmarcada actualiza el historial; si no queda ninguna, el día desaparece de ahí. Atrás sale de la sesión. En el programa: **Reiniciar plan** borra el progreso de las sesiones; el historial de días con series hechas se queda.
+1. Lista: planes propios (crear o importar), con progreso y el siguiente día (play para entrenar). Importar pide confirmación y **añade una copia**; no pisa lo que ya hay. En Android, **Abrir con** un `.wodtobox` de plan llega a esta misma confirmación.
+2. `#/plan/:programId` — nombre, notas, objetivos (movimiento / inicio / meta / ratio), semanas (fase, título, objetivo). En cada semana: 1 a 7 días (añadir), copiar semana, borrar semana. El play de un día lanza la sesión. **Compartir** envía un fichero `.wodtobox` (`format: wodtobox.plan`). Al final: **Reiniciar plan** y **Borrar plan** (con confirmación).
+3. `#/plan/:id/day/:dayId` — editar nombre, foco, ejercicios, series, kilos y reps. **Borrar día** (si no es el único de la semana). No lanza el entreno (eso va desde el programa).
+4. `#/plan/.../train` — sesión: marcar series, ajustar reps hechas. Misma columna y padding que el resto de pantallas. La pausa arranca al marcar una serie (si no es la última); el reloj se superpone arriba sin mover el listado. En los últimos 10 s pulsa como el timer. Si no está activa, no ocupa sitio. Cada serie marcada o desmarcada actualiza el historial; si no queda ninguna, el día desaparece de ahí. Atrás sale de la sesión. En el programa: **Reiniciar plan** borra el progreso de las sesiones; **Borrar plan** quita el programa. El historial de días con series hechas se queda.
 
-Las plantillas:
-
-- **Road to 100 kg** — Power Clean, 12 semanas (`power-clean-100`)
-- **Kipping Muscle-Up** — 8 semanas (`kipping-muscle-up`)
-
-Detalle semana a semana: [plan.md](plan.md).
+Detalle: [plan.md](plan.md).
 
 ## 4. RM (`#/rm`)
 
@@ -59,7 +54,7 @@ Detalle: [historial.md](historial.md).
 
 ## 6. Drive (`#/sync`)
 
-Copia opcional a un archivo en tu Google Drive (`wodtobox.pack.json` en la carpeta WODtoBox): WODs, plan, RM e historial. Muestra la última sync, la carpeta y si este dispositivo o Drive está más nuevo. Tras borrar este dispositivo, las plantillas vuelven solas; eso no marca lo local como más nuevo que Drive. **GOOGLE** entra con tu cuenta (el Client ID ya va en la app). **SYNC** sube si este dispositivo está más nuevo y baja si lo está Drive (con confirmación). El otro botón es la dirección contraria: **Bajar de Drive** o **Subir a Drive**. También puedes **exportar** o **importar** el mismo pack a un fichero, sin cuenta. La papelera deja elegir borrar **este dispositivo** o **la copia en Drive** (con confirmación). Sin cuenta la app no cambia. Si mueves el archivo a otra carpeta en Drive, las siguientes syncs lo siguen.
+Copia opcional a un archivo en tu Google Drive (`wodtobox.pack.json` en la carpeta WODtoBox): WODs, plan, RM e historial. Muestra la última sync, la carpeta y si este dispositivo o Drive está más nuevo. Tras borrar este dispositivo, WOD Heroes vuelven solos; eso no marca lo local como más nuevo que Drive. **GOOGLE** entra con tu cuenta (el Client ID ya va en la app). **SYNC** sube si este dispositivo está más nuevo y baja si lo está Drive (con confirmación). Debajo, el otro sentido: **Bajar copia de Drive** o **Subir copia a Drive**. Si no hay archivo en Drive o no se puede leer, no se bloquea **SYNC** con un “Drive más nuevo” de una sync antigua. También puedes **exportar** o **importar** el mismo pack a un fichero, sin cuenta. La papelera deja elegir borrar **este dispositivo** o **la copia en Drive** (con confirmación). Sin cuenta la app no cambia. Si mueves el archivo a otra carpeta en Drive, las siguientes syncs lo siguen.
 
 Detalle: [sync.md](sync.md).
 

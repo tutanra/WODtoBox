@@ -39,10 +39,12 @@ export function DriveSync() {
   const [pendingImport, setPendingImport] = useState<WodtoboxPack | null>(null)
   const [pendingPurge, setPendingPurge] = useState<null | 'choose' | 'local' | 'drive'>(null)
   const [localStamp, setLocalStamp] = useState(0)
+  const [remoteLoaded, setRemoteLoaded] = useState(() => !currentGoogleSession())
   const fileRef = useRef<HTMLInputElement>(null)
   const clientId = getGoogleClientId()
   const localAt = useMemo(() => localDataAt(), [meta.lastSyncAt, remote, localStamp])
-  const driveAt = remote?.pack.dataAt ?? meta.driveDataAt
+  const liveDriveAt = remote?.pack.dataAt ?? null
+  const driveAt = liveDriveAt ?? (remoteLoaded && !error ? null : meta.driveDataAt)
   const status = compare(localAt, driveAt)
   const driveWins = status === 'drive'
 
@@ -60,11 +62,17 @@ export function DriveSync() {
             driveFolderName: copy.folderName,
           }),
         )
+      } else {
+        setMeta(writeSyncMeta({ driveFileId: null, driveDataAt: null }))
       }
       setError(null)
+      return { copy, ok: true as const }
     } catch (err) {
+      setRemote(null)
       setError(err instanceof Error ? err.message : 'No se pudo leer Drive')
+      return { copy: null, ok: false as const }
     } finally {
+      setRemoteLoaded(true)
       setBusy(null)
     }
   }
@@ -94,6 +102,7 @@ export function DriveSync() {
     await googleSignOut()
     setSession(null)
     setRemote(null)
+    setRemoteLoaded(true)
     setMeta(writeSyncMeta({ email: null }))
     setBusy(null)
   }
@@ -208,14 +217,35 @@ export function DriveSync() {
     }
   }
 
+  const onSync = async () => {
+    if (!session) return
+    if (driveWins) {
+      let copy = remote
+      if (!copy) {
+        const probed = await refreshRemote(session)
+        if (!probed.ok) return
+        copy = probed.copy
+      }
+      if (copy) {
+        setPendingDown(true)
+        return
+      }
+    }
+    void upload()
+  }
+
   const statusCopy =
-    status === 'none'
-      ? 'Todavía no hay copia en Drive.'
-      : status === 'local'
-        ? 'Este dispositivo tiene cambios más nuevos que Drive.'
-        : status === 'drive'
-          ? 'Drive tiene una copia más nueva que este dispositivo.'
-          : 'Este dispositivo y Drive están al día.'
+    session && !remoteLoaded
+      ? 'Comprobando Drive…'
+      : error && !remote
+        ? 'No se pudo leer la copia de Drive.'
+        : status === 'none'
+          ? 'Todavía no hay copia en Drive.'
+          : status === 'local'
+            ? 'Este dispositivo tiene cambios más nuevos que Drive.'
+            : status === 'drive'
+              ? 'Drive tiene una copia más nueva que este dispositivo.'
+              : 'Este dispositivo y Drive están al día.'
 
   return (
     <Screen>
@@ -305,8 +335,8 @@ export function DriveSync() {
             <p className="text-center text-sm text-mute">{session.email || session.name}</p>
             <button
               type="button"
-              disabled={busy != null || (driveWins && !remote)}
-              onClick={() => (driveWins ? setPendingDown(true) : void upload())}
+              disabled={busy != null || Boolean(session && !remoteLoaded)}
+              onClick={() => void onSync()}
               className="flex w-full items-center justify-center gap-2 rounded-2xl bg-flame py-4 font-display text-3xl tracking-wide text-ink disabled:opacity-40"
             >
               {driveWins ? <CloudDownload className="h-6 w-6" /> : <CloudUpload className="h-6 w-6" />}
@@ -315,20 +345,22 @@ export function DriveSync() {
             {driveWins ? (
               <button
                 type="button"
-                disabled={busy != null}
+                disabled={busy != null || Boolean(session && !remoteLoaded)}
                 onClick={() => setPendingUp(true)}
-                className="w-full rounded-2xl border border-line bg-panel py-3 font-semibold text-paper disabled:opacity-40"
+                className="flex w-full items-center justify-center gap-2 rounded-2xl border border-line bg-panel py-3 font-semibold text-paper disabled:opacity-40"
               >
-                Subir a Drive
+                <CloudUpload className="h-4 w-4" />
+                Subir copia a Drive
               </button>
             ) : remote ? (
               <button
                 type="button"
                 disabled={busy != null}
                 onClick={() => setPendingDown(true)}
-                className="w-full rounded-2xl border border-line bg-panel py-3 font-semibold text-paper disabled:opacity-40"
+                className="flex w-full items-center justify-center gap-2 rounded-2xl border border-line bg-panel py-3 font-semibold text-paper disabled:opacity-40"
               >
-                Bajar de Drive
+                <CloudDownload className="h-4 w-4" />
+                Bajar copia de Drive
               </button>
             ) : null}
             <button
@@ -479,7 +511,7 @@ export function DriveSync() {
             </p>
             <p className="mt-2 text-sm text-mute">
               {pendingPurge === 'local'
-                ? 'Se borran WODs, plan, RM e historial de este dispositivo. Las plantillas PDF y WOD Heroes vuelven al original. Drive no se toca.'
+                ? 'Se borran WODs, plan, RM e historial de este dispositivo. WOD Heroes vuelven al original. Drive no se toca.'
                 : 'Se borra wodtobox.pack.json de tu Drive. Este dispositivo no se toca.'}
             </p>
             <div className="mt-5 grid grid-cols-2 gap-3">

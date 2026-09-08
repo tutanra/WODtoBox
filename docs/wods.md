@@ -28,7 +28,7 @@ Un WOD:
 2. Tipo: chips de los 6 formatos; al cambiar, se copia `kind` al `timer`.
 3. Mismos campos de timer que en Timers sueltos.
 4. Contenido: añadir Ejercicio / Descanso / Rondas. No se puede dejar la lista vacía (si borras el último, aparece un exercise vacío).
-5. `Guardar` o `ADAPTAR AL TIMER` (guarda + `persistRunSession` + navega a run). Al terminar el timer, el resultado se guarda en el historial (`wodtobox.history`). Los timers sueltos no.
+5. `Guardar`, `Compartir` (fichero `.wodtobox` para WhatsApp, correo, etc.) o `ADAPTAR AL TIMER` (guarda + `persistRunSession` + navega a run). Al terminar el timer, el resultado se guarda en el historial (`wodtobox.history`). Los timers sueltos no.
 
 ## WOD Heroes
 
@@ -44,3 +44,7 @@ No renombrar los ids `hero-fran`, `hero-cindy`, etc.: el reseed depende de ellos
 ## Storage
 
 Clave `wodtobox.wods`: array JSON. API: `listWods` (solo los del usuario), `listHeroWods`, `getWod`, `saveWod`, `deleteWod` (no borra heroes), `restoreHeroWod`.
+
+Un WOD se puede **compartir** como `{ "format": "wodtobox.wod", "schemaVersion": 1, "wod": … }` en un fichero `nombre.wodtobox`. En el PC descarga el archivo. En la APK, **Compartir** abre la hoja de Android (`@capacitor/share` + fichero en caché). En `#/wods`, el icono de importar (y **Importar** si la lista está vacía) lee ese fichero: si el `format` no vale, *Ese archivo no es un WOD de WODtoBox.*; si vale, pide confirmación y **añade una copia** (id nuevo, no seeded). No sustituye la lista ni las plantillas Heroes. Un pack `wodtobox.pack` no entra por este camino.
+
+En Android, **Abrir con** / **Compartir** un `.wodtobox` (WhatsApp, gestor de archivos, etc.) abre WODtoBox y usa el mismo flujo de confirmación. Si el MIME no trae la extensión, la app mira el contenido (`wodtobox.wod` o `wodtobox.plan`) y enruta a `#/wods` o `#/plan`. Un pack no entra por este camino.

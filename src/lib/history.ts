@@ -1,5 +1,5 @@
-import { getProgram } from './programs'
-import { deleteSessionsForProgram, listSessions } from './sessions'
+import { getProgram, listPrograms } from './programs'
+import { deleteSessionsForProgram, getSession, listSessions, saveSession } from './sessions'
 import {
   normalizeHistoryEntry,
   type HistoryEntry,
@@ -10,6 +10,7 @@ import {
 } from '../types/history'
 import {
   findDay,
+  newId,
   type Program,
   type ProgramDay,
   type ProgramWeek,
@@ -80,6 +81,106 @@ function buildPlanEntry(
     dayFocus: day.focus,
     exercises,
   }
+}
+
+function normalizeLabel(value: string) {
+  return value.trim().toLowerCase()
+}
+
+function findProgramForHistory(programs: Program[], entry: HistoryPlanEntry) {
+  const named = programs.filter((program) => normalizeLabel(program.name) === normalizeLabel(entry.programName))
+  if (named.length === 1) return named[0]
+  if (named.length > 1) return named.sort((a, b) => b.updatedAt - a.updatedAt)[0]
+  return programs.find((program) => program.id === entry.programId) ?? null
+}
+
+function findWeekForHistory(program: Program, entry: HistoryPlanEntry) {
+  return (
+    program.weeks.find((week) => week.number === entry.weekNumber) ??
+    program.weeks.find((week) => normalizeLabel(week.title) === normalizeLabel(entry.weekTitle)) ??
+    null
+  )
+}
+
+function findDayForHistory(week: ProgramWeek, entry: HistoryPlanEntry) {
+  return week.days.find((day) => normalizeLabel(day.name) === normalizeLabel(entry.dayName)) ?? null
+}
+
+function relinkPlanEntry(entry: HistoryPlanEntry, program: Program, week: ProgramWeek, day: ProgramDay) {
+  const logs: SessionLog['logs'] = []
+  const exercises: HistoryPlanExercise[] = day.exercises.map((exercise, exerciseIndex) => {
+    const histExercise = entry.exercises[exerciseIndex]
+    return {
+      name: exercise.name,
+      cue: exercise.cue,
+      sets: exercise.sets.map((set, setIndex) => {
+        const histSet = histExercise?.sets[setIndex]
+        const actualReps = histSet?.actualReps ?? set.reps
+        const done = histSet?.done === true
+        logs.push({ setId: set.id, actualReps, done })
+        return {
+          setId: set.id,
+          reps: set.reps,
+          weightText: set.weightText,
+          actualReps,
+          done,
+        }
+      }),
+    }
+  })
+
+  const hasWork = logs.some((log) => log.done)
+  if (!hasWork) return entry
+
+  const existing = getSession(program.id, day.id)
+  const allDone = logs.length > 0 && logs.every((log) => log.done)
+  const session = saveSession({
+    id: existing?.id ?? entry.sessionId ?? newId(),
+    programId: program.id,
+    weekId: week.id,
+    dayId: day.id,
+    startedAt: existing?.startedAt ?? entry.finishedAt,
+    updatedAt: entry.finishedAt,
+    completedAt: allDone ? entry.finishedAt : existing?.completedAt ?? null,
+    restSeconds: existing?.restSeconds ?? 150,
+    logs,
+  })
+
+  return {
+    ...entry,
+    programId: program.id,
+    weekId: week.id,
+    dayId: day.id,
+    sessionId: session.id,
+    programName: program.name,
+    weekTitle: week.title,
+    weekNumber: week.number,
+    dayName: day.name,
+    dayFocus: day.focus,
+    exercises,
+  }
+}
+
+/** Historial de plan con ids viejos (plantillas PDF) → programas actuales, y marca esas sesiones. */
+export function relinkOrphanPlanHistory() {
+  const programs = listPrograms()
+  if (programs.length === 0) return
+  const entries = readStored()
+  let changed = false
+  const next = entries.map((entry) => {
+    if (entry.kind !== 'plan') return entry
+    const current = getProgram(entry.programId)
+    if (current && findDay(current, entry.dayId)) return entry
+    const program = findProgramForHistory(programs, entry)
+    if (!program) return entry
+    const week = findWeekForHistory(program, entry)
+    if (!week) return entry
+    const day = findDayForHistory(week, entry)
+    if (!day) return entry
+    changed = true
+    return relinkPlanEntry(entry, program, week, day)
+  })
+  if (changed) writeAll(sortEntries(next))
 }
 
 function backfillFromSessions(entries: HistoryEntry[]) {

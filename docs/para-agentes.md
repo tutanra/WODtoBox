@@ -13,10 +13,10 @@ Skills: `wodtobox` (índice), `wodtobox-compat`, `wodtobox-timer`, `wodtobox-wod
 
 ## Invariantes (copia corta)
 
-- Storage keys y `TIMER_KINDS` e IDs de plantilla (`power-clean-100`, `kipping-muscle-up`, `hero-*`): no renombrar.
+- Storage keys y `TIMER_KINDS` e IDs `hero-*`: no renombrar.
 - `HashRouter` + `base: './'` en Vite.
 - `appId` `com.wodotobox.app`.
-- Normalizers: extender, no borrar ramas legacy (`isRest`, `timerConfig` en sessionStorage, reseed de plantillas).
+- Normalizers: extender, no borrar ramas legacy (`isRest`, `timerConfig` en sessionStorage, reseed de WOD Heroes).
 - `rounds` no anidados.
 - No introducir backend ni cambiar a BrowserRouter “porque es más limpio”.
 
@@ -26,8 +26,8 @@ Skills: `wodtobox` (índice), `wodtobox-compat`, `wodtobox-timer`, `wodtobox-wod
 | --- | --- |
 | Nuevo formato de timer | `types/timer.ts` (añadir al final del array), `data/kinds.ts`, `TimerFields`, `engine.ts` |
 | Campo nuevo en WOD | `types/wod.ts` + default en `normalizeWod` |
-| Campo nuevo en plan | `types/program.ts` + default al leer |
-| Semana de plantilla | `data/powerClean100.ts` o `kippingMuscleUp.ts` (el usuario con datos viejos no se actualiza hasta Restaurar) |
+| Campo nuevo en plan | `types/program.ts` + default en `normalizeProgram` |
+| Semana de plantilla | Ya no hay PDF de plan. Ids retirados en `src/lib/retiredPlanIds.ts`. |
 | WOD Heroes | `data/heroWods.ts` + reseed en `lib/wods.ts`. No renombrar ids `hero-*`. |
 | Nueva ruta | `App.tsx` solamente, hash |
 | Historial de entrenos | `types/history.ts`, `lib/history.ts`, `HistoryList`, `HistoryDetail` |

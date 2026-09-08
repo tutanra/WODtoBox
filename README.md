@@ -33,14 +33,9 @@ Al final de la lista hay **WOD Heroes**: plantillas clásicas (Fran, Cindy, Murp
 
 ## Plan
 
-Programas por semanas y días, con ejercicios, series, kilos y cues.
+Programas por semanas y días, con ejercicios, series, kilos y cues. La lista arranca vacía: se crea un programa o se importa un `.wodtobox`.
 
-Vienen dos plantillas (se pueden editar kilos y reps; no se borran):
-
-- **Road to 100 kg** — Power Clean, 12 semanas
-- **Kipping Muscle-Up** — especialización, 8 semanas
-
-También se pueden crear planificaciones propias (semanas, copiar semana, días).
+También se pueden copiar semanas y añadir hasta 7 días por semana.
 
 En un día de entreno:
 
@@ -67,7 +62,7 @@ npm run dev
 
 Abre `http://localhost:5173`. La navegación usa hash (`#/timers`) para que el mismo build funcione dentro de la APK.
 
-`npm run check:compat` comprueba que las claves de datos, formatos de timer e ids de plantilla no se hayan roto respecto a `docs/contrato.json`.
+`npm run check:compat` comprueba que las claves de datos, formatos de timer e ids de WOD Heroes no se hayan roto respecto a `docs/contrato.json`.
 
 ## Generar la APK
 

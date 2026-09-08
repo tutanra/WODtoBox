@@ -21,10 +21,10 @@ Definidas en `src/App.tsx`. Cualquier otra → `/`.
 | `#/timers` | Menú timers |
 | `#/timers/:kind` | Setup |
 | `#/timers/:kind/run` | Carrera |
-| `#/wods` | Lista (propios + menú WOD Heroes abajo) |
+| `#/wods` | Lista (propios, importar `.wodtobox` de WOD, menú WOD Heroes abajo) |
 | `#/wods/heroes` | Plantillas clásicas |
 | `#/wods/:id` | Editor (`new`, uuid o `hero-*`) |
-| `#/plan` | Lista de programas |
+| `#/plan` | Lista de programas (importar `.wodtobox` de plan) |
 | `#/plan/:programId` | Programa |
 | `#/plan/:programId/day/:dayId` | Editor de día |
 | `#/plan/:programId/day/:dayId/train` | Sesión |
@@ -41,9 +41,9 @@ Definidas en `src/App.tsx`. Cualquier otra → `/`.
 pages/          pantallas
 components/     Screen, TopBar, TimerFields, WodBlockList, WodOverlay, chips/stepper
 hooks/          useTimerEngine, useRestTimer
-lib/            engine, wods, programs, sessions, history, rms, pack, sync, googleAuth, drive, runSession, migrate, audio, haptics, wakeLock
+lib/            engine, wods, programs, sessions, history, rms, pack, shareWod, sharePlan, sync, googleAuth, drive, runSession, migrate, audio, haptics, wakeLock
 types/          timer, wod, program, history, rm, pack  ← contratos de datos
-data/           kinds, templates, powerClean100, kippingMuscleUp
+data/           kinds, heroWods
 ```
 
 ## Persistencia
@@ -51,7 +51,7 @@ data/           kinds, templates, powerClean100, kippingMuscleUp
 | Dónde | Clave | Contenido |
 | --- | --- | --- |
 | localStorage | `wodtobox.wods` | `Wod[]` |
-| localStorage | `wodtobox.programs` | `Program[]` (+ reseed de plantillas) |
+| localStorage | `wodtobox.programs` | `Program[]` |
 | localStorage | `wodtobox.sessions` | `SessionLog[]` |
 | localStorage | `wodtobox.history` | entrenos terminados (WOD + plan + RM) |
 | localStorage | `wodtobox.rms` | máximos (ejercicio, reps, peso) |
@@ -69,6 +69,7 @@ Lectura siempre con try/JSON.parse y normalizers. Escritura = JSON.stringify del
 - `capacitor.config.ts`: `appId` `com.wodotobox.app`, `appName` WODtoBox, `webDir: dist`.
 - Scripts: `dev`, `build`, `android:sync` (build + cap sync), `apk` (**debug**, vía `scripts/build-apk.mjs`).
 - Permisos: INTERNET, VIBRATE, WAKE_LOCK.
+- Un `.wodtobox` se puede **Abrir con** / **Compartir** hacia WODtoBox (`MainActivity` + `OpenWodPlugin`). El contenido decide la ruta: `wodtobox.wod` → `#/wods`, `wodtobox.plan` → `#/plan`. No pide permisos extra: lee el `content://` que manda la otra app. **Compartir** desde la app usa `@capacitor/share` y un fichero en caché (`file_paths.xml` ya cubre `cache-path`).
 - Google Drive en el APK pide scopes; `MainActivity` implementa `ModifiedMainActivityForSocialLoginPlugin` (Capgo Social Login). Sin eso, Google falla al entrar.
 - `versionCode` / `versionName` en `android/app/build.gradle` (hoy 1 / 1.0). `package.json` tiene `0.1.0` — no están acoplados.
 - Play Store exigiría AAB firmado, no el APK de debug.

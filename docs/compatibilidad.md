@@ -8,7 +8,7 @@ El archivo [contrato.json](contrato.json) es la lista corta de invariantes. `npm
 
 1. **Renombrar o borrar claves de storage** (`wodtobox.wods`, `.programs`, `.sessions`, `.runSession`, `.history`, `.rms`, `.sync`). Si hace falta un nombre nuevo: leer la clave antigua, escribir la nueva, dejar el lector dual un tiempo.
 2. **Quitar un `TimerKind`**. Puede estar guardado en WODs. Añadir kinds sí; eliminar no, o hay que mapear el kind viejo en `normalizeWod`.
-3. **Cambiar IDs de plantilla** `power-clean-100`, `kipping-muscle-up`, ni los `hero-*` de WOD Heroes. El reseed y `restoreTemplate` / `restoreHeroWod` dependen de ellos. Usuarios con ediciones las perderían al reinsertar “otro” id.
+3. **Cambiar IDs `hero-*` de WOD Heroes.** El reseed y `restoreHeroWod` dependen de ellos. Usuarios con ediciones las perderían al reinsertar “otro” id.
 4. **Cambiar `applicationId` / `appId`** `com.wodotobox.app` una vez publicada. Play lo trata como otra app.
 5. **Anidar `rounds` dentro de `rounds`**. `normalizeItem` lo prohíbe a propósito.
 6. **Asumir que `timer.kind` y `wod.kind` pueden divergir**. Al guardar, el editor los iguala.
@@ -23,7 +23,7 @@ Los normalizers actuales que hay que conservar o extender, no sustituir a ciegas
 
 - `normalizeTimerConfig`, `normalizeWod`, `normalizeItem` (`src/types/`)
 - `readRunSession` (dual `runSession` + `timerConfig`)
-- `listPrograms` (reseed de plantillas ausentes)
+- `listWods` (reseed de WOD Heroes ausentes)
 
 ## Semver interno del contrato
 
@@ -36,7 +36,9 @@ Los normalizers actuales que hay que conservar o extender, no sustituir a ciegas
 
 ### Historial
 
-**3** (actual) — Claves `wodtobox.*`, pack `wodtobox.pack` / `wodtobox.pack.json`. Al arrancar, `migrateLegacyStorage` copia `wodplanning.*` a `wodtobox.*` y borra las claves viejas. Importar y Drive siguen leyendo un pack con `format: wodplanning.pack` (y el fichero `wodplanning.pack.json`); al subir se escribe y se renombra a `wodtobox.pack.json`.
+**4** (actual) — Sin plantillas PDF de plan. Al arrancar, `migrateLegacyStorage` borra de `wodtobox.programs` y `wodtobox.sessions` los ids `power-clean-100` y `kipping-muscle-up`. Un pack de Drive con esos ids también los descarta. El historial de esos días se queda. WOD Heroes no cambian.
+
+**3** — Claves `wodtobox.*`, pack `wodtobox.pack` / `wodtobox.pack.json`. Al arrancar, `migrateLegacyStorage` copia `wodplanning.*` a `wodtobox.*` y borra las claves viejas. Importar y Drive siguen leyendo un pack con `format: wodplanning.pack` (y el fichero `wodplanning.pack.json`); al subir se escribe y se renombra a `wodtobox.pack.json`.
 
 **2** — Rebrand a WODtoBox. `applicationId` / `appId` pasa de `com.wodplanning.app` a `com.wodotobox.app`. Nombre visible: WODtoBox (ficha: «WODtoBox: WOD Timer & Plans»). Las claves y el pack seguían en `wodplanning.*`. La APK nueva es otra app en Android (Play la trata como distinta).
 
@@ -46,13 +48,13 @@ Los normalizers actuales que hay que conservar o extender, no sustituir a ciegas
 
 - Copy, colores, layout, pitidos.
 - Defaults de un timer **nuevo** (no reescribir JSON ya guardado).
-- Contenido de las plantillas PDF: al restaurar se pisan; las ediciones del usuario en localStorage **no** se pisan hasta que pulsa “Restaurar plantilla del PDF” o borra la clave `programs`. Si cambias el builder, los usuarios que ya tienen la plantilla **conservan la copia vieja** hasta restaurar. Eso es correcto.
+- Contenido de WOD Heroes: al restaurar se pisan; las ediciones del usuario en localStorage **no** se pisan hasta que pulsa “Restaurar” o borra la clave `wods`.
 - Añadir rutas nuevas. No reutilizar `:kind` para otra cosa.
 
 ## Checklist antes de tocar tipos o `src/lib/*`
 
 - [ ] ¿Sigue leyéndose un JSON de la versión anterior?
 - [ ] ¿Los 6 kinds siguen en `TIMER_KINDS`?
-- [ ] ¿Las dos plantillas de plan y los WOD Heroes siguen con el mismo id y `seeded: true`?
+- [ ] ¿Los WOD Heroes siguen con el mismo id y `seeded: true`?
 - [ ] ¿Hash router y `base: './'` siguen (si no, la APK rompe)?
 - [ ] `npm run check:compat` y `npm run build`

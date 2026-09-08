@@ -2,9 +2,8 @@ import { useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { Screen } from '../components/Screen'
 import { TopBar } from '../components/TopBar'
-import { unlockAudio } from '../lib/audio'
 import { getProgram, saveProgram } from '../lib/programs'
-import { startSession } from '../lib/sessions'
+import { deleteSessionForDay } from '../lib/sessions'
 import {
   emptyExercise,
   emptySet,
@@ -34,6 +33,10 @@ function DayEditor({
 }) {
   const navigate = useNavigate()
   const [draft, setDraft] = useState(day)
+  const [pendingDelete, setPendingDelete] = useState(false)
+  const current = getProgram(program.id) ?? program
+  const week = current.weeks.find((item) => item.id === weekId)
+  const canDeleteDay = (week?.days.length ?? 1) > 1
 
   const persist = (next: ProgramDay) => {
     const updated: Program = {
@@ -83,7 +86,7 @@ function DayEditor({
 
       <p className="mb-3 text-xs font-semibold tracking-[0.22em] text-mute uppercase">Ejercicios</p>
       <p className="mb-3 text-sm text-mute">
-        La plantilla del PDF es orientativa: cambia nombre, kilos y reps. Añade series si el día lo pide.
+        Cambia nombre, kilos y reps. Añade series si el día lo pide.
       </p>
 
       <div className="flex flex-col gap-3 pb-4">
@@ -188,16 +191,58 @@ function DayEditor({
 
       <button
         type="button"
-        onClick={() => {
-          persist(draft)
-          unlockAudio()
-          startSession(program.id, weekId, draft.id)
-          navigate(`/plan/${program.id}/day/${draft.id}/train`, { state: { from: 'day' } })
-        }}
-        className="w-full rounded-2xl bg-flame py-4 font-display text-3xl text-ink"
+        disabled={!canDeleteDay}
+        onClick={() => setPendingDelete(true)}
+        className="mb-3 w-full rounded-2xl border border-line py-3 text-sm font-semibold text-mute disabled:opacity-30"
       >
-        ENTRENAR
+        Borrar día
       </button>
+
+      {pendingDelete ? (
+        <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/60 p-5">
+          <div className="w-full max-w-lg rounded-3xl border border-line bg-panel p-5">
+            <p className="font-display text-4xl text-paper">
+              ¿Borrar {draft.name.trim() || 'este día'}?
+            </p>
+            <p className="mt-2 text-sm text-mute">
+              Se quita de la semana. El historial de series hechas se queda.
+            </p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setPendingDelete(false)}
+                className="rounded-2xl border border-line py-3 font-semibold text-paper"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const latest = getProgram(program.id) ?? program
+                  const latestWeek = latest.weeks.find((item) => item.id === weekId)
+                  if (!latestWeek || latestWeek.days.length <= 1) {
+                    setPendingDelete(false)
+                    return
+                  }
+                  deleteSessionForDay(latest.id, draft.id)
+                  saveProgram({
+                    ...latest,
+                    weeks: latest.weeks.map((item) =>
+                      item.id === weekId
+                        ? { ...item, days: item.days.filter((entry) => entry.id !== draft.id) }
+                        : item,
+                    ),
+                  })
+                  navigate(`/plan/${program.id}`)
+                }}
+                className="rounded-2xl bg-warn py-3 font-semibold text-paper"
+              >
+                Borrar
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </Screen>
   )
 }

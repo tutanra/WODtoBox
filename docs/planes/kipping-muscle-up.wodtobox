@@ -1,0 +1,1435 @@
+{
+  "format": "wodtobox.plan",
+  "schemaVersion": 1,
+  "exportedAt": 1788897518836,
+  "program": {
+    "id": "kipping-muscle-up",
+    "name": "Kipping Muscle-Up",
+    "subtitle": "Especialización · 8 semanas",
+    "notes": "PDF orientativo: 2 sesiones cortas (15-20 min) por semana. Día A fuerza estricta, día B kip y transición. No flexiones los codos hasta que la cadera esté arriba.\n\nDescansos ~2 min entre series de MU o dominadas. Cero fallo absoluto en estrictas (deja 1 rep de reserva). Si molestan los codos, cambia excéntricas por transiciones con goma.\n\nClaves: cargar el arch, brazos rígidos al inicio, fast sit-up, agarre con nudillos arriba.",
+    "seeded": false,
+    "targets": [
+      {
+        "movement": "Dominadas",
+        "start": "5-6",
+        "goal": "10-12",
+        "ratio": "Reserva"
+      },
+      {
+        "movement": "C2B estrictas",
+        "start": "1",
+        "goal": "4-5",
+        "ratio": "Tirón"
+      },
+      {
+        "movement": "Kipping MU",
+        "start": "0",
+        "goal": "Singles / 2-3",
+        "ratio": "Meta"
+      }
+    ],
+    "weeks": [
+      {
+        "id": "kipping-muscle-up-w01",
+        "number": 1,
+        "title": "Base de tracción",
+        "phase": "Fase 1 · Fuerza y cadera",
+        "goal": "Altura de tirón",
+        "days": [
+          {
+            "id": "kipping-muscle-up-w01-d1",
+            "name": "Sesión A",
+            "focus": "Fuerza estricta + transición guiada",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w01-d1-e0",
+                "name": "Dominadas estrictas (pronas)",
+                "cue": "3-4 reps · RPE 8",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w01-d1-e0-s0",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d1-e0-s1",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d1-e0-s2",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d1-e0-s3",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w01-d1-e1",
+                "name": "Dominadas negativas",
+                "cue": "5 s de bajada",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w01-d1-e1-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d1-e1-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d1-e1-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w01-d1-e2",
+                "name": "Transición asistida en barra baja",
+                "cue": "Cajón / pies apoyados",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w01-d1-e2-s0",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d1-e2-s1",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d1-e2-s2",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d1-e2-s3",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "kipping-muscle-up-w01-d2",
+            "name": "Sesión B",
+            "focus": "Dinámica de kip + potencia de cadera",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w01-d2-e0",
+                "name": "Hollow to Arch kipping swings",
+                "cue": "Tensión total",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e0-s0",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e0-s1",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e0-s2",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e0-s3",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w01-d2-e1",
+                "name": "Straight-arm lat pushdowns",
+                "cue": "Banda o barra",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e1-s0",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e1-s1",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e1-s2",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e1-s3",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w01-d2-e2",
+                "name": "Straight bar dips",
+                "cue": "Cajón o paralelas",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e2-s0",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e2-s1",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e2-s2",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w01-d2-e2-s3",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kipping-muscle-up-w02",
+        "number": 2,
+        "title": "Contacto al pecho",
+        "phase": "Fase 1 · Fuerza y cadera",
+        "goal": "Altura de tirón",
+        "days": [
+          {
+            "id": "kipping-muscle-up-w02-d1",
+            "name": "Sesión A",
+            "focus": "Fuerza estricta + transición guiada",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w02-d1-e0",
+                "name": "Chest to bar con banda ligera",
+                "cue": "Pausa 1s al pecho",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w02-d1-e0-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "banda ligera"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d1-e0-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "banda ligera"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d1-e0-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "banda ligera"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d1-e0-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "banda ligera"
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w02-d1-e1",
+                "name": "Dominadas neutras estrictas",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w02-d1-e1-s0",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d1-e1-s1",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d1-e1-s2",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w02-d1-e2",
+                "name": "Transición en salto a recepción de dip",
+                "cue": "Desde cajón",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w02-d1-e2-s0",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d1-e2-s1",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d1-e2-s2",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d1-e2-s3",
+                    "reps": 4,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "kipping-muscle-up-w02-d2",
+            "name": "Sesión B",
+            "focus": "Dinámica de kip + potencia de cadera",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w02-d2-e0",
+                "name": "Kip swing + big hip drive",
+                "cue": "Cadera a barra, brazos rectos",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e0-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e0-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e0-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e0-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e0-s4",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w02-d2-e1",
+                "name": "Straight bar dips profundos",
+                "cue": "Pecho tocando la barra",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e1-s0",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e1-s1",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e1-s2",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e1-s3",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w02-d2-e2",
+                "name": "Toes to bar o knees to elbows",
+                "cue": "6-8 reps",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e2-s0",
+                    "reps": 8,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e2-s1",
+                    "reps": 8,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w02-d2-e2-s2",
+                    "reps": 8,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kipping-muscle-up-w03",
+        "number": 3,
+        "title": "Volumen y banda",
+        "phase": "Fase 1 · Fuerza y cadera",
+        "goal": "Altura de tirón",
+        "days": [
+          {
+            "id": "kipping-muscle-up-w03-d1",
+            "name": "Sesión A",
+            "focus": "Fuerza estricta + transición guiada",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w03-d1-e0",
+                "name": "Dominadas estrictas",
+                "cue": "Acumular volumen",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e0-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e0-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e0-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e0-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e0-s4",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w03-d1-e1",
+                "name": "High pulls con salto",
+                "cue": "Tirón explosivo al esternón",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e1-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e1-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e1-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e1-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w03-d1-e2",
+                "name": "Kipping muscle-up con banda media",
+                "cue": "2 reps fluidas",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e2-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda media"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e2-s1",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda media"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e2-s2",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda media"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d1-e2-s3",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda media"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "kipping-muscle-up-w03-d2",
+            "name": "Sesión B",
+            "focus": "Dinámica de kip + potencia de cadera",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w03-d2-e0",
+                "name": "Hips to bar explosivos",
+                "cue": "Kipping alto",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w03-d2-e0-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d2-e0-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d2-e0-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d2-e0-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w03-d2-e1",
+                "name": "Russian dips / transiciones en paralelas",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w03-d2-e1-s0",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d2-e1-s1",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d2-e1-s2",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w03-d2-e2",
+                "name": "Hollow body hold",
+                "cue": "25 s",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w03-d2-e2-s0",
+                    "reps": 25,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d2-e2-s1",
+                    "reps": 25,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d2-e2-s2",
+                    "reps": 25,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w03-d2-e2-s3",
+                    "reps": 25,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kipping-muscle-up-w04",
+        "number": 4,
+        "title": "Test de control",
+        "phase": "Fase 1 · Fuerza y cadera",
+        "goal": "7-8 dominadas · 2 C2B",
+        "days": [
+          {
+            "id": "kipping-muscle-up-w04-d1",
+            "name": "Sesión A",
+            "focus": "Tests de tracción",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w04-d1-e0",
+                "name": "Test dominadas estrictas unbroken",
+                "cue": "Al fallo técnico · buscar 7-8",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w04-d1-e0-s0",
+                    "reps": 8,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w04-d1-e1",
+                "name": "Test chest to bar estrictas",
+                "cue": "2 reps consecutivas limpias",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w04-d1-e1-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "kipping-muscle-up-w04-d2",
+            "name": "Sesión B",
+            "focus": "Banda fina + intentos sin banda",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w04-d2-e0",
+                "name": "Kipping muscle-up asistido",
+                "cue": "Banda fina",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w04-d2-e0-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda fina"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w04-d2-e0-s1",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda fina"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w04-d2-e0-s2",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda fina"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w04-d2-e0-s3",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda fina"
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w04-d2-e1",
+                "name": "Kipping muscle-up sin banda",
+                "cue": "3-4 intentos bien descansados",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w04-d2-e1-s0",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w04-d2-e1-s1",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w04-d2-e1-s2",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w04-d2-e1-s3",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kipping-muscle-up-w05",
+        "number": 5,
+        "title": "Transferencia",
+        "phase": "Fase 2 · Movimiento completo",
+        "goal": "Singles sólidas",
+        "days": [
+          {
+            "id": "kipping-muscle-up-w05-d1",
+            "name": "Sesión A",
+            "focus": "Potencia vertical + tránsito rápido",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w05-d1-e0",
+                "name": "High pull-ups con kipping",
+                "cue": "Tirón al ombligo",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w05-d1-e0-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d1-e0-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d1-e0-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d1-e0-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w05-d1-e1",
+                "name": "Band muscle-up",
+                "cue": "Goma muy fina · agresividad",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w05-d1-e1-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda muy fina"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d1-e1-s1",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda muy fina"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d1-e1-s2",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda muy fina"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d1-e1-s3",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda muy fina"
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w05-d1-e2",
+                "name": "Excéntricas de muscle-up",
+                "cue": "Bajada 5 s",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w05-d1-e2-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d1-e2-s1",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d1-e2-s2",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "kipping-muscle-up-w05-d2",
+            "name": "Sesión B",
+            "focus": "Kipping eficiente + bloqueo",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w05-d2-e0",
+                "name": "Glide kip + sit-up sobre la barra",
+                "cue": "Cadera explosiva",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w05-d2-e0-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d2-e0-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d2-e0-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d2-e0-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w05-d2-e1",
+                "name": "Straight bar dips",
+                "cue": "Pausa 2 s abajo",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w05-d2-e1-s0",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d2-e1-s1",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d2-e1-s2",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d2-e1-s3",
+                    "reps": 6,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w05-d2-e2",
+                "name": "L-sit hold",
+                "cue": "15-20 s · anillas o barra",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w05-d2-e2-s0",
+                    "reps": 20,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d2-e2-s1",
+                    "reps": 20,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w05-d2-e2-s2",
+                    "reps": 20,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kipping-muscle-up-w06",
+        "number": 6,
+        "title": "Singles",
+        "phase": "Fase 2 · Movimiento completo",
+        "goal": "Singles sólidas",
+        "days": [
+          {
+            "id": "kipping-muscle-up-w06-d1",
+            "name": "Sesión A",
+            "focus": "Potencia vertical + tránsito rápido",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w06-d1-e0",
+                "name": "Chest to bar kipping",
+                "cue": "3 reps fluidas",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e0-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e0-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e0-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e0-s3",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w06-d1-e1",
+                "name": "Kipping muscle-up singles",
+                "cue": "Sin banda · 3 min de descanso",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e1-s0",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e1-s1",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e1-s2",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e1-s3",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e1-s4",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w06-d1-e2",
+                "name": "Dominadas estrictas",
+                "cue": "Pausa 2 s arriba",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e2-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e2-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d1-e2-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "kipping-muscle-up-w06-d2",
+            "name": "Sesión B",
+            "focus": "Kipping eficiente + bloqueo",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w06-d2-e0",
+                "name": "Kipping muscle-up a dip profundo",
+                "cue": "Recibir abajo",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w06-d2-e0-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d2-e0-s1",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d2-e0-s2",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d2-e0-s3",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w06-d2-e1",
+                "name": "Straight bar dips con sobrecarga",
+                "cue": "+5 kg o chaleco",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w06-d2-e1-s0",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": "+5"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d2-e1-s1",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": "+5"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d2-e1-s2",
+                    "reps": 5,
+                    "weightKg": null,
+                    "weightText": "+5"
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w06-d2-e2",
+                "name": "V-ups dinámicos",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w06-d2-e2-s0",
+                    "reps": 15,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d2-e2-s1",
+                    "reps": 15,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w06-d2-e2-s2",
+                    "reps": 15,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kipping-muscle-up-w07",
+        "number": 7,
+        "title": "Enlazar reps",
+        "phase": "Fase 2 · Movimiento completo",
+        "goal": "Linking 2 reps",
+        "days": [
+          {
+            "id": "kipping-muscle-up-w07-d1",
+            "name": "Sesión A",
+            "focus": "Potencia vertical + tránsito rápido",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w07-d1-e0",
+                "name": "Kipping muscle-up EMOM",
+                "cue": "6 min · 1 rep limpia cada minuto",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e0-s0",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e0-s1",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e0-s2",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e0-s3",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e0-s4",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e0-s5",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w07-d1-e1",
+                "name": "High pull-ups explosivas",
+                "cue": "",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e1-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e1-s1",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e1-s2",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w07-d1-e2",
+                "name": "Dominadas estrictas lastradas",
+                "cue": "+2.5 a 5 kg",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e2-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "+2.5-5"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e2-s1",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "+2.5-5"
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d1-e2-s2",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": "+2.5-5"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "kipping-muscle-up-w07-d2",
+            "name": "Sesión B",
+            "focus": "Kipping eficiente + bloqueo",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w07-d2-e0",
+                "name": "Conexión de 2 kipping muscle-ups",
+                "cue": "Linking · 3 intentos",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w07-d2-e0-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d2-e0-s1",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d2-e0-s2",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w07-d2-e1",
+                "name": "Fondos en paralelas o barra recta",
+                "cue": "8 reps fluidas",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w07-d2-e1-s0",
+                    "reps": 8,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d2-e1-s1",
+                    "reps": 8,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d2-e1-s2",
+                    "reps": 8,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w07-d2-e2",
+                "name": "Arch to hollow rocks",
+                "cue": "Bloqueo perfecto",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w07-d2-e2-s0",
+                    "reps": 12,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d2-e2-s1",
+                    "reps": 12,
+                    "weightKg": null,
+                    "weightText": ""
+                  },
+                  {
+                    "id": "kipping-muscle-up-w07-d2-e2-s2",
+                    "reps": 12,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kipping-muscle-up-w08",
+        "number": 8,
+        "title": "Test final",
+        "phase": "Fase 2 · Movimiento completo",
+        "goal": "Single + linking 2-3",
+        "days": [
+          {
+            "id": "kipping-muscle-up-w08-d1",
+            "name": "Sesión A",
+            "focus": "Activación técnica",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w08-d1-e0",
+                "name": "Kipping muscle-up con banda fina",
+                "cue": "Activación · 2 reps",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w08-d1-e0-s0",
+                    "reps": 2,
+                    "weightKg": null,
+                    "weightText": "banda fina"
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w08-d1-e1",
+                "name": "Movilidad de hombros y codos",
+                "cue": "Antes del test",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w08-d1-e1-s0",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": "libre"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "kipping-muscle-up-w08-d2",
+            "name": "Sesión B",
+            "focus": "Test oficial",
+            "exercises": [
+              {
+                "id": "kipping-muscle-up-w08-d2-e0",
+                "name": "Intento 1 · single",
+                "cue": "Impecable y controlada",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w08-d2-e0-s0",
+                    "reps": 1,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w08-d2-e1",
+                "name": "Intento 2 · linking",
+                "cue": "2-3 reps unbroken",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w08-d2-e1-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              },
+              {
+                "id": "kipping-muscle-up-w08-d2-e2",
+                "name": "Intento 3 · C2B estrictas",
+                "cue": "Objetivo ≥ 3 reps",
+                "sets": [
+                  {
+                    "id": "kipping-muscle-up-w08-d2-e2-s0",
+                    "reps": 3,
+                    "weightKg": null,
+                    "weightText": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "createdAt": 1788897518836,
+    "updatedAt": 1788897518836
+  }
+}

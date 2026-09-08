@@ -2,7 +2,13 @@ import { App as CapacitorApp } from '@capacitor/app'
 import { Capacitor } from '@capacitor/core'
 import { StatusBar, Style } from '@capacitor/status-bar'
 import { useEffect } from 'react'
-import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { HashRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { offerIncomingPlanError, offerIncomingPlanText } from './lib/incomingPlan'
+import { offerIncomingWodError, offerIncomingWodText } from './lib/incomingWod'
+import { OpenWod } from './lib/openWod'
+import { parsePlanShareText } from './lib/sharePlan'
+import { parseWodShareText } from './lib/shareWod'
+import { PLAN_SHARE_FORMAT, WOD_SHARE_FORMAT } from './types/pack'
 import { DriveSync } from './pages/DriveSync'
 import { HistoryDetail } from './pages/HistoryDetail'
 import { HistoryList } from './pages/HistoryList'
@@ -39,6 +45,7 @@ export default function App() {
 
   return (
     <HashRouter>
+      <IncomingWodListener />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sync" element={<DriveSync />} />
@@ -60,4 +67,55 @@ export default function App() {
       </Routes>
     </HashRouter>
   )
+}
+
+function IncomingWodListener() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return
+
+    const apply = (event: { text?: string; error?: string }) => {
+      if (event.error) {
+        offerIncomingWodError('No se pudo leer el fichero.')
+        navigate('/wods')
+        return
+      }
+      if (!event.text) return
+      const kind = sniffShareKind(event.text)
+      if (kind === 'plan') {
+        offerIncomingPlanText(event.text)
+        navigate('/plan')
+        return
+      }
+      if (kind === 'plan-invalid') {
+        offerIncomingPlanError('Ese archivo no es un plan de WODtoBox.')
+        navigate('/plan')
+        return
+      }
+      offerIncomingWodText(event.text)
+      navigate('/wods')
+    }
+
+    void OpenWod.consumePending().then(apply)
+    const handle = OpenWod.addListener('openFile', apply)
+    return () => {
+      void handle.then((listener) => listener.remove())
+    }
+  }, [navigate])
+
+  return null
+}
+
+function sniffShareKind(text: string): 'wod' | 'plan' | 'plan-invalid' | 'unknown' {
+  if (parsePlanShareText(text)) return 'plan'
+  if (parseWodShareText(text)) return 'wod'
+  try {
+    const raw = JSON.parse(text) as Record<string, unknown>
+    if (raw.format === PLAN_SHARE_FORMAT) return 'plan-invalid'
+    if (raw.format === WOD_SHARE_FORMAT) return 'unknown'
+  } catch {
+    /* ignore */
+  }
+  return 'unknown'
 }

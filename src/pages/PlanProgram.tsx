@@ -1,13 +1,25 @@
-import { useState } from 'react'
-import { Copy, Play, Trash2 } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Copy, Play, Plus, Share2, Trash2 } from 'lucide-react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { Screen } from '../components/Screen'
 import { TopBar } from '../components/TopBar'
 import { unlockAudio } from '../lib/audio'
-import { getProgram, restoreTemplate, saveProgram } from '../lib/programs'
-import { getSession, sessionProgress, startSession } from '../lib/sessions'
 import { resetPlanProgress } from '../lib/history'
-import { cloneWeek, emptyWeek, renumberWeeks, type Program, type ProgramWeek } from '../types/program'
+import { deleteProgram, getProgram, saveProgram } from '../lib/programs'
+import { getSession, sessionProgress, startSession } from '../lib/sessions'
+import { exportPlanFile } from '../lib/sharePlan'
+import {
+  cloneWeek,
+  emptyDay,
+  emptyTarget,
+  emptyWeek,
+  MAX_DAYS_PER_WEEK,
+  nextDayName,
+  renumberWeeks,
+  type Program,
+  type ProgramTarget,
+  type ProgramWeek,
+} from '../types/program'
 
 export function PlanProgram() {
   const { programId } = useParams()
@@ -19,14 +31,33 @@ export function PlanProgram() {
 function ProgramView({ initial }: { initial: Program }) {
   const navigate = useNavigate()
   const [program, setProgram] = useState(initial)
+  const programRef = useRef(program)
+  programRef.current = program
   const [pendingWeekId, setPendingWeekId] = useState<string | null>(null)
   const [pendingReset, setPendingReset] = useState(false)
+  const [pendingDelete, setPendingDelete] = useState(false)
+  const removedRef = useRef(false)
+  const [sharing, setSharing] = useState(false)
+  const [shareError, setShareError] = useState<string | null>(null)
+  const canShare = program.name.trim().length > 0
 
   const persist = (next: Program) => {
     const saved = saveProgram(next)
+    programRef.current = saved
     setProgram(saved)
     return saved
   }
+
+  const commit = (recipe?: (current: Program) => Program) => {
+    const current = recipe ? recipe(programRef.current) : programRef.current
+    return persist(current)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (!removedRef.current) saveProgram(programRef.current)
+    }
+  }, [])
 
   const pendingWeek = program.weeks.find((week) => week.id === pendingWeekId) ?? null
 
@@ -51,42 +82,169 @@ function ProgramView({ initial }: { initial: Program }) {
     setPendingWeekId(null)
   }
 
+  const addDay = (weekId: string) => {
+    persist({
+      ...program,
+      weeks: program.weeks.map((week) => {
+        if (week.id !== weekId || week.days.length >= MAX_DAYS_PER_WEEK) return week
+        return { ...week, days: [...week.days, emptyDay(nextDayName(week.days))] }
+      }),
+    })
+  }
+
+  const patchTarget = (index: number, patch: Partial<ProgramTarget>) => {
+    const next = {
+      ...programRef.current,
+      targets: programRef.current.targets.map((target, itemIndex) =>
+        itemIndex === index ? { ...target, ...patch } : target,
+      ),
+    }
+    programRef.current = next
+    setProgram(next)
+  }
+
+  const patchWeek = (weekId: string, patch: Partial<ProgramWeek>) => {
+    const next = {
+      ...programRef.current,
+      weeks: programRef.current.weeks.map((week) => (week.id === weekId ? { ...week, ...patch } : week)),
+    }
+    programRef.current = next
+    setProgram(next)
+  }
+
+  const inputClass =
+    'w-full rounded-xl border border-line bg-ink px-3 py-2 text-sm text-paper outline-none placeholder:text-mute focus:border-flame'
+
   return (
     <Screen>
-      <TopBar title="PLAN" backTo="/plan" />
+      <TopBar
+        title="PLAN"
+        backTo="/plan"
+        action={
+          <button
+            type="button"
+            disabled={!canShare || sharing}
+            onClick={() => {
+              const stored = commit()
+              setShareError(null)
+              setSharing(true)
+              void exportPlanFile(stored)
+                .catch((err) => {
+                  setShareError(err instanceof Error ? err.message : 'No se pudo compartir el plan.')
+                })
+                .finally(() => setSharing(false))
+            }}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-panel text-paper disabled:opacity-40"
+            aria-label="Compartir"
+          >
+            <Share2 className="h-5 w-5" />
+          </button>
+        }
+      />
+      {shareError ? <p className="mb-4 text-center text-sm text-warn">{shareError}</p> : null}
 
       <input
         value={program.name}
-        onChange={(event) => setProgram((current) => ({ ...current, name: event.target.value }))}
-        onBlur={() => persist(program)}
+        onChange={(event) => {
+          const next = { ...programRef.current, name: event.target.value }
+          programRef.current = next
+          setProgram(next)
+        }}
+        onBlur={() => commit()}
         placeholder="Nombre del programa"
         className="mb-2 w-full rounded-2xl border border-line bg-panel px-4 py-3 text-lg text-paper outline-none placeholder:text-mute focus:border-flame"
       />
       <input
         value={program.subtitle}
-        onChange={(event) => setProgram((current) => ({ ...current, subtitle: event.target.value }))}
-        onBlur={() => persist(program)}
+        onChange={(event) => {
+          const next = { ...programRef.current, subtitle: event.target.value }
+          programRef.current = next
+          setProgram(next)
+        }}
+        onBlur={() => commit()}
         placeholder="Subtítulo"
         className="mb-4 w-full rounded-2xl border border-line bg-panel px-4 py-3 text-sm text-paper outline-none placeholder:text-mute focus:border-flame"
       />
 
-      {program.targets.length > 0 ? (
-        <div className="mb-5 overflow-hidden rounded-2xl border border-line">
-          {program.targets.map((target) => (
-            <div key={target.movement} className="grid grid-cols-4 gap-1 border-b border-line px-3 py-2 text-xs last:border-b-0">
-              <span className="text-paper">{target.movement}</span>
-              <span className="text-mute">{target.start}</span>
-              <span className="text-flame">{target.goal}</span>
-              <span className="text-right text-mute">{target.ratio}</span>
-            </div>
-          ))}
-        </div>
-      ) : null}
+      <div className="mb-5 rounded-2xl border border-line bg-panel p-3">
+        <p className="text-xs font-semibold tracking-[0.2em] text-flame">OBJETIVOS</p>
+        {program.targets.length === 0 ? (
+          <p className="mt-2 text-sm text-mute">
+            Movimiento, inicio, meta y ratio, como en las plantillas.
+          </p>
+        ) : (
+          <div className="mt-3 flex flex-col gap-3">
+            {program.targets.map((target, index) => (
+              <div key={index} className="rounded-2xl bg-ink p-3">
+                <div className="flex items-center gap-2">
+                  <input
+                    value={target.movement}
+                    onChange={(event) => patchTarget(index, { movement: event.target.value })}
+                    onBlur={() => commit()}
+                    placeholder="Movimiento"
+                    className="min-w-0 flex-1 rounded-xl border border-line bg-panel px-3 py-2 text-sm font-semibold text-paper outline-none placeholder:text-mute focus:border-flame"
+                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      commit((current) => ({
+                        ...current,
+                        targets: current.targets.filter((_, itemIndex) => itemIndex !== index),
+                      }))
+                    }
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-panel-2 text-mute"
+                    aria-label={`Borrar objetivo ${target.movement || index + 1}`}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+                <div className="mt-2 grid grid-cols-3 gap-2">
+                  <input
+                    value={target.start}
+                    onChange={(event) => patchTarget(index, { start: event.target.value })}
+                    onBlur={() => commit()}
+                    placeholder="Inicio"
+                    className={inputClass}
+                  />
+                  <input
+                    value={target.goal}
+                    onChange={(event) => patchTarget(index, { goal: event.target.value })}
+                    onBlur={() => commit()}
+                    placeholder="Meta"
+                    className={`${inputClass} text-flame`}
+                  />
+                  <input
+                    value={target.ratio}
+                    onChange={(event) => patchTarget(index, { ratio: event.target.value })}
+                    onBlur={() => commit()}
+                    placeholder="Ratio"
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        <button
+          type="button"
+          onClick={() =>
+            commit((current) => ({ ...current, targets: [...current.targets, emptyTarget()] }))
+          }
+          className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-line py-2.5 text-sm font-semibold text-paper"
+        >
+          <Plus className="h-4 w-4" />
+          Objetivo
+        </button>
+      </div>
 
       <textarea
         value={program.notes}
-        onChange={(event) => setProgram((current) => ({ ...current, notes: event.target.value }))}
-        onBlur={() => persist(program)}
+        onChange={(event) => {
+          const next = { ...programRef.current, notes: event.target.value }
+          programRef.current = next
+          setProgram(next)
+        }}
+        onBlur={() => commit()}
         placeholder="Notas, claves técnicas, recuperación…"
         rows={4}
         className="mb-5 w-full resize-y rounded-2xl border border-line bg-panel px-4 py-3 text-sm text-paper outline-none placeholder:text-mute focus:border-flame"
@@ -97,13 +255,30 @@ function ProgramView({ initial }: { initial: Program }) {
           <div key={week.id} className="rounded-3xl border border-line bg-panel p-4">
             <div className="flex items-start gap-2">
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold tracking-[0.2em] text-flame">
-                  {week.phase || `SEMANA ${week.number}`}
-                </p>
-                <h2 className="mt-1 font-display text-4xl leading-none text-paper">
-                  S{week.number} · {week.title}
-                </h2>
-                {week.goal ? <p className="mt-1 text-sm text-mute">Objetivo {week.goal}</p> : null}
+                <input
+                  value={week.phase}
+                  onChange={(event) => patchWeek(week.id, { phase: event.target.value })}
+                  onBlur={() => commit()}
+                  placeholder={`Semana ${week.number}`}
+                  className="w-full bg-transparent text-xs font-semibold tracking-[0.2em] text-flame outline-none placeholder:text-flame/50"
+                />
+                <div className="mt-1 flex items-baseline gap-2">
+                  <span className="shrink-0 font-display text-4xl leading-none text-paper">S{week.number} ·</span>
+                  <input
+                    value={week.title}
+                    onChange={(event) => patchWeek(week.id, { title: event.target.value })}
+                    onBlur={() => commit()}
+                    placeholder={`Semana ${week.number}`}
+                    className="min-w-0 flex-1 bg-transparent font-display text-4xl leading-none text-paper outline-none placeholder:text-mute"
+                  />
+                </div>
+                <input
+                  value={week.goal}
+                  onChange={(event) => patchWeek(week.id, { goal: event.target.value })}
+                  onBlur={() => commit()}
+                  placeholder="Objetivo de la semana"
+                  className="mt-2 w-full rounded-xl border border-line bg-ink px-3 py-2 text-sm text-paper outline-none placeholder:text-mute focus:border-flame"
+                />
               </div>
             </div>
             <div className="mt-3 flex flex-col gap-2">
@@ -133,7 +308,7 @@ function ProgramView({ initial }: { initial: Program }) {
                     <button
                       type="button"
                       onClick={() => {
-                        persist(program)
+                        persist(programRef.current)
                         unlockAudio()
                         startSession(program.id, week.id, day.id)
                         navigate(`/plan/${program.id}/day/${day.id}/train`, { state: { from: 'program' } })
@@ -147,6 +322,15 @@ function ProgramView({ initial }: { initial: Program }) {
                 )
               })}
             </div>
+            <button
+              type="button"
+              disabled={week.days.length >= MAX_DAYS_PER_WEEK}
+              onClick={() => addDay(week.id)}
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-line py-2.5 text-sm font-semibold text-paper disabled:opacity-30"
+            >
+              <Plus className="h-4 w-4" />
+              Día
+            </button>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <button
                 type="button"
@@ -178,19 +362,6 @@ function ProgramView({ initial }: { initial: Program }) {
         + Semana
       </button>
 
-      {program.seeded ? (
-        <button
-          type="button"
-          onClick={() => {
-            const restored = restoreTemplate(program.id)
-            if (restored) setProgram(restored)
-          }}
-          className="mb-3 w-full rounded-2xl border border-line bg-panel py-3 text-sm font-semibold text-mute"
-        >
-          Restaurar plantilla del PDF
-        </button>
-      ) : null}
-
       <button
         type="button"
         onClick={() => setPendingReset(true)}
@@ -198,6 +369,48 @@ function ProgramView({ initial }: { initial: Program }) {
       >
         Reiniciar plan
       </button>
+
+      <button
+        type="button"
+        onClick={() => setPendingDelete(true)}
+        className="mb-3 w-full rounded-2xl border border-warn/40 bg-panel py-3 text-sm font-semibold text-warn"
+      >
+        Borrar plan
+      </button>
+
+      {pendingDelete ? (
+        <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/60 p-5">
+          <div className="w-full max-w-lg rounded-3xl border border-line bg-panel p-5">
+            <p className="font-display text-4xl text-paper">
+              ¿Borrar {program.name.trim() || 'este plan'}?
+            </p>
+            <p className="mt-2 text-sm text-mute">
+              Se elimina el programa y el progreso de las sesiones. El historial se queda.
+            </p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setPendingDelete(false)}
+                className="rounded-2xl border border-line py-3 font-semibold text-paper"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  removedRef.current = true
+                  resetPlanProgress(program.id)
+                  deleteProgram(program.id)
+                  navigate('/plan', { replace: true })
+                }}
+                className="rounded-2xl bg-warn py-3 font-semibold text-paper"
+              >
+                Borrar
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {pendingReset ? (
         <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/60 p-5">

@@ -1,6 +1,6 @@
 ---
 description: Persistencia local y formas JSON de WOD / plan / sesión
-globs: src/types/**/*.ts,src/lib/wods.ts,src/lib/programs.ts,src/lib/sessions.ts,src/lib/runSession.ts,src/lib/history.ts,src/lib/rms.ts,src/lib/pack.ts,src/lib/sync.ts,src/lib/migrate.ts,src/data/**/*.ts
+globs: src/types/**/*.ts,src/lib/wods.ts,src/lib/programs.ts,src/lib/sessions.ts,src/lib/runSession.ts,src/lib/history.ts,src/lib/rms.ts,src/lib/pack.ts,src/lib/shareWod.ts,src/lib/sharePlan.ts,src/lib/shareFile.ts,src/lib/sync.ts,src/lib/migrate.ts,src/lib/retiredPlanIds.ts,src/data/**/*.ts
 alwaysApply: false
 ---
 
@@ -18,7 +18,9 @@ return { ...raw, foo: typeof raw.foo === 'string' ? raw.foo : '' }
 
 - `rounds` no se anidan (`normalizeItem` filtra `type === 'rounds'` en hijos).
 - Al guardar un WOD, `timer.kind` = `wod.kind`.
-- Plantillas: `seeded: true` y el id fijo del builder. `listPrograms` reinserta si faltan; no pisa ediciones existentes.
+- Plantillas de plan: ya no se siembran. Ids `power-clean-100` / `kipping-muscle-up` se descartan al leer y al migrar.
+- WOD Heroes: `seeded: true` y el id fijo del builder. `listWods` reinserta si faltan; no pisa ediciones existentes.
+- Share de WOD/plan: `format` `wodtobox.wod` / `wodtobox.plan` en un `.wodtobox`. Importar **añade una copia** (ids nuevos, `seeded: false`); no uses `replaceWods` / `replacePrograms` en ese camino.
 - `sessionStorage` es solo la carrera en curso, no un WOD.
 - Historial: clave `wodtobox.history`. No renombrar; campo nuevo con default en `normalizeHistoryEntry`.
 - RM: clave `wodtobox.rms`. Campo nuevo con default en `normalizeRmLift`.

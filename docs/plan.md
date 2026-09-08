@@ -1,26 +1,21 @@
 # Plan
 
-Código: `src/types/program.ts`, `src/lib/programs.ts`, `src/lib/sessions.ts`, `src/data/templates.ts`, `src/data/powerClean100.ts`, `src/data/kippingMuscleUp.ts`, páginas `PlanList`, `PlanProgram`, `PlanDay`, `PlanSession`.
+Código: `src/types/program.ts`, `src/lib/programs.ts`, `src/lib/sessions.ts`, páginas `PlanList`, `PlanProgram`, `PlanDay`, `PlanSession`.
+
+La lista arranca **vacía**. Cada plan muestra semanas, días y una barra de progreso (y el siguiente día pendiente, con play para entrenar). **Borrar plan** está al final del editor (`#/plan/:programId`), no en la lista. No hay plantillas PDF de programa. `migrateLegacyStorage` quita de `wodtobox.programs` / `.sessions` los ids retirados `power-clean-100` y `kipping-muscle-up` (y un pack de Drive no los reinserta). Si el historial de un día apunta a esos ids, se reenlaza al programa actual del mismo nombre y se marca la sesión.
 
 ## Modelo
 
 ```
 Program
-  targets[]          movimiento / start / goal / ratio (resumen de la plantilla)
+  targets[]          movimiento / start / goal / ratio (opcional)
   weeks[]
     days[]
       exercises[]
         sets[]       reps, weightKg (número o null), weightText (lo que ve el usuario)
 ```
 
-`seeded: true` = plantilla PDF. No se muestra el botón borrar en la lista. Sí se puede editar kilos/reps. `restoreTemplate(id)` pisa el programa con el builder original (pierde ediciones de esa plantilla).
-
-IDs fijos de plantilla (no cambiar):
-
-- `power-clean-100`
-- `kipping-muscle-up`
-
-Si al leer `localStorage` falta alguna, `listPrograms()` la reinserta.
+`seeded` se conserva en el JSON por si llega un pack viejo; la UI no trata ningún plan como plantilla. Todos se pueden borrar.
 
 ## Sesión de un día
 
@@ -28,53 +23,19 @@ Si al leer `localStorage` falta alguna, `listPrograms()` la reinserta.
 
 - Pausa por defecto **150 s** (presets 120 / 150 / 180, en el listado). La sesión usa el mismo layout que el resto (`Screen`). El reloj de pausa se superpone arriba mientras corre, sin desplazar el contenido; al hacer scroll se queda ahí. En los últimos 10 s usa el mismo pulso que el timer (`last-ten`), no pasa a rojo. **Saltar** la cierra.
 - Al marcar una serie hecha (si no es la última) arranca la pausa.
-- `actualReps` se puede subir/bajar; el objetivo de la plantilla sigue visible (`/set.reps`).
+- `actualReps` se puede subir/bajar; el objetivo del set sigue visible (`/set.reps`).
 - `sessionProgress` = series `done` / total de series del día (barra en la vista del programa).
 - Al marcar o desmarcar una serie se actualiza el historial al momento. Si no queda ninguna serie hecha, la entrada se borra. `completedAt` se pone cuando el día está completo y se limpia si dejas series sin hacer. El atrás (o el botón de Android) sale de la sesión; no hay **Guardar y salir**.
 - Al final del programa: **Reiniciar plan** borra las sesiones (progreso). El historial de esos días se queda. Semanas y kilos no se tocan.
 
-## Plantilla: Road to 100 kg (Power Clean)
+## Programa nuevo
 
-12 semanas, 2 días/semana (Día 1 tirón/hang + front squat + pulls; Día 2 power clean desde suelo + back squat + press). Notas en la app: descansos 2–3 min, no subir si la barra frena o la recepción es fea.
+`emptyProgram()`: una semana, un día, un ejercicio con 3 series. Se pueden añadir **objetivos** (movimiento, inicio, meta, ratio). Se puede añadir semana, copiar una semana debajo (ids nuevos), borrar semana (mínimo 1). En cada semana se editan fase, título y objetivo, y de **1 a 7 días** (añadir en la semana; **Borrar día** en el editor, el último no se quita). Editar un día es solo el contenido (ejercicios, series, kilos); **entrenar** se lanza con el play de la vista del programa o con el play de **Siguiente** en la lista. **Borrar plan** (abajo del todo, con confirmación) quita el programa y las sesiones; el historial se queda.
 
-| Semana | Título | Fase | Objetivo PC |
-| --- | --- | --- | --- |
-| 1 | Aceleración | 1 · Re-aceleración | 88–90 kg |
-| 2 | Contacto | 1 | 88–90 kg |
-| 3 | Confianza | 1 | 88–90 kg |
-| 4 | Test Fase 1 | 1 | 88–90 kg (test; día 2 front squat single) |
-| 5 | Sobrecarga | 2 · Sobrecarga estructural | 92–95 kg |
-| 6 | Intensidad | 2 | 92–95 kg |
-| 7 | Pico de carga | 2 | 92–95 kg (ondas de PC) |
-| 8 | Test Fase 2 | 2 | 92–95 kg + test front squat 1RM |
-| 9 | Consolidar | 3 · Pico de potencia | 100 kg |
-| 10 | Sobrecarga 100+ | 3 | 100 kg |
-| 11 | Afinamiento | 3 | 100 kg |
-| 12 | Día 100 kg | 3 | Taper + test oficial 92 / 96 / 100 |
+## Compartir e importar
 
-Metas laterales: Front Squat 115–120, Back Squat 135–145, Clean Pulls 115–120.
+Un plan se **comparte** desde `#/plan/:programId` (icono Compartir, hace falta nombre) como `{ "format": "wodtobox.plan", "schemaVersion": 1, "program": … }` en un fichero `nombre.wodtobox`. En el PC descarga; en la APK abre la hoja de Android. En `#/plan`, **importar** lee ese fichero: si el `format` no vale, *Ese archivo no es un plan de WODtoBox.*; si vale, pide confirmación y **añade una copia** (ids nuevos, `seeded: false`). No sustituye la lista. Un pack o un WOD suelto no entra por este camino. No se importan sesiones ni historial.
 
-El detalle de cada serie (kilos concretos) está en `src/data/powerClean100.ts`. La app trata esos números como **orientativos**: el usuario los edita en el día.
+Las plantillas que antes venían de fábrica están en `docs/planes/` (`road-to-100-kg.wodtobox`, `kipping-muscle-up.wodtobox`) para importarlas a mano.
 
-## Plantilla: Kipping Muscle-Up
-
-8 semanas, 2 sesiones cortas (A fuerza estricta, B kip/transición). ~15–20 min. Sin fallo absoluto en estrictas.
-
-| Semana | Título | Fase | Objetivo |
-| --- | --- | --- | --- |
-| 1 | Base de tracción | 1 · Fuerza y cadera | Altura de tirón |
-| 2 | Contacto al pecho | 1 | Altura de tirón |
-| 3 | Volumen y banda | 1 | Altura de tirón |
-| 4 | Test de control | 1 | 7–8 dominadas · 2 C2B |
-| 5 | Transferencia | 2 · Movimiento completo | Singles sólidas |
-| 6 | Singles | 2 | Singles sólidas |
-| 7 | Enlazar reps | 2 | Linking 2 reps |
-| 8 | Test final | 2 | Single + linking 2–3 |
-
-Metas: dominadas 10–12, C2B estrictas 4–5, kipping MU singles / 2–3.
-
-Fuente: `src/data/kippingMuscleUp.ts`.
-
-## Plan CUSTOM
-
-`emptyProgram()`: una semana, dos días, un ejercicio con 3 series. Se puede añadir semana, copiar una semana debajo (ids nuevos), borrar semana (mínimo 1), editar igual que las plantillas. Sí se puede borrar el programa entero.
+En Android, **Abrir con** / **Compartir** un `.wodtobox` de plan abre `#/plan` y usa el mismo flujo.

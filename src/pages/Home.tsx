@@ -11,7 +11,7 @@ const menus = [
     featured: true,
   },
   { to: '/wods', n: '02', title: 'WODS', hint: 'Grabados · ejercicios · al timer', featured: false },
-  { to: '/plan', n: '03', title: 'PLAN', hint: 'Power Clean · Muscle-Up · series', featured: false },
+  { to: '/plan', n: '03', title: 'PLAN', hint: 'Semanas · días · series', featured: false },
   { to: '/rm', n: '04', title: 'RM', hint: 'Pesos máximos · reps · kilos', featured: false },
   { to: '/historial', n: '05', title: 'HISTORIAL', hint: 'WODs · plan · RM', featured: false },
 ] as const

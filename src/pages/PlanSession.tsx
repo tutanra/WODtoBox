@@ -28,13 +28,19 @@ export function PlanSession() {
   const program = programId ? getProgram(programId) : null
   const found = program && dayId ? findDay(program, dayId) : null
   if (!program || !found) return <Navigate to="/plan" replace />
-  const fromProgram = (location.state as { from?: string } | null)?.from === 'program'
+  const from = (location.state as { from?: string } | null)?.from
+  const backTo =
+    from === 'program'
+      ? `/plan/${program.id}`
+      : from === 'list'
+        ? '/plan'
+        : `/plan/${program.id}/day/${found.day.id}`
   return (
     <LiveSession
       program={program}
       week={found.week}
       day={found.day}
-      backTo={fromProgram ? `/plan/${program.id}` : `/plan/${program.id}/day/${found.day.id}`}
+      backTo={backTo}
     />
   )
 }

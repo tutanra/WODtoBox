@@ -26,7 +26,7 @@ function read(rel) {
 
 const contract = JSON.parse(readFileSync(contractPath, 'utf8'))
 
-if (contract.schemaVersion !== 3) {
+if (contract.schemaVersion !== 4) {
   fail(`unsupported schemaVersion ${contract.schemaVersion} (docs/compatibilidad.md)`)
 }
 
@@ -46,11 +46,9 @@ for (const kind of contract.timerKinds) {
   if (!timerSrc.includes(`'${kind}'`)) fail(`kind '${kind}' missing in src/types/timer.ts`)
 }
 
-for (const id of contract.templateIds) {
-  const inPower = read('src/data/powerClean100.ts').includes(id)
-  const inKipping = read('src/data/kippingMuscleUp.ts').includes(id)
-  const inTemplates = read('src/data/templates.ts').includes(id) || inPower || inKipping
-  if (!inTemplates) fail(`template id '${id}' not found in data builders`)
+for (const id of contract.templateIds ?? []) {
+  const libs = read('src/lib/retiredPlanIds.ts')
+  if (!libs.includes(id)) fail(`template id '${id}' not found in src/lib/retiredPlanIds.ts`)
 }
 
 const heroSrc = read('src/data/heroWods.ts')

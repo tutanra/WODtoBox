@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Share2 } from 'lucide-react'
 import { Screen } from '../components/Screen'
 import { TimerFields } from '../components/TimerFields'
 import { TopBar } from '../components/TopBar'
@@ -7,6 +8,7 @@ import { WodBlockList } from '../components/WodBlockList'
 import { KIND_META, metaFor } from '../data/kinds'
 import { unlockAudio } from '../lib/audio'
 import { newRunId, persistRunSession } from '../lib/runSession'
+import { exportWodFile } from '../lib/shareWod'
 import { summarizeTimer } from '../lib/summarize'
 import { getWod, restoreHeroWod, saveWod } from '../lib/wods'
 import { newWod, type Wod } from '../types/wod'
@@ -34,6 +36,8 @@ function Editor({ initial, onBack }: { initial: Wod; onBack: () => void }) {
   const navigate = useNavigate()
   const [wod, setWod] = useState(initial)
   const [savedHint, setSavedHint] = useState(false)
+  const [sharing, setSharing] = useState(false)
+  const [shareError, setShareError] = useState<string | null>(null)
 
   const canSave = wod.name.trim().length > 0
   const summary = useMemo(() => summarizeTimer(wod.timer), [wod.timer])
@@ -118,6 +122,7 @@ function Editor({ initial, onBack }: { initial: Wod; onBack: () => void }) {
 
         <p className="text-center text-sm text-mute">{summary}</p>
         {savedHint ? <p className="text-center text-sm text-work">WOD guardado</p> : null}
+        {shareError ? <p className="text-center text-sm text-warn">{shareError}</p> : null}
 
         <button
           type="button"
@@ -127,19 +132,40 @@ function Editor({ initial, onBack }: { initial: Wod; onBack: () => void }) {
         >
           ADAPTAR AL TIMER
         </button>
-        <button
-          type="button"
-          disabled={!canSave}
-          onClick={() => {
-            const stored = persist()
-            setWod(stored)
-            setSavedHint(true)
-            window.setTimeout(() => setSavedHint(false), 1600)
-          }}
-          className="w-full rounded-2xl border border-line bg-panel py-3 font-semibold text-paper disabled:opacity-40"
-        >
-          Guardar
-        </button>
+        <div className="flex gap-3">
+          <button
+            type="button"
+            disabled={!canSave || sharing}
+            onClick={() => {
+              const stored = persist()
+              setWod(stored)
+              setSavedHint(true)
+              window.setTimeout(() => setSavedHint(false), 1600)
+            }}
+            className="flex-1 rounded-2xl border border-line bg-panel py-3 font-semibold text-paper disabled:opacity-40"
+          >
+            Guardar
+          </button>
+          <button
+            type="button"
+            disabled={!canSave || sharing}
+            onClick={() => {
+              const stored = persist()
+              setWod(stored)
+              setShareError(null)
+              setSharing(true)
+              void exportWodFile(stored)
+                .catch((err) => {
+                  setShareError(err instanceof Error ? err.message : 'No se pudo compartir el WOD.')
+                })
+                .finally(() => setSharing(false))
+            }}
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-line bg-panel text-paper disabled:opacity-40"
+            aria-label="Compartir"
+          >
+            <Share2 className="h-5 w-5" />
+          </button>
+        </div>
         {initial.seeded ? (
           <button
             type="button"

@@ -1,4 +1,3 @@
-import { Capacitor } from '@capacitor/core'
 import { clearHistory, listHistory, replaceHistory } from './history'
 import { listPrograms, replacePrograms } from './programs'
 import { listRms, replaceRms } from './rms'
@@ -6,6 +5,7 @@ import { clearRunSession } from './runSession'
 import { listSessions, replaceSessions } from './sessions'
 import { dumpWods, replaceWods } from './wods'
 import { normalizeWod } from '../types/wod'
+import { shareOrDownloadFile } from './shareFile'
 import { PACK_FORMAT, isPackFormat, type WodtoboxPack } from '../types/pack'
 
 function stampOf(value: unknown): number {
@@ -15,7 +15,7 @@ function stampOf(value: unknown): number {
   return Math.max(0, ...keys.map((key) => (typeof record[key] === 'number' ? record[key] : 0)))
 }
 
-/** Plantilla PDF / WOD Hero recién reinsertada: no cuenta como cambio del usuario. */
+/** WOD Hero recién reinsertado: no cuenta como cambio del usuario. */
 function isUntouchedSeed(value: unknown): boolean {
   if (!value || typeof value !== 'object') return false
   const record = value as Record<string, unknown>
@@ -101,29 +101,8 @@ export function parsePackText(text: string): WodtoboxPack | null {
 
 export async function exportPackFile() {
   const json = `${JSON.stringify(buildPack(), null, 2)}\n`
-  const blob = new Blob([json], { type: 'application/json' })
-  const file = new File([blob], PACK_FILENAME, { type: 'application/json' })
-  const payload = { files: [file], title: 'WODtoBox' }
-  if (
-    Capacitor.isNativePlatform() &&
-    typeof navigator.canShare === 'function' &&
-    navigator.canShare(payload)
-  ) {
-    try {
-      await navigator.share(payload)
-      return
-    } catch (err) {
-      if (err instanceof Error && err.name === 'AbortError') return
-    }
-  }
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = PACK_FILENAME
-  document.body.append(link)
-  link.click()
-  link.remove()
-  URL.revokeObjectURL(url)
+  const file = new File([json], PACK_FILENAME, { type: 'application/json' })
+  await shareOrDownloadFile(file)
 }
 
 export function purgeLocalData() {
@@ -133,6 +112,5 @@ export function purgeLocalData() {
   clearHistory()
   replaceRms([])
   clearRunSession()
-  listPrograms()
   dumpWods()
 }
