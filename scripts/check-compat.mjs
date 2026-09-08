@@ -26,7 +26,7 @@ function read(rel) {
 
 const contract = JSON.parse(readFileSync(contractPath, 'utf8'))
 
-if (contract.schemaVersion !== 2) {
+if (contract.schemaVersion !== 3) {
   fail(`unsupported schemaVersion ${contract.schemaVersion} (docs/compatibilidad.md)`)
 }
 
@@ -71,6 +71,8 @@ for (const key of storageValues) {
     'src/lib/history.ts',
     'src/lib/rms.ts',
     'src/lib/sync.ts',
+    'src/lib/googleAuth.ts',
+    'src/lib/migrate.ts',
   ]
     .map(read)
     .join('\n')

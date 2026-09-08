@@ -6,7 +6,7 @@ El archivo [contrato.json](contrato.json) es la lista corta de invariantes. `npm
 
 ## Nunca, sin migración
 
-1. **Renombrar o borrar claves de storage** (`wodplanning.wods`, `.programs`, `.sessions`, `.runSession`, `.history`, `.rms`, `.sync`). Si hace falta un nombre nuevo: leer la clave antigua, escribir la nueva, dejar el lector dual un tiempo.
+1. **Renombrar o borrar claves de storage** (`wodtobox.wods`, `.programs`, `.sessions`, `.runSession`, `.history`, `.rms`, `.sync`). Si hace falta un nombre nuevo: leer la clave antigua, escribir la nueva, dejar el lector dual un tiempo.
 2. **Quitar un `TimerKind`**. Puede estar guardado en WODs. Añadir kinds sí; eliminar no, o hay que mapear el kind viejo en `normalizeWod`.
 3. **Cambiar IDs de plantilla** `power-clean-100`, `kipping-muscle-up`, ni los `hero-*` de WOD Heroes. El reseed y `restoreTemplate` / `restoreHeroWod` dependen de ellos. Usuarios con ediciones las perderían al reinsertar “otro” id.
 4. **Cambiar `applicationId` / `appId`** `com.wodotobox.app` una vez publicada. Play lo trata como otra app.
@@ -36,7 +36,9 @@ Los normalizers actuales que hay que conservar o extender, no sustituir a ciegas
 
 ### Historial
 
-**2** (actual) — Rebrand a WODtoBox. `applicationId` / `appId` pasa de `com.wodplanning.app` a `com.wodotobox.app`. Nombre visible: WODtoBox (ficha: «WODtoBox: WOD Timer & Plans»). Las claves `wodplanning.*` y el pack de Drive **no** cambian: un JSON viejo sigue leyéndose. La APK nueva es otra app en Android (Play la trata como distinta); los datos del sideload antiguo no se copian solos. Quien ya tenía copia en Drive puede bajarla.
+**3** (actual) — Claves `wodtobox.*`, pack `wodtobox.pack` / `wodtobox.pack.json`. Al arrancar, `migrateLegacyStorage` copia `wodplanning.*` a `wodtobox.*` y borra las claves viejas. Importar y Drive siguen leyendo un pack con `format: wodplanning.pack` (y el fichero `wodplanning.pack.json`); al subir se escribe y se renombra a `wodtobox.pack.json`.
+
+**2** — Rebrand a WODtoBox. `applicationId` / `appId` pasa de `com.wodplanning.app` a `com.wodotobox.app`. Nombre visible: WODtoBox (ficha: «WODtoBox: WOD Timer & Plans»). Las claves y el pack seguían en `wodplanning.*`. La APK nueva es otra app en Android (Play la trata como distinta).
 
 **1** — Contrato inicial (WOD Planning, `com.wodplanning.app`).
 

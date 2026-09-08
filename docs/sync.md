@@ -1,30 +1,32 @@
 # Sync con Google Drive
 
-Código: `src/lib/pack.ts`, `src/lib/sync.ts`, `src/lib/googleAuth.ts`, `src/lib/drive.ts`, página `DriveSync`.
+Código: `src/lib/pack.ts`, `src/lib/sync.ts`, `src/lib/googleAuth.ts`, `src/lib/drive.ts`, `src/lib/migrate.ts`, página `DriveSync`.
 
 La cuenta es **opcional**. Sin Google la app sigue igual (todo en `localStorage`).
 
 ## Qué se copia
 
-Un archivo en tu Drive llamado `wodplanning.pack.json` (`format: wodplanning.pack`), dentro de una carpeta **WODtoBox** que crea la app si no existe:
+Un archivo en tu Drive llamado `wodtobox.pack.json` (`format: wodtobox.pack`), dentro de una carpeta **WODtoBox** que crea la app si no existe:
 
 - WODs (incluidos Heroes editados)
 - programas y sesiones de plan
 - RM
 - historial
 
-No se sube el timer en curso (`wodplanning.runSession`).
+No se sube el timer en curso (`wodtobox.runSession`).
 
-La app usa el ámbito `drive.file`: solo ve archivos que ella misma creó. No puede listar el resto de tus carpetas, así que no hay un selector de «cualquier carpeta de Drive». Si mueves `wodplanning.pack.json` a otra carpeta en la web de Drive, las siguientes **SYNC** actualizan ese mismo archivo (sigue donde lo dejaste). Un archivo que ya estaba en Mi unidad no se mueve solo.
+La app usa el ámbito `drive.file`: solo ve archivos que ella misma creó. No puede listar el resto de tus carpetas, así que no hay un selector de «cualquier carpeta de Drive». Si mueves `wodtobox.pack.json` a otra carpeta en la web de Drive, las siguientes **SYNC** actualizan ese mismo archivo (sigue donde lo dejaste). Un archivo que ya estaba en Mi unidad no se mueve solo. Si aún existe `wodplanning.pack.json` de una versión anterior, se lee y al subir se renombra.
 
 `SYNC` hace la dirección que encaja con el estado: si este dispositivo está más nuevo (o no hay copia), **sube**; si Drive está más nuevo, **baja** (con confirmación). El botón secundario es la otra dirección: **Bajar de Drive** o **Subir a Drive**. Subir cuando Drive está más nuevo también pide confirmación, porque machaca la copia remota.
+
+En la misma pantalla, **Exportar** / **Importar** copian ese pack a un fichero local (`wodtobox.pack.json`) sin cuenta. Importar sustituye los datos de este dispositivo (con confirmación), igual que bajar de Drive. Un pack viejo (`wodplanning.pack`) también entra. El timer en curso no se toca. En el móvil, exportar puede abrir la hoja de compartir si el sistema lo permite.
 
 La comparación local/Drive usa `dataAt`: el `updatedAt` más reciente de WODs, planes, sesiones, historial y RM **del usuario**. Las plantillas PDF y WOD Heroes recién reinsertadas (tras un borrado local) no cuentan: si no, el dispositivo parecería más nuevo que Drive solo porque se han vuelto a sembrar.
 
 El icono de papelera en `#/sync` deja elegir qué borrar, con confirmación:
 
 - **Este dispositivo** — WODs, plan, RM, historial y sesiones locales. Las plantillas PDF y WOD Heroes vuelven al original. Drive no se toca.
-- **Copia en Drive** — borra `wodplanning.pack.json` de tu Drive. Este dispositivo no se toca. Hace falta sesión de Google.
+- **Copia en Drive** — borra `wodtobox.pack.json` (y el pack viejo, si queda) de tu Drive. Este dispositivo no se toca. Hace falta sesión de Google.
 
 El Client ID web va integrado (`VITE_GOOGLE_CLIENT_ID` / `GOOGLE_WEB_CLIENT_ID`). En `#/sync` se pulsa **GOOGLE**; no hay que pegar credenciales. El Client ID de Android (`573815267654-oogn68pklgmoh9fkhpah4psou419r6ah.apps.googleusercontent.com`) no se usa en código: Google lo empareja por paquete `com.wodotobox.app` y SHA-1.
 
@@ -38,4 +40,4 @@ Prueba el login en Chrome o Firefox en `http://localhost:5173` (no en `127.0.0.1
 
 ## UI
 
-`#/sync` — última sync, carpeta de la copia, si este dispositivo o Drive está más nuevo, Google / SYNC (sube o baja según quién esté más nuevo) / el otro sentido / papelera (borrar local o Drive) / cerrar sesión.
+`#/sync` — última sync, carpeta de la copia, si este dispositivo o Drive está más nuevo, Google / SYNC / el otro sentido / exportar e importar fichero / papelera (borrar local o Drive) / cerrar sesión.

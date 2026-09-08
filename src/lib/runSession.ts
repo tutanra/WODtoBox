@@ -11,8 +11,8 @@ export function newRunId() {
   return crypto.randomUUID()
 }
 
-const SESSION_KEY = 'wodplanning.runSession'
-const CONFIG_KEY = 'wodplanning.timerConfig'
+const SESSION_KEY = 'wodtobox.runSession'
+const CONFIG_KEY = 'wodtobox.timerConfig'
 
 function isTimerConfig(value: unknown): value is TimerConfig {
   if (!value || typeof value !== 'object') return false

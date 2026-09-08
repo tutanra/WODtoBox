@@ -1,7 +1,7 @@
 import { PROGRAM_TEMPLATES, buildTemplate } from '../data/templates'
 import type { Program } from '../types/program'
 
-const KEY = 'wodplanning.programs'
+const KEY = 'wodtobox.programs'
 
 function isProgram(value: unknown): value is Program {
   if (!value || typeof value !== 'object') return false

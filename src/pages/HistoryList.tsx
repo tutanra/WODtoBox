@@ -88,7 +88,9 @@ export function HistoryList() {
                         {historyTitle(entry)}
                       </h3>
                       <p className="mt-2 text-sm text-mute">{historySubtitle(entry)}</p>
-                      <p className="mt-1 text-sm font-semibold text-gold">{historyResultLabel(entry)}</p>
+                      <p className="mt-1 whitespace-pre-line text-sm font-semibold text-gold">
+                        {historyResultLabel(entry)}
+                      </p>
                     </Link>
                     {entry.kind === 'wod' ? (
                       <button

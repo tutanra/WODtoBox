@@ -2,7 +2,7 @@
 
 App de entrenamiento funcional para Android: timers de WOD, workouts grabados, planificación de fuerza, máximos e historial. El menú principal tiene cinco entradas. Ficha: **WODtoBox: WOD Timer & Plans**.
 
-Todo se guarda en el dispositivo. Puedes copiar WODs, plan, RM e historial a Google Drive (icono de nube junto al título).
+Todo se guarda en el dispositivo. Puedes copiar WODs, plan, RM e historial a Google Drive o a un fichero JSON (icono de nube junto al título: **Exportar** / **Importar**, o **GOOGLE**).
 
 Documentación completa (flujos, plantillas, arquitectura y contrato para no romper datos): [`docs/`](docs/README.md).
 

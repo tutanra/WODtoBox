@@ -1,7 +1,7 @@
 import { buildHeroWod, HERO_SEED_REVISION, HERO_WODS, isHeroWodId } from '../data/heroWods'
 import { normalizeWod, type Wod } from '../types/wod'
 
-const KEY = 'wodplanning.wods'
+const KEY = 'wodtobox.wods'
 
 function readStored(): Wod[] {
   const raw = localStorage.getItem(KEY)

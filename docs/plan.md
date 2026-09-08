@@ -24,7 +24,7 @@ Si al leer `localStorage` falta alguna, `listPrograms()` la reinserta.
 
 ## Sesión de un día
 
-`SessionLog` en `wodplanning.sessions`. Una sesión por `(programId, dayId)`: `startSession` reanuda la misma aunque ya tuviera `completedAt`. **Reiniciar plan** las borra todas.
+`SessionLog` en `wodtobox.sessions`. Una sesión por `(programId, dayId)`: `startSession` reanuda la misma aunque ya tuviera `completedAt`. **Reiniciar plan** las borra todas.
 
 - Pausa por defecto **150 s** (presets 120 / 150 / 180, en el listado). La sesión usa el mismo layout que el resto (`Screen`). El reloj de pausa se superpone arriba mientras corre, sin desplazar el contenido; al hacer scroll se queda ahí. En los últimos 10 s usa el mismo pulso que el timer (`last-ten`), no pasa a rojo. **Saltar** la cierra.
 - Al marcar una serie hecha (si no es la última) arranca la pausa.

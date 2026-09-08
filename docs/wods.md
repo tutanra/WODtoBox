@@ -28,11 +28,11 @@ Un WOD:
 2. Tipo: chips de los 6 formatos; al cambiar, se copia `kind` al `timer`.
 3. Mismos campos de timer que en Timers sueltos.
 4. Contenido: añadir Ejercicio / Descanso / Rondas. No se puede dejar la lista vacía (si borras el último, aparece un exercise vacío).
-5. `Guardar` o `ADAPTAR AL TIMER` (guarda + `persistRunSession` + navega a run). Al terminar el timer, el resultado se guarda en el historial (`wodplanning.history`). Los timers sueltos no.
+5. `Guardar` o `ADAPTAR AL TIMER` (guarda + `persistRunSession` + navega a run). Al terminar el timer, el resultado se guarda en el historial (`wodtobox.history`). Los timers sueltos no.
 
 ## WOD Heroes
 
-Menú al final de `#/wods` → `#/wods/heroes`. Plantillas clásicas (Fran, Cindy, Murph…) con pesos en kg, ids `hero-*`. Los esquemas 21-15-9 / 50-40-30-20-10 se desglosan en un ejercicio por ronda y movimiento (Fran, Annie, Diane). Murph va sin chaleco. Viven en la misma clave `wodplanning.wods` con `seeded: true` y `seedRevision`; `listWods` no las mezcla con las del usuario. Si faltan o la revisión de plantilla sube, se reinsertan. No se borran; **Restaurar** pisa con la plantilla. El editor de un hero vuelve a `#/wods/heroes`.
+Menú al final de `#/wods` → `#/wods/heroes`. Plantillas clásicas (Fran, Cindy, Murph…) con pesos en kg, ids `hero-*`. Los esquemas 21-15-9 / 50-40-30-20-10 se desglosan en un ejercicio por ronda y movimiento (Fran, Annie, Diane). Murph va sin chaleco. Viven en la misma clave `wodtobox.wods` con `seeded: true` y `seedRevision`; `listWods` no las mezcla con las del usuario. Si faltan o la revisión de plantilla sube, se reinsertan. No se borran; **Restaurar** pisa con la plantilla. El editor de un hero vuelve a `#/wods/heroes`.
 
 No renombrar los ids `hero-fran`, `hero-cindy`, etc.: el reseed depende de ellos.
 
@@ -43,4 +43,4 @@ No renombrar los ids `hero-fran`, `hero-cindy`, etc.: el reseed depende de ellos
 
 ## Storage
 
-Clave `wodplanning.wods`: array JSON. API: `listWods` (solo los del usuario), `listHeroWods`, `getWod`, `saveWod`, `deleteWod` (no borra heroes), `restoreHeroWod`.
+Clave `wodtobox.wods`: array JSON. API: `listWods` (solo los del usuario), `listHeroWods`, `getWod`, `saveWod`, `deleteWod` (no borra heroes), `restoreHeroWod`.

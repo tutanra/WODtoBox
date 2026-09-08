@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core'
 import { clearHistory, listHistory, replaceHistory } from './history'
 import { listPrograms, replacePrograms } from './programs'
 import { listRms, replaceRms } from './rms'
@@ -5,7 +6,7 @@ import { clearRunSession } from './runSession'
 import { listSessions, replaceSessions } from './sessions'
 import { dumpWods, replaceWods } from './wods'
 import { normalizeWod } from '../types/wod'
-import { PACK_FORMAT, type WodPlanningPack } from '../types/pack'
+import { PACK_FORMAT, isPackFormat, type WodtoboxPack } from '../types/pack'
 
 function stampOf(value: unknown): number {
   if (!value || typeof value !== 'object') return 0
@@ -31,7 +32,7 @@ export function maxDataAt(items: unknown[]): number {
   }, 0)
 }
 
-export function buildPack(): WodPlanningPack {
+export function buildPack(): WodtoboxPack {
   const wods = dumpWods()
   const programs = listPrograms()
   const sessions = listSessions()
@@ -54,10 +55,10 @@ export function localDataAt() {
   return buildPack().dataAt
 }
 
-export function parsePack(value: unknown): WodPlanningPack | null {
+export function parsePack(value: unknown): WodtoboxPack | null {
   if (!value || typeof value !== 'object') return null
   const raw = value as Record<string, unknown>
-  if (raw.format !== PACK_FORMAT) return null
+  if (!isPackFormat(raw.format)) return null
   if (raw.schemaVersion !== 1) return null
   const wods = Array.isArray(raw.wods) ? raw.wods : []
   const programs = Array.isArray(raw.programs) ? raw.programs : []
@@ -79,12 +80,50 @@ export function parsePack(value: unknown): WodPlanningPack | null {
   }
 }
 
-export function applyPack(pack: WodPlanningPack) {
+export function applyPack(pack: WodtoboxPack) {
   replaceWods(pack.wods.map(normalizeWod).filter((wod) => wod != null))
   replacePrograms(pack.programs)
   replaceSessions(pack.sessions)
   replaceHistory(pack.history)
   replaceRms(pack.rms)
+}
+
+export const PACK_FILENAME = 'wodtobox.pack.json'
+export const LEGACY_PACK_FILENAME = 'wodplanning.pack.json'
+
+export function parsePackText(text: string): WodtoboxPack | null {
+  try {
+    return parsePack(JSON.parse(text) as unknown)
+  } catch {
+    return null
+  }
+}
+
+export async function exportPackFile() {
+  const json = `${JSON.stringify(buildPack(), null, 2)}\n`
+  const blob = new Blob([json], { type: 'application/json' })
+  const file = new File([blob], PACK_FILENAME, { type: 'application/json' })
+  const payload = { files: [file], title: 'WODtoBox' }
+  if (
+    Capacitor.isNativePlatform() &&
+    typeof navigator.canShare === 'function' &&
+    navigator.canShare(payload)
+  ) {
+    try {
+      await navigator.share(payload)
+      return
+    } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') return
+    }
+  }
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = PACK_FILENAME
+  document.body.append(link)
+  link.click()
+  link.remove()
+  URL.revokeObjectURL(url)
 }
 
 export function purgeLocalData() {

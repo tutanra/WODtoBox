@@ -1,6 +1,6 @@
 ---
 description: Persistencia local y formas JSON de WOD / plan / sesión
-globs: src/types/**/*.ts,src/lib/wods.ts,src/lib/programs.ts,src/lib/sessions.ts,src/lib/runSession.ts,src/lib/history.ts,src/lib/rms.ts,src/lib/pack.ts,src/lib/sync.ts,src/data/**/*.ts
+globs: src/types/**/*.ts,src/lib/wods.ts,src/lib/programs.ts,src/lib/sessions.ts,src/lib/runSession.ts,src/lib/history.ts,src/lib/rms.ts,src/lib/pack.ts,src/lib/sync.ts,src/lib/migrate.ts,src/data/**/*.ts
 alwaysApply: false
 ---
 
@@ -20,6 +20,6 @@ return { ...raw, foo: typeof raw.foo === 'string' ? raw.foo : '' }
 - Al guardar un WOD, `timer.kind` = `wod.kind`.
 - Plantillas: `seeded: true` y el id fijo del builder. `listPrograms` reinserta si faltan; no pisa ediciones existentes.
 - `sessionStorage` es solo la carrera en curso, no un WOD.
-- Historial: clave `wodplanning.history`. No renombrar; campo nuevo con default en `normalizeHistoryEntry`.
-- RM: clave `wodplanning.rms`. Campo nuevo con default en `normalizeRmLift`.
-- Sync Drive: clave `wodplanning.sync` (meta, no el pack). El pack es `wodplanning.pack` en Drive.
+- Historial: clave `wodtobox.history`. No renombrar; campo nuevo con default en `normalizeHistoryEntry`.
+- RM: clave `wodtobox.rms`. Campo nuevo con default en `normalizeRmLift`.
+- Sync Drive: clave `wodtobox.sync` (meta, no el pack). El pack es `wodtobox.pack` en Drive.

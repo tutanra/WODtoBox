@@ -1,5 +1,5 @@
 ---
-name: wodplanning-compat
+name: wodtobox-compat
 description: Protege el contrato de datos de WODtoBox (localStorage, sessionStorage, TIMER_KINDS, ids de plantilla, applicationId, HashRouter). Use when changing src/types, src/lib persistence, docs/contrato.json, Capacitor appId, Vite base, or when adding/removing timer kinds or template IDs.
 ---
 
@@ -19,7 +19,7 @@ npm run check:compat
 2. **No quitar** un `TimerKind`. Añadir al **final** de `TIMER_KINDS` sí.
 3. **No cambiar** `power-clean-100`, `kipping-muscle-up`, ni `com.wodotobox.app`.
 4. Campo nuevo → **opcional** con default en `normalizeWod` / `normalizeTimerConfig` / lectura de Program. Un JSON viejo tiene que seguir cargando.
-5. Extender normalizers; no borrar ramas legacy (`isRest`, `wodplanning.timerConfig`, reseed de plantillas).
+5. Extender normalizers; no borrar ramas legacy (`isRest`, `wodtobox.timerConfig`, reseed de plantillas).
 6. `rounds` no se anidan.
 
 ## Si un invariante cambia de verdad

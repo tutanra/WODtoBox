@@ -30,7 +30,7 @@ export function HistoryDetail() {
           : `${formatHistoryDay(entry.finishedAt).toUpperCase()} · ${formatHistoryTime(entry.finishedAt)}`}
       </p>
       <h2 className="mt-2 font-display text-5xl leading-none text-paper">{historyTitle(entry)}</h2>
-      <p className="mt-3 rounded-2xl bg-panel px-4 py-3 text-sm font-semibold text-gold">
+      <p className="mt-3 whitespace-pre-line rounded-2xl bg-panel px-4 py-3 text-sm font-semibold text-gold">
         {historyResultLabel(entry)}
       </p>
 
@@ -100,15 +100,15 @@ function RmDetail({ entry }: { entry: HistoryRmEntry }) {
 }
 
 function PlanDetail({ entry }: { entry: HistoryPlanEntry }) {
+  const week = entry.weekTitle.trim() || (entry.weekNumber > 0 ? `Semana ${entry.weekNumber}` : 'Semana')
+  const day = entry.dayName.trim()
+  const meta = [day ? week : '', entry.dayFocus.trim()].filter(Boolean).join(' · ')
   return (
     <div className="mt-5 flex flex-col gap-3 pb-4">
       <article className="rounded-3xl border border-line bg-panel p-4">
-        <p className="text-xs font-semibold tracking-[0.22em] text-mute">PROGRAMA</p>
-        <p className="mt-1 font-display text-3xl text-paper">{entry.programName.trim() || 'Plan'}</p>
-        <p className="mt-1 text-sm text-mute">
-          {entry.weekTitle.trim() || (entry.weekNumber > 0 ? `Semana ${entry.weekNumber}` : 'Semana')}
-          {entry.dayFocus ? ` · ${entry.dayFocus}` : ''}
-        </p>
+        <p className="text-xs font-semibold tracking-[0.22em] text-mute">DÍA</p>
+        <p className="mt-1 font-display text-3xl text-paper">{day || week}</p>
+        {meta ? <p className="mt-1 text-sm text-mute">{meta}</p> : null}
       </article>
       {entry.exercises.map((exercise, index) => (
         <article key={`${exercise.name}-${index}`} className="rounded-3xl border border-line bg-panel p-4">

@@ -19,8 +19,8 @@ import type { TimerSnapshot } from '../types/timer'
 import type { RmLift } from '../types/rm'
 import type { Wod } from '../types/wod'
 
-const KEY = 'wodplanning.history'
-const MIGRATED_KEY = 'wodplanning.history.migratedSessions.v2'
+const KEY = 'wodtobox.history'
+const MIGRATED_KEY = 'wodtobox.history.migratedSessions.v2'
 
 function readStored(): HistoryEntry[] {
   const raw = localStorage.getItem(KEY)

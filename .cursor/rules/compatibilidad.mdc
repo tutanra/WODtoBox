@@ -1,5 +1,5 @@
 ---
-description: Invariantes de WOD Planning (storage, ids, Android, router)
+description: Invariantes de WODtoBox (storage, ids, Android, router)
 alwaysApply: true
 ---
 
@@ -7,7 +7,7 @@ alwaysApply: true
 
 Fuente: `docs/compatibilidad.md` y `docs/contrato.json`. Corre `npm run check:compat` si tocas tipos o `src/lib`.
 
-- No renombrar claves `wodplanning.wods` / `.programs` / `.sessions` / `.runSession` sin lector dual + migrador.
+- No renombrar claves `wodtobox.wods` / `.programs` / `.sessions` / `.runSession` sin lector dual + migrador.
 - No quitar valores de `TIMER_KINDS`. Añadir al final sí.
 - No cambiar ids `power-clean-100` ni `kipping-muscle-up`.
 - No cambiar `com.wodotobox.app`.

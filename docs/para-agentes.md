@@ -2,13 +2,13 @@
 
 Lee esto al empezar un cambio. El humano no necesita memorizarlo.
 
-Skills: `wodplanning` (índice), `wodplanning-compat`, `wodplanning-timer`, `wodplanning-wod`, `wodplanning-plan`, `wodplanning-ui`, `wodplanning-android`.
+Skills: `wodtobox` (índice), `wodtobox-compat`, `wodtobox-timer`, `wodtobox-wod`, `wodtobox-plan`, `wodtobox-ui`, `wodtobox-android`.
 
 ## Antes de editar
 
 1. [docs/README.md](README.md) — índice.
 2. Si tocas timers / WODs / plan: el doc de esa zona.
-3. Si tocas `src/types/*` o `src/lib/{wods,programs,sessions,history,rms,pack,sync,runSession}.ts`: [compatibilidad.md](compatibilidad.md) y [contrato.json](contrato.json).
+3. Si tocas `src/types/*` o `src/lib/{wods,programs,sessions,history,rms,pack,sync,runSession,migrate}.ts`: [compatibilidad.md](compatibilidad.md) y [contrato.json](contrato.json).
 4. Arranque: `npm run check:compat` (también en `npm run build` no está enganchado aún; córrelo a mano o vía el script de package).
 
 ## Invariantes (copia corta)
@@ -32,7 +32,7 @@ Skills: `wodplanning` (índice), `wodplanning-compat`, `wodplanning-timer`, `wod
 | Nueva ruta | `App.tsx` solamente, hash |
 | Historial de entrenos | `types/history.ts`, `lib/history.ts`, `HistoryList`, `HistoryDetail` |
 | RM / máximos | `types/rm.ts`, `lib/rms.ts`, `RmList`, `RmEditor` |
-| Drive / pack | `types/pack.ts`, `lib/pack.ts`, `lib/sync.ts`, `lib/googleAuth.ts`, `lib/drive.ts`, `DriveSync` |
+| Drive / pack | `types/pack.ts`, `lib/pack.ts`, `lib/sync.ts`, `lib/googleAuth.ts`, `lib/drive.ts`, `lib/migrate.ts`, `DriveSync` |
 
 ## Verificación
 

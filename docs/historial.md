@@ -14,11 +14,11 @@ Cada ítem de WOD es una foto. Plan y RM no se borran desde Historial (los WOD s
 
 ## Storage
 
-Clave `wodplanning.history` (array JSON, más reciente primero). No sustituye `wodplanning.sessions` ni `wodplanning.rms`.
+Clave `wodtobox.history` (array JSON, más reciente primero). No sustituye `wodtobox.sessions` ni `wodtobox.rms`.
 
 API: `listHistory`, `getHistoryEntry`, `recordWodFinish`, `recordPlanSession`, `recordRmLift`, `deleteHistoryEntry` (solo WODs), `deleteRmHistory` (al borrar un RM), `resetPlanProgress` (solo sesiones).
 
 ## UI
 
-- `#/historial` — lista agrupada por día (con año), filtros Todos / WODs / Plan / RM. En plan se ve el peso levantado ese día.
+- `#/historial` — lista agrupada por día (con año), filtros Todos / WODs / Plan / RM. En un plan se ve el título del programa y cada ejercicio en su línea, con el peso de ese día.
 - `#/historial/:id` — detalle.

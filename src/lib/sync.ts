@@ -8,7 +8,7 @@ export interface SyncMeta {
   email: string | null
 }
 
-const KEY = 'wodplanning.sync'
+const KEY = 'wodtobox.sync'
 
 /** Client ID OAuth de tipo Aplicación web. El de Android no se usa en código. */
 export const GOOGLE_WEB_CLIENT_ID =

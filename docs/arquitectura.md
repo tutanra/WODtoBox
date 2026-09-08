@@ -17,7 +17,7 @@ Definidas en `src/App.tsx`. Cualquier otra → `/`.
 | Hash | Página |
 | --- | --- |
 | `#/` | Home |
-| `#/sync` | Google Drive (opcional) |
+| `#/sync` | Google Drive (opcional) y pack JSON (exportar / importar) |
 | `#/timers` | Menú timers |
 | `#/timers/:kind` | Setup |
 | `#/timers/:kind/run` | Carrera |
@@ -41,7 +41,7 @@ Definidas en `src/App.tsx`. Cualquier otra → `/`.
 pages/          pantallas
 components/     Screen, TopBar, TimerFields, WodBlockList, WodOverlay, chips/stepper
 hooks/          useTimerEngine, useRestTimer
-lib/            engine, wods, programs, sessions, history, rms, pack, sync, googleAuth, drive, runSession, audio, haptics, wakeLock
+lib/            engine, wods, programs, sessions, history, rms, pack, sync, googleAuth, drive, runSession, migrate, audio, haptics, wakeLock
 types/          timer, wod, program, history, rm, pack  ← contratos de datos
 data/           kinds, templates, powerClean100, kippingMuscleUp
 ```
@@ -50,14 +50,17 @@ data/           kinds, templates, powerClean100, kippingMuscleUp
 
 | Dónde | Clave | Contenido |
 | --- | --- | --- |
-| localStorage | `wodplanning.wods` | `Wod[]` |
-| localStorage | `wodplanning.programs` | `Program[]` (+ reseed de plantillas) |
-| localStorage | `wodplanning.sessions` | `SessionLog[]` |
-| localStorage | `wodplanning.history` | entrenos terminados (WOD + plan + RM) |
-| localStorage | `wodplanning.rms` | máximos (ejercicio, reps, peso) |
-| localStorage | `wodplanning.sync` | última sync Drive (no el pack) |
-| sessionStorage | `wodplanning.runSession` | timer en curso + WOD opcional |
-| sessionStorage | `wodplanning.timerConfig` | legado |
+| localStorage | `wodtobox.wods` | `Wod[]` |
+| localStorage | `wodtobox.programs` | `Program[]` (+ reseed de plantillas) |
+| localStorage | `wodtobox.sessions` | `SessionLog[]` |
+| localStorage | `wodtobox.history` | entrenos terminados (WOD + plan + RM) |
+| localStorage | `wodtobox.rms` | máximos (ejercicio, reps, peso) |
+| localStorage | `wodtobox.sync` | última sync Drive (no el pack) |
+| localStorage | `wodtobox.googleSession` | token de Google (opcional) |
+| sessionStorage | `wodtobox.runSession` | timer en curso + WOD opcional |
+| sessionStorage | `wodtobox.timerConfig` | legado |
+
+Al arrancar, `migrateLegacyStorage` copia `wodplanning.*` a `wodtobox.*` y borra las claves viejas.
 
 Lectura siempre con try/JSON.parse y normalizers. Escritura = JSON.stringify del array completo.
 

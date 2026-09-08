@@ -1,7 +1,7 @@
 import type { SessionLog } from '../types/program'
 import { newId } from '../types/program'
 
-const KEY = 'wodplanning.sessions'
+const KEY = 'wodtobox.sessions'
 
 function readAll(): SessionLog[] {
   const raw = localStorage.getItem(KEY)

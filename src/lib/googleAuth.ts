@@ -15,7 +15,7 @@ export interface GoogleSession {
   name: string
 }
 
-const SESSION_KEY = 'wodplanning.googleSession'
+const SESSION_KEY = 'wodtobox.googleSession'
 
 type TokenClient = {
   requestAccessToken: (opts?: { prompt?: string }) => void

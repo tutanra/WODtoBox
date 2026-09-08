@@ -1,11 +1,11 @@
 ---
-name: wodplanning-wod
+name: wodtobox-wod
 description: Edita WODs grabados (bloques ejercicio/descanso/rondas, overlay en el timer, persistencia). Use when changing Wod types, WodEditor, WodsList, WodBlockList, WodOverlay, wods.ts, or launching a WOD to the timer.
 ---
 
 # WODs grabados
 
-Lee `docs/wods.md`. Storage: `wodplanning.wods`. API: `listWods` (usuario) / `listHeroWods` / `getWod` / `saveWod` / `deleteWod` / `restoreHeroWod`.
+Lee `docs/wods.md`. Storage: `wodtobox.wods`. API: `listWods` (usuario) / `listHeroWods` / `getWod` / `saveWod` / `deleteWod` / `restoreHeroWod`.
 
 ## Forma
 

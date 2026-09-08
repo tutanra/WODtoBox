@@ -1,5 +1,5 @@
 ---
-name: wodplanning-timer
+name: wodtobox-timer
 description: Cambia o añade formatos de timer (AMRAP, For Time, EMOM, Tabata, intervalos, cronómetro) y el motor de cuenta. Use when editing timer kinds, engine.ts, useTimerEngine, TimerFields, TimerSetup, TimerRun, audio cues, or prepare countdown.
 ---
 
@@ -21,7 +21,7 @@ Lee `docs/timers.md`. Fuente de verdad del reloj: `computeSnapshot` en `src/lib/
 
 ## No hacer
 
-- Poner la carrera en `localStorage` (va en `sessionStorage` `wodplanning.runSession`).
+- Poner la carrera en `localStorage` (va en `sessionStorage` `wodtobox.runSession`).
 - Cambiar `HashRouter` o `base: './'`.
 - Duplicar lógica de tiempo en el componente; el hook solo orquesta `elapsedMs` y cues.
 

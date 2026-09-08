@@ -186,15 +186,15 @@ export function normalizeHistoryEntry(value: unknown): HistoryEntry | null {
 export function historyTitle(entry: HistoryEntry) {
   if (entry.kind === 'wod') return entry.name.trim() || 'WOD'
   if (entry.kind === 'rm') return entry.exercise.trim() || 'RM'
-  return entry.dayName.trim() || 'Día de plan'
+  return entry.programName.trim() || entry.dayName.trim() || 'Plan'
 }
 
 export function historySubtitle(entry: HistoryEntry) {
   if (entry.kind === 'wod') return summarizeTimer(entry.timer)
   if (entry.kind === 'rm') return `${entry.reps} ${entry.reps === 1 ? 'rep' : 'reps'}`
   const week = entry.weekTitle.trim() || (entry.weekNumber > 0 ? `Semana ${entry.weekNumber}` : '')
-  const program = entry.programName.trim() || 'Plan'
-  return week ? `${program} · ${week}` : program
+  const day = entry.dayName.trim()
+  return [week, day].filter(Boolean).join(' · ') || 'Día de plan'
 }
 
 function formatSetLoad(weightText: string) {
@@ -215,7 +215,7 @@ export function planLiftSummary(entry: HistoryPlanEntry) {
     }))]
     parts.push(`${name} ${lines.join(', ')}`)
   }
-  return parts.join(' · ')
+  return parts.join('\n')
 }
 
 export function historyResultLabel(entry: HistoryEntry) {

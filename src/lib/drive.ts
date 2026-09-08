@@ -1,8 +1,7 @@
-import { buildPack, parsePack } from './pack'
-import type { WodPlanningPack } from '../types/pack'
+import { PACK_FILENAME, LEGACY_PACK_FILENAME, buildPack, parsePack } from './pack'
+import type { WodtoboxPack } from '../types/pack'
 import type { GoogleSession } from './googleAuth'
 
-const FILE_NAME = 'wodplanning.pack.json'
 const FOLDER_NAME = 'WODtoBox'
 const FOLDER_MIME = 'application/vnd.google-apps.folder'
 const API = 'https://www.googleapis.com/drive/v3'
@@ -11,7 +10,7 @@ const UPLOAD = 'https://www.googleapis.com/upload/drive/v3'
 export interface DriveCopy {
   id: string
   modifiedAt: number
-  pack: WodPlanningPack
+  pack: WodtoboxPack
   folderId: string | null
   folderName: string
 }
@@ -30,21 +29,30 @@ async function driveJson<T>(session: GoogleSession, url: string, init?: RequestI
   return (await response.json()) as T
 }
 
-export async function findDrivePack(session: GoogleSession): Promise<{ id: string; modifiedAt: number } | null> {
-  const query = encodeURIComponent(`name = '${FILE_NAME}' and trashed = false`)
-  const data = await driveJson<{ files?: { id: string; modifiedTime?: string }[] }>(
-    session,
-    `${API}/files?q=${query}&spaces=drive&fields=files(id,modifiedTime)&pageSize=5&orderBy=modifiedTime%20desc`,
+type DriveFileHit = { id: string; name: string; modifiedAt: number }
+
+async function listDrivePacks(session: GoogleSession): Promise<DriveFileHit[]> {
+  const query = encodeURIComponent(
+    `(name = '${PACK_FILENAME}' or name = '${LEGACY_PACK_FILENAME}') and trashed = false`,
   )
-  const file = data.files?.[0]
-  if (!file) return null
-  return {
+  const data = await driveJson<{ files?: { id: string; name?: string; modifiedTime?: string }[] }>(
+    session,
+    `${API}/files?q=${query}&spaces=drive&fields=files(id,name,modifiedTime)&pageSize=10&orderBy=modifiedTime%20desc`,
+  )
+  return (data.files ?? []).map((file) => ({
     id: file.id,
+    name: file.name?.trim() || LEGACY_PACK_FILENAME,
     modifiedAt: file.modifiedTime ? Date.parse(file.modifiedTime) : 0,
-  }
+  }))
 }
 
-export async function downloadDrivePack(session: GoogleSession, fileId: string): Promise<WodPlanningPack> {
+export async function findDrivePack(session: GoogleSession): Promise<DriveFileHit | null> {
+  const files = await listDrivePacks(session)
+  if (!files.length) return null
+  return files.find((file) => file.name === PACK_FILENAME) ?? files[0]
+}
+
+export async function downloadDrivePack(session: GoogleSession, fileId: string): Promise<WodtoboxPack> {
   const response = await fetch(`${API}/files/${fileId}?alt=media`, { headers: headers(session) })
   if (!response.ok) throw new Error('No se pudo leer el archivo de Drive')
   const pack = parsePack(await response.json())
@@ -80,7 +88,7 @@ async function ensureAppFolder(session: GoogleSession): Promise<string> {
     body: JSON.stringify({
       name: FOLDER_NAME,
       mimeType: FOLDER_MIME,
-      appProperties: { wodplanning: 'folder' },
+      appProperties: { wodotobox: 'folder' },
     }),
   })
   return created.id
@@ -105,23 +113,35 @@ export async function driveFileLocation(
   }
 }
 
-async function createDriveFile(session: GoogleSession, pack: WodPlanningPack) {
+async function createDriveFile(session: GoogleSession, pack: WodtoboxPack) {
   const folderId = await ensureAppFolder(session)
   const created = await driveJson<{ id: string }>(session, `${API}/files?fields=id`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      name: FILE_NAME,
+      name: PACK_FILENAME,
       mimeType: 'application/json',
       parents: [folderId],
-      appProperties: { wodplanning: 'pack' },
+      appProperties: { wodotobox: 'pack' },
     }),
   })
   return updateDriveFile(session, created.id, pack)
 }
 
-async function updateDriveFile(session: GoogleSession, fileId: string, pack: WodPlanningPack) {
-  return driveJson<{ id: string; modifiedTime?: string }>(
+async function renameDrivePack(session: GoogleSession, fileId: string) {
+  try {
+    await driveJson(session, `${API}/files/${fileId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: PACK_FILENAME, appProperties: { wodotobox: 'pack' } }),
+    })
+  } catch {
+    /* el contenido ya está; el nombre viejo se sigue leyendo */
+  }
+}
+
+async function updateDriveFile(session: GoogleSession, fileId: string, pack: WodtoboxPack) {
+  const saved = await driveJson<{ id: string; modifiedTime?: string }>(
     session,
     `${UPLOAD}/files/${fileId}?uploadType=media&fields=id,modifiedTime`,
     {
@@ -130,6 +150,8 @@ async function updateDriveFile(session: GoogleSession, fileId: string, pack: Wod
       headers: { 'Content-Type': 'application/json' },
     },
   )
+  await renameDrivePack(session, saved.id)
+  return saved
 }
 
 export async function uploadDrivePack(session: GoogleSession, fileId?: string | null) {
@@ -163,8 +185,7 @@ function isMissingFile(err: unknown) {
 export async function deleteDrivePack(session: GoogleSession, fileId?: string | null) {
   const ids = new Set<string>()
   if (fileId) ids.add(fileId)
-  const found = await findDrivePack(session)
-  if (found) ids.add(found.id)
+  for (const file of await listDrivePacks(session)) ids.add(file.id)
   for (const id of ids) {
     try {
       await driveJson(session, `${API}/files/${id}`, { method: 'DELETE' })

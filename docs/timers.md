@@ -42,7 +42,7 @@ Prepare: cuenta atrás; los últimos 3 s muestran `3 · 2 · 1` y `warning`.
 
 No va a `localStorage`. Va a `sessionStorage`:
 
-- `wodplanning.runSession` — `{ config, wod }`
-- `wodplanning.timerConfig` — legado, solo config
+- `wodtobox.runSession` — `{ config, wod }`
+- `wodtobox.timerConfig` — legado, solo config
 
 Si recargas la pantalla de run, se recupera. Si cierras la pestaña, se pierde (correcto: es la sesión en curso, no un WOD guardado).

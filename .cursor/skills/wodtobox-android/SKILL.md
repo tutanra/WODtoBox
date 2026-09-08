@@ -1,5 +1,5 @@
 ---
-name: wodplanning-android
+name: wodtobox-android
 description: Construye o ajusta la envoltura Android (Capacitor, APK debug, applicationId, sync). Use when the user mentions APK, Gradle, Capacitor, Play Store, signing, appId, or android/ files.
 ---
 

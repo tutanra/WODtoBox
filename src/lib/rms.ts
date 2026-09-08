@@ -1,7 +1,7 @@
 import { deleteRmHistory } from './history'
 import { normalizeRmLift, type RmLift } from '../types/rm'
 
-const KEY = 'wodplanning.rms'
+const KEY = 'wodtobox.rms'
 
 function readAll(): RmLift[] {
   const raw = localStorage.getItem(KEY)

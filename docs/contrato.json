@@ -1,24 +1,26 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "applicationId": "com.wodotobox.app",
   "appName": "WODtoBox",
   "viteBase": "./",
   "router": "HashRouter",
   "storage": {
     "localStorage": {
-      "wods": "wodplanning.wods",
-      "programs": "wodplanning.programs",
-      "sessions": "wodplanning.sessions",
-      "history": "wodplanning.history",
-      "rms": "wodplanning.rms",
-      "sync": "wodplanning.sync"
+      "wods": "wodtobox.wods",
+      "programs": "wodtobox.programs",
+      "sessions": "wodtobox.sessions",
+      "history": "wodtobox.history",
+      "rms": "wodtobox.rms",
+      "sync": "wodtobox.sync",
+      "googleSession": "wodtobox.googleSession"
     },
     "sessionStorage": {
-      "runSession": "wodplanning.runSession",
-      "timerConfigLegacy": "wodplanning.timerConfig"
+      "runSession": "wodtobox.runSession",
+      "timerConfigLegacy": "wodtobox.timerConfig"
     }
   },
-  "packFormat": "wodplanning.pack",
+  "packFormat": "wodtobox.pack",
+  "packFilename": "wodtobox.pack.json",
   "timerKinds": ["amrap", "forTime", "emom", "tabata", "intervals", "stopwatch"],
   "templateIds": ["power-clean-100", "kipping-muscle-up"],
   "heroWodIds": [
@@ -45,13 +47,13 @@
     { "id": "normalizeWod", "file": "src/types/wod.ts", "contains": "export function normalizeWod" },
     { "id": "normalizeItem", "file": "src/types/wod.ts", "contains": "export function normalizeItem" },
     { "id": "normalizeTimer", "file": "src/types/timer.ts", "contains": "export function normalizeTimerConfig" },
-    { "id": "wodsKey", "file": "src/lib/wods.ts", "contains": "wodplanning.wods" },
-    { "id": "programsKey", "file": "src/lib/programs.ts", "contains": "wodplanning.programs" },
-    { "id": "sessionsKey", "file": "src/lib/sessions.ts", "contains": "wodplanning.sessions" },
-    { "id": "historyKey", "file": "src/lib/history.ts", "contains": "wodplanning.history" },
-    { "id": "rmsKey", "file": "src/lib/rms.ts", "contains": "wodplanning.rms" },
-    { "id": "runSessionKey", "file": "src/lib/runSession.ts", "contains": "wodplanning.runSession" },
-    { "id": "legacyConfigKey", "file": "src/lib/runSession.ts", "contains": "wodplanning.timerConfig" },
+    { "id": "wodsKey", "file": "src/lib/wods.ts", "contains": "wodtobox.wods" },
+    { "id": "programsKey", "file": "src/lib/programs.ts", "contains": "wodtobox.programs" },
+    { "id": "sessionsKey", "file": "src/lib/sessions.ts", "contains": "wodtobox.sessions" },
+    { "id": "historyKey", "file": "src/lib/history.ts", "contains": "wodtobox.history" },
+    { "id": "rmsKey", "file": "src/lib/rms.ts", "contains": "wodtobox.rms" },
+    { "id": "runSessionKey", "file": "src/lib/runSession.ts", "contains": "wodtobox.runSession" },
+    { "id": "legacyConfigKey", "file": "src/lib/runSession.ts", "contains": "wodtobox.timerConfig" },
     { "id": "reseedTemplates", "file": "src/lib/programs.ts", "contains": "PROGRAM_TEMPLATES" },
     { "id": "restoreTemplate", "file": "src/lib/programs.ts", "contains": "export function restoreTemplate" },
     { "id": "powerCleanId", "file": "src/data/powerClean100.ts", "contains": "power-clean-100" },
@@ -59,8 +61,11 @@
     { "id": "heroWods", "file": "src/data/heroWods.ts", "contains": "hero-fran" },
     { "id": "reseedHeroWods", "file": "src/lib/wods.ts", "contains": "HERO_WODS" },
     { "id": "restoreHeroWod", "file": "src/lib/wods.ts", "contains": "export function restoreHeroWod" },
-    { "id": "packFormat", "file": "src/types/pack.ts", "contains": "wodplanning.pack" },
-    { "id": "syncKey", "file": "src/lib/sync.ts", "contains": "wodplanning.sync" },
+    { "id": "packFormat", "file": "src/types/pack.ts", "contains": "wodtobox.pack" },
+    { "id": "packFilename", "file": "src/lib/pack.ts", "contains": "wodtobox.pack.json" },
+    { "id": "legacyMigrate", "file": "src/lib/migrate.ts", "contains": "export function migrateLegacyStorage" },
+    { "id": "syncKey", "file": "src/lib/sync.ts", "contains": "wodtobox.sync" },
+    { "id": "googleSessionKey", "file": "src/lib/googleAuth.ts", "contains": "wodtobox.googleSession" },
     { "id": "engineSnapshot", "file": "src/lib/engine.ts", "contains": "export function computeSnapshot" }
   ]
 }

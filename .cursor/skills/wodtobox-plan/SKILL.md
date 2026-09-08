@@ -1,11 +1,11 @@
 ---
-name: wodplanning-plan
+name: wodtobox-plan
 description: Edita planificaciones de fuerza, plantillas PDF (Power Clean 100 kg, Kipping Muscle-Up) y la sesión de series con pausa. Use when changing Program types, PlanList/PlanProgram/PlanDay/PlanSession, powerClean100, kippingMuscleUp, sessions, or rest timer.
 ---
 
 # Plan
 
-Lee `docs/plan.md`. Storage: `wodplanning.programs` y `wodplanning.sessions`.
+Lee `docs/plan.md`. Storage: `wodtobox.programs` y `wodtobox.sessions`.
 
 ## IDs fijos
 
