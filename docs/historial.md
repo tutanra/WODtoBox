@@ -10,7 +10,7 @@ Código: `src/types/history.ts`, `src/lib/history.ts`, páginas `HistoryList` y 
 
 **Reiniciar plan** borra solo las sesiones (progreso). El historial de esos días se queda.
 
-Cada ítem de WOD es una foto. Plan y RM no se borran desde Historial (los WOD sí). Borrar un RM desde `#/rm` sí quita también su fila del historial.
+Cada ítem de WOD es una foto. Plan y RM no se borran desde Historial (los WOD sí). Borrar un RM desde `#/rm` sí quita también su fila del historial. En la lista, el resumen de un día de plan muestra **un ejercicio por línea** (no todo junto con `·`).
 
 ## Storage
 

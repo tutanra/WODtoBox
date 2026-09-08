@@ -203,19 +203,23 @@ function formatSetLoad(weightText: string) {
   return /kg|lb|%|pesad|libre/i.test(text) ? text : `${text} kg`
 }
 
-export function planLiftSummary(entry: HistoryPlanEntry) {
+export function planLiftLines(entry: HistoryPlanEntry) {
   const parts: string[] = []
   for (const exercise of entry.exercises) {
     const done = exercise.sets.filter((set) => set.done)
     if (done.length === 0) continue
     const name = exercise.name.trim() || 'Ejercicio'
-    const lines = [...new Set(done.map((set) => {
+    const loads = [...new Set(done.map((set) => {
       const load = formatSetLoad(set.weightText)
       return load ? `${set.actualReps} @ ${load}` : `${set.actualReps} reps`
     }))]
-    parts.push(`${name} ${lines.join(', ')}`)
+    parts.push(`${name} ${loads.join(', ')}`)
   }
-  return parts.join(' · ')
+  return parts
+}
+
+export function planLiftSummary(entry: HistoryPlanEntry) {
+  return planLiftLines(entry).join('\n')
 }
 
 export function historyResultLabel(entry: HistoryEntry) {

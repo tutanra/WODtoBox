@@ -9,6 +9,7 @@ import { wodPreview } from '../types/wod'
 import {
   historyResultLabel,
   historyTitle,
+  planLiftLines,
   type HistoryPlanEntry,
   type HistoryRmEntry,
   type HistoryWodEntry,
@@ -20,6 +21,7 @@ export function HistoryDetail() {
   if (!entry) return <Navigate to="/historial" replace />
 
   const title = entry.kind === 'wod' ? 'WOD' : entry.kind === 'rm' ? 'RM' : 'PLAN'
+  const planLines = entry.kind === 'plan' ? planLiftLines(entry) : []
 
   return (
     <Screen>
@@ -30,9 +32,17 @@ export function HistoryDetail() {
           : `${formatHistoryDay(entry.finishedAt).toUpperCase()} · ${formatHistoryTime(entry.finishedAt)}`}
       </p>
       <h2 className="mt-2 font-display text-5xl leading-none text-paper">{historyTitle(entry)}</h2>
-      <p className="mt-3 rounded-2xl bg-panel px-4 py-3 text-sm font-semibold text-gold">
-        {historyResultLabel(entry)}
-      </p>
+      {planLines.length > 0 ? (
+        <ul className="mt-3 flex flex-col gap-1 rounded-2xl bg-panel px-4 py-3 text-sm font-semibold text-gold">
+          {planLines.map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-3 rounded-2xl bg-panel px-4 py-3 text-sm font-semibold text-gold">
+          {historyResultLabel(entry)}
+        </p>
+      )}
 
       {entry.kind === 'wod' ? (
         <WodDetail entry={entry} />

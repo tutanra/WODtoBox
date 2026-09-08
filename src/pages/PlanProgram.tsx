@@ -123,7 +123,18 @@ function ProgramView({ initial }: { initial: Program }) {
                           <span className="text-xs text-work">{Math.round(progress * 100)}%</span>
                         ) : null}
                       </div>
-                      <p className="text-sm text-mute">{day.focus || `${day.exercises.length} ejercicios`}</p>
+                      {day.focus ? <p className="text-sm text-mute">{day.focus}</p> : null}
+                      {day.exercises.length > 0 ? (
+                        <ul className="mt-1 flex flex-col gap-0.5">
+                          {day.exercises.map((exercise) => (
+                            <li key={exercise.id} className="text-sm text-mute">
+                              {exercise.name.trim() || 'Ejercicio'}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : day.focus ? null : (
+                        <p className="text-sm text-mute">Sin ejercicios</p>
+                      )}
                       {progress > 0 ? (
                         <div className="mt-2 h-1 overflow-hidden rounded-full bg-panel-2">
                           <div className="h-full bg-work" style={{ width: `${progress * 100}%` }} />

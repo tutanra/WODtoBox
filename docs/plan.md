@@ -26,6 +26,8 @@ Si al leer `localStorage` falta alguna, `listPrograms()` la reinserta.
 
 `SessionLog` en `wodplanning.sessions`. Una sesión por `(programId, dayId)`: `startSession` reanuda la misma aunque ya tuviera `completedAt`. **Reiniciar plan** las borra todas.
 
+En la vista del programa (`PlanProgram`), cada día lista el foco (si hay) y **un ejercicio por línea** (nombre), no un contador agrupado. En el historial, el resumen de un día de plan también va un ejercicio por línea.
+
 - Pausa por defecto **150 s** (presets 120 / 150 / 180, en el listado). La sesión usa el mismo layout que el resto (`Screen`). El reloj de pausa se superpone arriba mientras corre, sin desplazar el contenido; al hacer scroll se queda ahí. En los últimos 10 s usa el mismo pulso que el timer (`last-ten`), no pasa a rojo. **Saltar** la cierra.
 - Al marcar una serie hecha (si no es la última) arranca la pausa.
 - `actualReps` se puede subir/bajar; el objetivo de la plantilla sigue visible (`/set.reps`).
