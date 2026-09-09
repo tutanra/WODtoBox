@@ -33,7 +33,7 @@ function ProgressRing({ ratio }: { ratio: number }) {
         />
       </svg>
       <span className={`font-display text-2xl leading-none ${complete ? 'text-work' : 'text-paper'}`}>
-        {percent}
+        {percent}%
       </span>
     </span>
   )
