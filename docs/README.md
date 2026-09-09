@@ -15,7 +15,8 @@
 | [sync.md](sync.md) | Copia opcional a Google Drive o a un fichero JSON |
 | [para-agentes.md](para-agentes.md) | Instrucciones cortas para continuar el código |
 | [contrato.json](contrato.json) | Contrato machine-readable; `scripts/check-compat.mjs` lo comprueba contra el código |
-| [android-build.md](android-build.md) | JDK 21, SDK y cómo generar la APK sin repetir palos |
+| [android-build.md](android-build.md) | JDK 21, SDK, APK debug y AAB firmado para Play |
+| [privacidad.html](privacidad.html) | Política de privacidad (Play Console) |
 
 Skills de Cursor (el agente las carga según la tarea): `.cursor/skills/wodtobox*` — arranque, compat, timer, WOD, plan, UI, Android.
 
