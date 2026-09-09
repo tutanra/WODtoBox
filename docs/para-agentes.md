@@ -15,7 +15,7 @@ Skills: `wodtobox` (índice), `wodtobox-compat`, `wodtobox-timer`, `wodtobox-wod
 
 - Storage keys y `TIMER_KINDS` e IDs `hero-*`: no renombrar.
 - `HashRouter` + `base: './'` en Vite.
-- `appId` `com.wodotobox.app`.
+- `appId` `com.wodtobox.app`.
 - Normalizers: extender, no borrar ramas legacy (`isRest`, `timerConfig` en sessionStorage, reseed de WOD Heroes).
 - `rounds` no anidados.
 - No introducir backend ni cambiar a BrowserRouter “porque es más limpio”.

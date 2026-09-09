@@ -31,6 +31,7 @@ android/app/build
 android/.gradle
 android/local.properties
 android/keystore.properties
+android/keystore.properties.wodotobox.bak
 android/captures
 android/.idea
 *.apk

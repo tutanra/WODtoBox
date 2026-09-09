@@ -26,7 +26,7 @@ function read(rel) {
 
 const contract = JSON.parse(readFileSync(contractPath, 'utf8'))
 
-if (contract.schemaVersion !== 4) {
+if (contract.schemaVersion !== 5) {
   fail(`unsupported schemaVersion ${contract.schemaVersion} (docs/compatibilidad.md)`)
 }
 

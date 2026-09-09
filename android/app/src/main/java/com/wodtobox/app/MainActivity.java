@@ -1,4 +1,4 @@
-package com.wodotobox.app;
+package com.wodtobox.app;
 
 import android.content.Intent;
 import android.os.Bundle;

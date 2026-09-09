@@ -5,7 +5,7 @@
 - React 19 + React Router 7 (`HashRouter`, para que la APK sirva `index.html` en cualquier ruta).
 - Vite 8, `base: './'`.
 - Tailwind 4 (`src/index.css`, tokens `ink` / `flame` / `work` / `rest`).
-- Capacitor 8 → proyecto `android/` (`applicationId` `com.wodotobox.app`).
+- Capacitor 8 → proyecto `android/` (`applicationId` `com.wodtobox.app`).
 - TypeScript. Lint: oxlint.
 
 No hay backend ni tests automatizados de UI. El chequeo de contrato es `npm run check:compat`.
@@ -66,14 +66,14 @@ Lectura siempre con try/JSON.parse y normalizers. Escritura = JSON.stringify del
 
 ## Android
 
-- `capacitor.config.ts`: `appId` `com.wodotobox.app`, `appName` WODtoBox, `webDir: dist`.
+- `capacitor.config.ts`: `appId` `com.wodtobox.app`, `appName` WODtoBox, `webDir: dist`.
 - Scripts: `dev`, `build`, `android:sync` (build + cap sync), `apk` (**debug**), `aab` (**release** firmado para Play).
 - Permisos: INTERNET, VIBRATE, WAKE_LOCK.
 - Un `.wodtobox` se puede **Abrir con** / **Compartir** hacia WODtoBox (`MainActivity` + `OpenWodPlugin`). El contenido decide la ruta: `wodtobox.wod` → `#/wods`, `wodtobox.plan` → `#/plan`. No pide permisos extra: lee el `content://` que manda la otra app. **Compartir** desde la app usa `@capacitor/share` y un fichero en caché (`file_paths.xml` ya cubre `cache-path`).
 - Google Drive en el APK pide scopes; `MainActivity` implementa `ModifiedMainActivityForSocialLoginPlugin` (Capgo Social Login). Sin eso, Google falla al entrar.
-- `versionCode` / `versionName` en `android/app/build.gradle` (hoy 3 / 1.0). `package.json` tiene `0.1.0` — no están acoplados.
+- `versionCode` / `versionName` en `android/app/build.gradle` (hoy 1 / 1.0). `package.json` tiene `0.1.0` — no están acoplados.
 - Release: R8 (`minifyEnabled true`) con reglas Capacitor/Google en `android/app/proguard-rules.pro`. El mapping va en el AAB.
-- Play Console usa el AAB de `npm run aab`, no el APK de debug. La keystore de subida no va a git (`android/upload-keystore.jks` + `keystore.properties`).
+- Play Console usa el AAB de `npm run aab`, no el APK de debug. La keystore de subida de **esta** app es `android/wodtobox-upload.jks` + `keystore.properties` (no git). No reutilizar `upload-keystore.jks` de `com.wodotobox.app`.
 - Cómo construir (JDK 21, SDK, errores conocidos): [android-build.md](android-build.md).
 
 ## UI

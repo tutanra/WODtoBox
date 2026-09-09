@@ -30,7 +30,7 @@ El icono de papelera en `#/sync` deja elegir qué borrar, con confirmación:
 - **Este dispositivo** — WODs, plan, RM, historial y sesiones locales. WOD Heroes vuelven al original. Drive no se toca. Se olvida `lastSyncAt` / dirección: la pantalla ya no muestra esa sync como si este dispositivo siguiera al día.
 - **Copia en Drive** — borra `wodtobox.pack.json` (y el pack viejo, si queda) de tu Drive. Este dispositivo no se toca. Hace falta sesión de Google.
 
-El Client ID web va integrado (`VITE_GOOGLE_CLIENT_ID` / `GOOGLE_WEB_CLIENT_ID`). En `#/sync` se pulsa **GOOGLE**; no hay que pegar credenciales. El Client ID de Android (`573815267654-oogn68pklgmoh9fkhpah4psou419r6ah.apps.googleusercontent.com`) no se usa en código: Google lo empareja por paquete `com.wodotobox.app` y SHA-1.
+El Client ID web va integrado (`VITE_GOOGLE_CLIENT_ID` / `GOOGLE_WEB_CLIENT_ID`). En `#/sync` se pulsa **GOOGLE**; no hay que pegar credenciales. El Client ID de Android no se usa en código: Google lo empareja por paquete `com.wodtobox.app` y SHA-1. Hay que dar de alta ese paquete (no `com.wodotobox.app`) en Google Cloud.
 
 En Android, `MainActivity` implementa el hook de Capgo Social Login; sin eso, pedir `drive.file` falla con *You CANNOT use scopes without modifying the main activity*.
 

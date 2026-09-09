@@ -9,7 +9,7 @@ Lee `docs/arquitectura.md` (sección Android). WebView de `dist/` con las mismas
 
 ## Identidad
 
-- `appId` / `applicationId`: `com.wodotobox.app` — no cambiar si ya hay instalaciones.
+- `appId` / `applicationId`: `com.wodtobox.app` — no cambiar si ya hay instalaciones. La ficha `com.wodotobox.app` está descartada.
 - Nombre: `WODtoBox`.
 - `minSdk` 24, `targetSdk` 36.
 
@@ -28,7 +28,7 @@ AAB release: `android/app/build/outputs/bundle/release/app-release.aab`.
 
 **SDK:** `android/local.properties` (`sdk.dir`) o `ANDROID_HOME`. Ese archivo no se commitea.
 
-Play Console usa el AAB, no el APK de debug. La keystore de subida (`android/upload-keystore.jks` + `android/keystore.properties`) no va a git: hay que copiarla a un sitio seguro. `versionCode` / `versionName` viven en `android/app/build.gradle`. Release lleva R8; el mapping de desofuscación va dentro del AAB.
+Play Console usa el AAB, no el APK de debug. La keystore de subida (`android/wodtobox-upload.jks` + `android/keystore.properties`) no va a git. No reutilizar `upload-keystore.jks` de `com.wodotobox.app`. `versionCode` / `versionName` viven en `android/app/build.gradle`. Release lleva R8; el mapping de desofuscación va dentro del AAB.
 
 ## Al tocar nativo
 

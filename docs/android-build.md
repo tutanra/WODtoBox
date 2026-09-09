@@ -14,7 +14,7 @@ Eso corre `scripts/build-apk.mjs`: localiza el SDK y **JDK 21**, hace `android:s
 
 Salida: `android/app/build/outputs/bundle/release/app-release.aab`.
 
-Versión en `android/app/build.gradle`: `versionCode` / `versionName` (hoy **3** / **1.0**). Play lee el `versionCode` del bundle; en cada subida nueva hay que subirlo.
+Versión en `android/app/build.gradle`: `versionCode` / `versionName` (hoy **1** / **1.0**, app `com.wodtobox.app`). Play lee el `versionCode` del bundle; en cada subida nueva hay que subirlo.
 
 El release usa R8 (`minifyEnabled true`). El mapping de desofuscación va **dentro** del AAB; Play Console lo toma solo. No hace falta subirlo a mano.
 
@@ -26,8 +26,10 @@ Eso corre `scripts/build-aab.mjs`: mismo JDK 21 y SDK, crea la clave de subida s
 
 La primera vez genera (fuera de git):
 
-- `android/upload-keystore.jks` — clave de subida a Play
+- `android/wodtobox-upload.jks` — clave de subida a Play (`com.wodtobox.app`)
 - `android/keystore.properties` — alias y contraseñas
+
+No uses `android/upload-keystore.jks`: es la clave de la ficha vieja `com.wodotobox.app`.
 
 **Copia esos dos ficheros a un sitio seguro.** Sin ellos no se pueden firmar más AAB con la misma clave. En Play Console, deja que Google gestione la clave de firma de la app (Play App Signing) y usa esta keystore solo como clave de subida.
 

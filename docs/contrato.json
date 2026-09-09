@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 4,
-  "applicationId": "com.wodotobox.app",
+  "schemaVersion": 5,
+  "applicationId": "com.wodtobox.app",
   "appName": "WODtoBox",
   "viteBase": "./",
   "router": "HashRouter",
@@ -41,8 +41,8 @@
     "hero-kalsu"
   ],
   "anchors": [
-    { "id": "appId", "file": "capacitor.config.ts", "contains": "com.wodotobox.app" },
-    { "id": "androidApplicationId", "file": "android/app/build.gradle", "contains": "com.wodotobox.app" },
+    { "id": "appId", "file": "capacitor.config.ts", "contains": "com.wodtobox.app" },
+    { "id": "androidApplicationId", "file": "android/app/build.gradle", "contains": "com.wodtobox.app" },
     { "id": "hashRouter", "file": "src/App.tsx", "contains": "HashRouter" },
     { "id": "viteBase", "file": "vite.config.ts", "contains": "base: './'" },
     { "id": "timerKindsConst", "file": "src/types/timer.ts", "contains": "TIMER_KINDS" },

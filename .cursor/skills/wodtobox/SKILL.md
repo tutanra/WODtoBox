@@ -20,7 +20,7 @@ description: Orienta el trabajo en la app WODtoBox (timers de WOD, workouts grab
 
 - Claves `wodtobox.wods` / `.programs` / `.sessions` / `.runSession`
 - `TIMER_KINDS` existentes; ids `hero-*` de WOD Heroes
-- `appId` `com.wodotobox.app`
+- `appId` `com.wodtobox.app`
 - `HashRouter` y Vite `base: './'`
 - Tras tocar tipos o `src/lib`: `npm run check:compat`
 

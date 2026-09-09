@@ -1,4 +1,4 @@
-package com.wodotobox.app;
+package com.wodtobox.app;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import java.util.Locale;
 
 @CapacitorPlugin(name = "OpenWod")
 public class OpenWodPlugin extends Plugin {
-  private static final String EXTRA_CONSUMED = "com.wodotobox.app.OPEN_WOD_CONSUMED";
+  private static final String EXTRA_CONSUMED = "com.wodtobox.app.OPEN_WOD_CONSUMED";
   private static final int MAX_BYTES = 512 * 1024;
   private JSObject lastPayload;
 

@@ -17,7 +17,7 @@ npm run check:compat
 
 1. **No renombrar** claves de storage. Si hace falta otra: lector dual (clave vieja + nueva) y migrador que reescribe.
 2. **No quitar** un `TimerKind`. Añadir al **final** de `TIMER_KINDS` sí.
-3. **No cambiar** `hero-*` ni `com.wodotobox.app`.
+3. **No cambiar** `hero-*` ni `com.wodtobox.app`.
 4. Campo nuevo → **opcional** con default en `normalizeWod` / `normalizeTimerConfig` / `normalizeProgram`. Un JSON viejo tiene que seguir cargando.
 5. Extender normalizers; no borrar ramas legacy (`isRest`, `wodtobox.timerConfig`, reseed de WOD Heroes).
 6. `rounds` no se anidan.

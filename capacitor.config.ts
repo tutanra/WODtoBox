@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli'
 
 const config: CapacitorConfig = {
-  appId: 'com.wodotobox.app',
+  appId: 'com.wodtobox.app',
   appName: 'WODtoBox',
   webDir: 'dist',
   android: {

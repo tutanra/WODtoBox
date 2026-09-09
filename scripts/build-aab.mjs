@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Builds a signed release AAB for Play Console (internal testing / production).
- * Creates android/upload-keystore.jks + keystore.properties on first run (gitignored).
+ * Builds a signed release AAB for Play Console (com.wodtobox.app).
+ * Uses android/wodtobox-upload.jks — never the old upload-keystore.jks (com.wodotobox.app).
  */
-import { existsSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { randomBytes } from 'node:crypto'
 import { dirname, join, resolve } from 'node:path'
@@ -14,19 +14,28 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const prefix = 'build-aab'
 const { javaHome, env } = resolveAndroidEnv(root, prefix)
 
-const storeFile = 'upload-keystore.jks'
+const storeFile = 'wodtobox-upload.jks'
 const storePath = join(root, 'android', storeFile)
 const propsPath = join(root, 'android/keystore.properties')
+const oldStorePath = join(root, 'android/upload-keystore.jks')
+const oldPropsBak = join(root, 'android/keystore.properties.wodotobox.bak')
+
+function propsStoreFile() {
+  if (!existsSync(propsPath)) return null
+  const match = readFileSync(propsPath, 'utf8').match(/^\s*storeFile\s*=\s*(.+)\s*$/m)
+  return match ? match[1].trim() : null
+}
 
 function ensureUploadKeystore() {
-  const hasStore = existsSync(storePath)
-  const hasProps = existsSync(propsPath)
-  if (hasStore && hasProps) return
-  if (hasStore !== hasProps) {
-    fail(
-      prefix,
-      'android/upload-keystore.jks and android/keystore.properties must both exist. Restore the backup or delete the leftover file and run again.',
-    )
+  const current = propsStoreFile()
+  if (existsSync(storePath) && current === storeFile) return
+
+  if (current && current !== storeFile && existsSync(propsPath) && !existsSync(oldPropsBak)) {
+    copyFileSync(propsPath, oldPropsBak)
+    console.log(`${prefix}: backed up old com.wodotobox.app keystore props to ${oldPropsBak}`)
+  }
+  if (existsSync(oldStorePath)) {
+    console.log(`${prefix}: leaving ${oldStorePath} untouched (old Play app)`)
   }
 
   const password = randomBytes(16).toString('hex')
@@ -69,8 +78,8 @@ function ensureUploadKeystore() {
     ].join('\n'),
     { mode: 0o600 },
   )
-  console.log(`${prefix}: created upload keystore (gitignored).`)
-  console.log(`${prefix}: BACK UP android/upload-keystore.jks and android/keystore.properties — Play uploads need this key forever.`)
+  console.log(`${prefix}: created ${storeFile} (gitignored).`)
+  console.log(`${prefix}: BACK UP android/${storeFile} and android/keystore.properties — Play uploads need this key forever.`)
 }
 
 ensureUploadKeystore()

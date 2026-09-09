@@ -7,7 +7,7 @@
 }
 -keep @com.getcapacitor.annotation.CapacitorPlugin class * { *; }
 
--keep class com.wodotobox.app.** { *; }
+-keep class com.wodtobox.app.** { *; }
 -keep class ee.forgr.capacitor.social.login.** { *; }
 
 -keepattributes SourceFile,LineNumberTable,InnerClasses,Signature,*Annotation*

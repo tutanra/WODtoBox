@@ -9,7 +9,7 @@ El archivo [contrato.json](contrato.json) es la lista corta de invariantes. `npm
 1. **Renombrar o borrar claves de storage** (`wodtobox.wods`, `.programs`, `.sessions`, `.runSession`, `.history`, `.rms`, `.sync`). Si hace falta un nombre nuevo: leer la clave antigua, escribir la nueva, dejar el lector dual un tiempo.
 2. **Quitar un `TimerKind`**. Puede estar guardado en WODs. Añadir kinds sí; eliminar no, o hay que mapear el kind viejo en `normalizeWod`.
 3. **Cambiar IDs `hero-*` de WOD Heroes.** El reseed y `restoreHeroWod` dependen de ellos. Usuarios con ediciones las perderían al reinsertar “otro” id.
-4. **Cambiar `applicationId` / `appId`** `com.wodotobox.app` una vez publicada. Play lo trata como otra app.
+4. **Cambiar `applicationId` / `appId`** `com.wodtobox.app` una vez publicada. Play lo trata como otra app. La ficha vieja `com.wodotobox.app` (typo) queda abandonada; no reutilizar su keystore de subida.
 5. **Anidar `rounds` dentro de `rounds`**. `normalizeItem` lo prohíbe a propósito.
 6. **Asumir que `timer.kind` y `wod.kind` pueden divergir**. Al guardar, el editor los iguala.
 
@@ -36,7 +36,9 @@ Los normalizers actuales que hay que conservar o extender, no sustituir a ciegas
 
 ### Historial
 
-**4** (actual) — Sin plantillas PDF de plan. Al arrancar, `migrateLegacyStorage` borra de `wodtobox.programs` y `wodtobox.sessions` los ids `power-clean-100` y `kipping-muscle-up`. Un pack de Drive con esos ids también los descarta. El historial de esos días se queda. WOD Heroes no cambian.
+**4** — Sin plantillas PDF de plan. Al arrancar, `migrateLegacyStorage` borra de `wodtobox.programs` y `wodtobox.sessions` los ids `power-clean-100` y `kipping-muscle-up`. Un pack de Drive con esos ids también los descarta. El historial de esos días se queda. WOD Heroes no cambian.
+
+**5** (actual) — `applicationId` / `appId` pasa de `com.wodotobox.app` (typo, ficha de Play descartada) a `com.wodtobox.app`. Es **otra app** en Android y en Play: `versionCode` vuelve a 1, keystore de subida nueva (`android/wodtobox-upload.jks`). Quien tenga instalado el paquete viejo no recibe esta como actualización. Las claves `wodtobox.*` y el pack no cambian.
 
 **3** — Claves `wodtobox.*`, pack `wodtobox.pack` / `wodtobox.pack.json`. Al arrancar, `migrateLegacyStorage` copia `wodplanning.*` a `wodtobox.*` y borra las claves viejas. Importar y Drive siguen leyendo un pack con `format: wodplanning.pack` (y el fichero `wodplanning.pack.json`); al subir se escribe y se renombra a `wodtobox.pack.json`.
 
