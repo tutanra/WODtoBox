@@ -67,4 +67,4 @@ Detalle: [sync.md](sync.md).
 ## Qué no hace (hoy)
 
 - iOS.
-- Publicación en Play Store (el script actual genera APK de **debug**).
+- La ficha de Play Store se rellena en Google Play Console; el AAB firmado sale con `npm run aab` (ver [android-build.md](android-build.md)).

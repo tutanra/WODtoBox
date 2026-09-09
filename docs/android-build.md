@@ -1,4 +1,6 @@
-# Generar la APK (debug)
+# Generar APK (debug) y AAB (Play)
+
+## APK debug (sideload)
 
 Salida: `android/app/build/outputs/apk/debug/app-debug.apk`.
 
@@ -7,6 +9,31 @@ npm run apk
 ```
 
 Eso corre `scripts/build-apk.mjs`: localiza el SDK y **JDK 21**, hace `android:sync` (Vite + `cap sync`) y `./gradlew assembleDebug`.
+
+## AAB firmado (Play Console)
+
+Salida: `android/app/build/outputs/bundle/release/app-release.aab`.
+
+Versión en `android/app/build.gradle`: `versionCode` / `versionName` (hoy **3** / **1.0**). Play lee el `versionCode` del bundle; en cada subida nueva hay que subirlo.
+
+El release usa R8 (`minifyEnabled true`). El mapping de desofuscación va **dentro** del AAB; Play Console lo toma solo. No hace falta subirlo a mano.
+
+```bash
+npm run aab
+```
+
+Eso corre `scripts/build-aab.mjs`: mismo JDK 21 y SDK, crea la clave de subida si no existe, `android:sync` y `./gradlew bundleRelease`.
+
+La primera vez genera (fuera de git):
+
+- `android/upload-keystore.jks` — clave de subida a Play
+- `android/keystore.properties` — alias y contraseñas
+
+**Copia esos dos ficheros a un sitio seguro.** Sin ellos no se pueden firmar más AAB con la misma clave. En Play Console, deja que Google gestione la clave de firma de la app (Play App Signing) y usa esta keystore solo como clave de subida.
+
+Política de privacidad (ficha de Play): [privacidad.html](privacidad.html). En GitHub Pages:
+`https://tutanra.github.io/WODtoBox/`
+
 
 ## Entorno en esta máquina
 
@@ -40,5 +67,3 @@ Hace falta Android SDK (platforms 35/36, build-tools) y `ANDROID_HOME` o `sdk.di
 ```bash
 npx cap open android   # Android Studio, opcional
 ```
-
-Play Store no usa este APK: haría falta AAB firmado (`bundleRelease`) y keystore (no va a git).

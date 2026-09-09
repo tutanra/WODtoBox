@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "android:add": "cap add android",
     "android:sync": "npm run build && cap sync android",
-    "apk": "node scripts/build-apk.mjs"
+    "apk": "node scripts/build-apk.mjs",
+    "aab": "node scripts/build-aab.mjs"
   },
   "dependencies": {
     "@capacitor/app": "^8.1.1",

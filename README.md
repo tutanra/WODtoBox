@@ -76,6 +76,14 @@ El APK de debug queda en:
 
 `android/app/build/outputs/apk/debug/app-debug.apk`
 
+Para Play Console (prueba interna u otra pista):
+
+```bash
+npm run aab
+```
+
+El AAB firmado queda en `android/app/build/outputs/bundle/release/app-release.aab`. La primera vez se crea una clave de subida en `android/` (fuera de git): hay que guardarla. Detalle: [`docs/android-build.md`](docs/android-build.md).
+
 También puedes abrir el proyecto nativo con:
 
 ```bash
