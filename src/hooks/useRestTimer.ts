@@ -33,7 +33,6 @@ export function useRestTimer(initialSeconds = 150) {
     setEndsAt(Date.now() + ms)
     setNow(Date.now())
     setRunning(true)
-    beep('rest')
     void pulse('medium')
   }, [duration])
 

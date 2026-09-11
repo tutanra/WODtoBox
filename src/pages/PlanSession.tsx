@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { ChevronLeft } from 'lucide-react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Screen } from '../components/Screen'
 import { Stepper } from '../components/Stepper'
 import { TopBar } from '../components/TopBar'
 import { useRestTimer } from '../hooks/useRestTimer'
+import { beep, unlockAudio } from '../lib/audio'
 import { clamp, formatClock, formatCompact, minutesOf, secondsOf, toTotalSeconds } from '../lib/format'
 import { recordPlanSession } from '../lib/history'
 import { getProgram } from '../lib/programs'
@@ -165,20 +165,12 @@ function LiveSession({
       {rest.running ? (
         <div className="pointer-events-none fixed inset-x-0 top-0 z-20">
           <div className="pointer-events-auto mx-auto w-full max-w-lg px-5 pt-[max(1rem,env(safe-area-inset-top))]">
-            <div className="rounded-3xl border border-rest/50 bg-panel p-3 shadow-lg shadow-black/40">
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={leave}
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-panel-2 text-paper"
-                  aria-label="Volver"
-                >
-                  <ChevronLeft className="h-6 w-6" />
-                </button>
+            <div className="rounded-3xl border border-rest/50 bg-panel px-5 py-5 shadow-lg shadow-black/40">
+              <div className="flex items-center gap-4">
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold tracking-[0.3em] text-rest">PAUSA</p>
+                  <p className="text-sm font-semibold tracking-[0.3em] text-rest">PAUSA</p>
                   <p
-                    className={`w-fit font-timer text-5xl font-bold leading-none text-rest ${lastTen ? 'last-ten' : ''}`}
+                    className={`mt-1 w-fit font-timer text-6xl font-bold leading-none text-rest ${lastTen ? 'last-ten' : ''}`}
                   >
                     {formatClock(rest.remainingMs, true)}
                   </p>
@@ -186,13 +178,10 @@ function LiveSession({
                 <button
                   type="button"
                   onClick={rest.stop}
-                  className="shrink-0 rounded-2xl bg-rest px-4 py-3 text-sm font-semibold text-ink"
+                  className="shrink-0 rounded-2xl bg-rest px-5 py-4 text-base font-semibold text-ink"
                 >
                   Saltar
                 </button>
-              </div>
-              <div className="mt-3">
-                <RestChipRow duration={rest.duration} onPreset={applyRest} onCustom={openCustomRest} />
               </div>
             </div>
           </div>
@@ -250,7 +239,11 @@ function LiveSession({
                       onClick={() => {
                         const markingDone = !log.done
                         patchLog(set, { done: markingDone, actualReps: log.actualReps || set.reps })
-                        if (markingDone && doneSets + 1 < totalSets) rest.start()
+                        if (markingDone) {
+                          unlockAudio()
+                          beep('go')
+                          if (doneSets + 1 < totalSets) rest.start()
+                        }
                       }}
                       className={`ml-auto h-9 w-9 rounded-full text-sm font-bold ${
                         log.done ? 'bg-work text-ink' : 'bg-panel-2 text-mute'

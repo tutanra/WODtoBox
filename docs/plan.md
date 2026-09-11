@@ -21,8 +21,8 @@ Program
 
 `SessionLog` en `wodtobox.sessions`. Una sesión por `(programId, dayId)`: `startSession` reanuda la misma aunque ya tuviera `completedAt`. **Reiniciar plan** las borra todas.
 
-- Pausa por defecto **150 s** (presets 120 / 150 / 180). Chip **otro** (borde discontinuo): abre minutos y segundos (5–600 s) y deja esa duración en la sesión. Los chips están en el listado y también en el recuadro de pausa. Si la pausa ya corre, cambiar el chip (preset u otro) reinicia el reloj con el tiempo nuevo. La sesión usa el mismo layout que el resto (`Screen`). El reloj de pausa se superpone arriba mientras corre, sin desplazar el contenido; al hacer scroll se queda ahí. En los últimos 10 s usa el mismo pulso que el timer (`last-ten`), no pasa a rojo. **Saltar** la cierra.
-- Al marcar una serie hecha (si no es la última) arranca la pausa.
+- Pausa por defecto **150 s** (presets 120 / 150 / 180). Chip **otro** (borde discontinuo): abre minutos y segundos (5–600 s) y deja esa duración en la sesión. Los chips están solo en el listado. Si la pausa ya corre, cambiar el chip (preset u otro) reinicia el reloj con el tiempo nuevo. La sesión usa el mismo layout que el resto (`Screen`). El recuadro de pausa se superpone arriba (PAUSA, reloj y **Saltar**) sin chips ni botón atrás; al hacer scroll se queda ahí. En los últimos 10 s usa el mismo pulso que el timer (`last-ten`), no pasa a rojo. **Saltar** la cierra.
+- Al marcar una serie hecha suena el mismo pitido de inicio que el timer (`go`). Si no es la última, arranca la pausa.
 - `actualReps` se puede subir/bajar; el objetivo del set sigue visible (`/set.reps`).
 - `sessionProgress` = series `done` / total de series del día (barra en la vista del programa).
 - Al marcar o desmarcar una serie se actualiza el historial al momento. Si no queda ninguna serie hecha, la entrada se borra. `completedAt` se pone cuando el día está completo y se limpia si dejas series sin hacer. El atrás (o el botón de Android) sale de la sesión; no hay **Guardar y salir**.

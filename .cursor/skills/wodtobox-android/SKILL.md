@@ -28,7 +28,7 @@ AAB release: `android/app/build/outputs/bundle/release/app-release.aab`.
 
 **SDK:** `android/local.properties` (`sdk.dir`) o `ANDROID_HOME`. Ese archivo no se commitea.
 
-Play Console usa el AAB, no el APK de debug. La keystore de subida (`android/wodtobox-upload.jks` + `android/keystore.properties`) no va a git. No reutilizar `upload-keystore.jks` de `com.wodotobox.app`. `versionCode` / `versionName` viven en `android/app/build.gradle`. Release lleva R8; el mapping de desofuscación va dentro del AAB.
+Play Console usa el AAB. Si hay `keystore.properties`, el APK debug y el AAB usan la misma clave de subida (`android/wodtobox-upload.jks`, no git). Play vuelve a firmar las installs de la tienda. No reutilizar `upload-keystore.jks` de `com.wodotobox.app`. `versionCode` / `versionName` viven en `android/app/build.gradle`. Release lleva R8; el mapping de desofuscación va dentro del AAB.
 
 ## Al tocar nativo
 

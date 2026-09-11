@@ -71,9 +71,9 @@ Lectura siempre con try/JSON.parse y normalizers. Escritura = JSON.stringify del
 - Permisos: INTERNET, VIBRATE, WAKE_LOCK.
 - Un `.wodtobox` se puede **Abrir con** / **Compartir** hacia WODtoBox (`MainActivity` + `OpenWodPlugin`). El contenido decide la ruta: `wodtobox.wod` → `#/wods`, `wodtobox.plan` → `#/plan`. No pide permisos extra: lee el `content://` que manda la otra app. **Compartir** desde la app usa `@capacitor/share` y un fichero en caché (`file_paths.xml` ya cubre `cache-path`).
 - Google Drive en el APK pide scopes; `MainActivity` implementa `ModifiedMainActivityForSocialLoginPlugin` (Capgo Social Login). Sin eso, Google falla al entrar.
-- `versionCode` / `versionName` en `android/app/build.gradle` (hoy 1 / 1.0). `package.json` tiene `0.1.0` — no están acoplados.
+- `versionCode` / `versionName` en `android/app/build.gradle` (hoy 2 / 1.1). `package.json` tiene `0.1.0` — no están acoplados.
 - Release: R8 (`minifyEnabled true`) con reglas Capacitor/Google en `android/app/proguard-rules.pro`. El mapping va en el AAB.
-- Play Console usa el AAB de `npm run aab`, no el APK de debug. La keystore de subida de **esta** app es `android/wodtobox-upload.jks` + `keystore.properties` (no git). No reutilizar `upload-keystore.jks` de `com.wodotobox.app`.
+- Play Console usa el AAB de `npm run aab`. Con `keystore.properties`, el APK debug (`npm run apk`) y el AAB se firman con la misma clave de subida (`android/wodtobox-upload.jks`, no git). Play vuelve a firmar lo que llega al móvil. No reutilizar `upload-keystore.jks` de `com.wodotobox.app`.
 - Cómo construir (JDK 21, SDK, errores conocidos): [android-build.md](android-build.md).
 
 ## UI

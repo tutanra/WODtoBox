@@ -34,7 +34,7 @@ El Client ID web va integrado (`VITE_GOOGLE_CLIENT_ID` / `GOOGLE_WEB_CLIENT_ID`)
 
 En Android, `MainActivity` implementa el hook de Capgo Social Login; sin eso, pedir `drive.file` falla con *You CANNOT use scopes without modifying the main activity*.
 
-SHA-1 debug: `C3:2E:8C:DF:67:6B:E2:94:09:99:83:6F:F6:66:74:92:4C:7F:F2:25`. Para Play, el cliente Android pide el **SHA-1** del certificado de firma (Play Console → integridad de la app), no el SHA-256.
+SHA-1 de la clave de **subida** (APK local `npm run apk` y AAB `npm run aab`, misma keystore): `9A:FF:2C:CC:F0:5F:35:78:58:F8:6F:71:9A:7A:0C:2C:AC:0A:57:22`. Play vuelve a firmar lo que instalan los testers: hace falta también el SHA-1 de **firma de Play** (Protegida con Play → Protección de Play Store → Firma de aplicaciones de Play). Con firma híbrida hay dos: clásica `47:11:C6:D5:F7:45:ED:EC:E9:D1:1E:6F:42:C1:9F:F0:EA:C2:FD:FF` y poscuántica `82:5F:84:71:D5:F1:5A:B2:A4:F3:FF:9D:1B:4B:6C:96:BA:84:6C:FE`. Un cliente OAuth Android por SHA-1, paquete `com.wodtobox.app`. Es SHA-1, no SHA-256.
 
 Si Google dice que la app no está verificada: en Prueba solo funcionan los **usuarios de prueba**. `drive.file` es un ámbito sensible; para el público hace falta verificación. Para uso propio, Prueba + tu correo basta.
 

@@ -8,13 +8,13 @@ Salida: `android/app/build/outputs/apk/debug/app-debug.apk`.
 npm run apk
 ```
 
-Eso corre `scripts/build-apk.mjs`: localiza el SDK y **JDK 21**, hace `android:sync` (Vite + `cap sync`) y `./gradlew assembleDebug`.
+Eso corre `scripts/build-apk.mjs`: localiza el SDK y **JDK 21**, hace `android:sync` (Vite + `cap sync`) y `./gradlew assembleDebug`. Si existe `android/keystore.properties`, el APK debug se firma con la **misma** clave de subida que el AAB (mismo SHA-1 para Google Sign-In). Sin esa keystore, Gradle usa la clave debug por defecto. Un APK viejo firmado con debug no se actualiza encima: hay que desinstalarlo antes.
 
 ## AAB firmado (Play Console)
 
 Salida: `android/app/build/outputs/bundle/release/app-release.aab`.
 
-Versión en `android/app/build.gradle`: `versionCode` / `versionName` (hoy **1** / **1.0**, app `com.wodtobox.app`). Play lee el `versionCode` del bundle; en cada subida nueva hay que subirlo.
+Versión en `android/app/build.gradle`: `versionCode` / `versionName` (hoy **2** / **1.1**, app `com.wodtobox.app`). Play lee el `versionCode` del bundle; en cada subida nueva hay que subirlo.
 
 El release usa R8 (`minifyEnabled true`). El mapping de desofuscación va **dentro** del AAB; Play Console lo toma solo. No hace falta subirlo a mano.
 

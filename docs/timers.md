@@ -31,7 +31,7 @@ Prepare: cuenta atrás; los últimos 3 s muestran `3 · 2 · 1` y `warning`.
 
 | Cue | Cuándo | Parámetros |
 | --- | --- | --- |
-| `go` | Tras prepare (inicio) y al cambiar de ronda EMOM | 1100 Hz, **2,4 s**, square |
+| `go` | Tras prepare (inicio) y al cambiar de ronda EMOM. También al marcar una serie hecha en el plan | 1100 Hz, **2,4 s**, square |
 | `done` | Fin del timer (también al acabar la pausa del plan) | horn **3,2 s**, 220 + 330 Hz |
 | `tick` | Últimos 3 s de prepare (3-2-1) | 800 Hz, 0,15 s |
 | `warn` | 10 s de work restantes | doble 1200 Hz |
