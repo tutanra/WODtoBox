@@ -14,6 +14,40 @@ import {
   type ProgramExercise,
 } from '../types/program'
 
+/** Permite borrar el campo al editar; vacío solo mientras se escribe; mínimo 1 al salir. */
+function RepsInput({ value, onCommit }: { value: number; onCommit: (reps: number) => void }) {
+  const [text, setText] = useState<string | null>(null)
+  const shown = text ?? String(value)
+
+  const commit = (raw: string) => {
+    const reps = Math.max(1, Number(raw) || 1)
+    onCommit(reps)
+    return reps
+  }
+
+  return (
+    <input
+      inputMode="numeric"
+      value={shown}
+      onFocus={(event) => {
+        setText(String(value))
+        event.target.select()
+      }}
+      onChange={(event) => {
+        const next = event.target.value.replace(/\D/g, '')
+        setText(next)
+        if (next !== '') commit(next)
+      }}
+      onBlur={() => {
+        commit(text ?? String(value))
+        setText(null)
+      }}
+      className="w-14 rounded-xl border border-line bg-ink px-2 py-2 text-center text-paper outline-none focus:border-flame"
+      aria-label="Repeticiones"
+    />
+  )
+}
+
 export function PlanDayPage() {
   const { programId, dayId } = useParams()
   const program = programId ? getProgram(programId) : null
@@ -109,18 +143,14 @@ function DayEditor({
               {exercise.sets.map((set, index) => (
                 <div key={set.id} className="flex items-center gap-2">
                   <span className="w-6 text-center text-xs text-mute">{index + 1}</span>
-                  <input
-                    inputMode="numeric"
+                  <RepsInput
                     value={set.reps}
-                    onChange={(event) => {
-                      const reps = Math.max(1, Number(event.target.value) || 1)
+                    onCommit={(reps) =>
                       updateExercise({
                         ...exercise,
                         sets: exercise.sets.map((item) => (item.id === set.id ? { ...item, reps } : item)),
                       })
-                    }}
-                    className="w-14 rounded-xl border border-line bg-ink px-2 py-2 text-center text-paper outline-none focus:border-flame"
-                    aria-label="Repeticiones"
+                    }
                   />
                   <span className="text-xs text-mute">reps</span>
                   <input

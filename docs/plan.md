@@ -30,7 +30,7 @@ Program
 
 ## Programa nuevo
 
-`emptyProgram()`: una semana, un día, un ejercicio con 3 series. Se pueden añadir **objetivos** (movimiento, inicio, meta, ratio). Se puede añadir semana, copiar una semana debajo (ids nuevos), borrar semana (mínimo 1). En cada semana se editan fase, título y objetivo, y de **1 a 7 días** (añadir en la semana; **Borrar día** en el editor, el último no se quita). Editar un día es solo el contenido (ejercicios, series, kilos); **entrenar** se lanza con el play de la vista del programa o con el play de **Siguiente** en la lista. **Borrar plan** (abajo del todo, con confirmación) quita el programa y las sesiones; el historial se queda.
+`emptyProgram()`: una semana, un día, un ejercicio con 3 series. Se pueden añadir **objetivos** (movimiento, inicio, meta, ratio). Se puede añadir semana, copiar una semana debajo (ids nuevos), borrar semana (mínimo 1). En cada semana se editan fase, título y objetivo, y de **1 a 7 días** (añadir en la semana; **Borrar día** en el editor, el último no se quita). Editar un día es solo el contenido (ejercicios, series, kilos). En reps se puede vaciar el campo al escribir; al salir del campo el mínimo es 1 (no se rellena 1 en cada tecla). **Entrenar** se lanza con el play de la vista del programa o con el play de **Siguiente** en la lista. **Borrar plan** (abajo del todo, con confirmación) quita el programa y las sesiones; el historial se queda.
 
 ## Compartir e importar
 

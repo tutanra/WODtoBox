@@ -44,6 +44,10 @@ Skills: `wodtobox` (índice), `wodtobox-compat`, `wodtobox-timer`, `wodtobox-wod
 
 Si cambias comportamiento de usuario o un invariante, actualiza el doc de esa zona **en el mismo cambio**. Si cambia un invariante, sube `schemaVersion` y explica la migración en compatibilidad.md.
 
+## Deploy web (VPS)
+
+Tras un **commit** que afecte a lo que se publica en `dist/` (UI, `src/`, assets), **pregunta** al humano si quiere `npm run web` → `http://jc-applabs.com/wodtobox/`. No lo lances sin el sí. Solo docs / Android sin cambio web: no preguntar. Guía: [deploy-web.md](deploy-web.md).
+
 ## No implementar de paso
 
 Ideas de escritorio/export: [escritorio.md](escritorio.md). No las construyas salvo que el humano lo pida. No crees un segundo schema “por si acaso”.

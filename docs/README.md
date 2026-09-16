@@ -16,6 +16,7 @@
 | [para-agentes.md](para-agentes.md) | Instrucciones cortas para continuar el código |
 | [contrato.json](contrato.json) | Contrato machine-readable; `scripts/check-compat.mjs` lo comprueba contra el código |
 | [android-build.md](android-build.md) | JDK 21, SDK, APK debug y AAB firmado para Play |
+| [deploy-web.md](deploy-web.md) | Publicar `dist/` en el VPS (`npm run web` → `http://jc-applabs.com/wodtobox/`) |
 | [privacidad.html](privacidad.html) | Política de privacidad (Play Console) |
 
 Skills de Cursor (el agente las carga según la tarea): `.cursor/skills/wodtobox*` — arranque, compat, timer, WOD, plan, UI, Android.

@@ -64,6 +64,14 @@ Abre `http://localhost:5173`. La navegación usa hash (`#/timers`) para que el m
 
 `npm run check:compat` comprueba que las claves de datos, formatos de timer e ids de WOD Heroes no se hayan roto respecto a `docs/contrato.json`.
 
+## Publicar la web (VPS)
+
+```bash
+npm run web
+```
+
+Build + subida de `dist/` al VPS (`http://jc-applabs.com/wodtobox/`). Variables en `.env`. Detalle: [`docs/deploy-web.md`](docs/deploy-web.md).
+
 ## Generar la APK
 
 ```bash

@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "check:compat": "node scripts/check-compat.mjs",
     "preview": "vite preview",
+    "web": "node scripts/deploy-web.mjs",
     "android:add": "cap add android",
     "android:sync": "npm run build && cap sync android",
     "apk": "node scripts/build-apk.mjs",

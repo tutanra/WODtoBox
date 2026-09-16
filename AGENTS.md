@@ -10,4 +10,6 @@ Antes de cambiar tipos, persistencia o Android:
 
 No renombres claves `wodtobox.*`, `TIMER_KINDS` existentes, IDs `hero-*`, ni `com.wodtobox.app`. Mantén `HashRouter` y `base: './'`.
 
+Tras un **commit** que afecte a la app web, **pregunta** si publicar en el VPS con `npm run web` (`http://jc-applabs.com/wodtobox/`). No despliegues sin confirmación. Detalle: `docs/deploy-web.md`.
+
 Ideas de escritorio/export: `docs/escritorio.md` — no implementarlas salvo petición explícita.

@@ -1,0 +1,13 @@
+---
+description: Tras commit, preguntar si publicar la web (npm run web)
+alwaysApply: true
+---
+
+# Deploy web
+
+Fuente: `docs/deploy-web.md`. URL: `http://jc-applabs.com/wodtobox/`.
+
+- Tras un **commit** que cambie lo que entra en `dist/` (código de app, estilos, `public/`, etc.), **pregunta** si hay que actualizar el VPS con `npm run web`.
+- No ejecutes el deploy sin el sí del humano.
+- Commits solo de docs, Android/APK/AAB o tooling sin impacto en la web: no hace falta preguntar.
+- No uses sudo ni contraseñas en el script; la carpeta remota es de `javi`.

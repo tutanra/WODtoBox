@@ -27,3 +27,5 @@ description: Orienta el trabajo en la app WODtoBox (timers de WOD, workouts grab
 ## Tras un cambio de producto
 
 Actualiza el markdown de `docs/` de esa zona en el mismo cambio. Copy de UI en español. No uses la marca «CrossFit» (ni «Crossfit») en UI, ficha de tienda ni docs.
+
+Tras un **commit** con impacto en la web, pregunta si publicar con `npm run web` (`http://jc-applabs.com/wodtobox/`). Ver `docs/deploy-web.md`.
