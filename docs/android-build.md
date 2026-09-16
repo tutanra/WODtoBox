@@ -14,7 +14,7 @@ Eso corre `scripts/build-apk.mjs`: localiza el SDK y **JDK 21**, hace `android:s
 
 Salida: `android/app/build/outputs/bundle/release/app-release.aab`.
 
-Versión en `android/app/build.gradle`: `versionCode` / `versionName` (hoy **2** / **1.1**, app `com.wodtobox.app`). Play lee el `versionCode` del bundle; en cada subida nueva hay que subirlo.
+Versión en `android/app/build.gradle`: `versionCode` / `versionName` (hoy **3** / **1.2**, app `com.wodtobox.app`). Play lee el `versionCode` del bundle; en cada subida nueva hay que subirlo.
 
 El release usa R8 (`minifyEnabled true`). El mapping de desofuscación va **dentro** del AAB; Play Console lo toma solo. No hace falta subirlo a mano.
 
